@@ -8,10 +8,10 @@
 
 import UIKit
 
+@available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        let mainConfigurator = MainConfigurator()
-        window.rootViewController = mainConfigurator.viewController
+        let mainTab = MainTabBarController()
+        window.rootViewController = mainTab
         window.makeKeyAndVisible()
     }
     

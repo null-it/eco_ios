@@ -37,11 +37,36 @@
 		492BE56A238295520034FB1B /* IBDesignable UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492BE569238295520034FB1B /* IBDesignable UIView.swift */; };
 		492BE56C2382A8CA0034FB1B /* MainViewActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492BE56B2382A8CA0034FB1B /* MainViewActionCell.swift */; };
 		492BE56E2382A8D70034FB1B /* MainViewActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492BE56D2382A8D70034FB1B /* MainViewActionCell.xib */; };
+		49357C3B2383E83A00F1B51B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49357C3A2383E83A00F1B51B /* MainTabBarController.swift */; };
+		49357C3D2383EC1400F1B51B /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49357C3C2383EC1400F1B51B /* UIColor.swift */; };
+		49357C412383ECB700F1B51B /* MapProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49357C402383ECB700F1B51B /* MapProtocols.swift */; };
+		49357C432383ECC000F1B51B /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49357C422383ECC000F1B51B /* MapInteractor.swift */; };
+		49357C452383ECC700F1B51B /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49357C442383ECC700F1B51B /* MapRouter.swift */; };
+		49357C472383ECD300F1B51B /* MapConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49357C462383ECD300F1B51B /* MapConfigurator.swift */; };
+		49357C492383ECDB00F1B51B /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49357C482383ECDB00F1B51B /* MapPresenter.swift */; };
+		49357C4B2383ECE700F1B51B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49357C4A2383ECE700F1B51B /* MapViewController.swift */; };
+		49357C4D2383ECEC00F1B51B /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49357C4C2383ECEC00F1B51B /* MapViewController.xib */; };
+		49357C552383FEBA00F1B51B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49357C542383FEBA00F1B51B /* MapKit.framework */; };
 		49599B2B237EEA9000F24EC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49599B2A237EEA9000F24EC4 /* AppDelegate.swift */; };
 		49599B2D237EEA9000F24EC4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49599B2C237EEA9000F24EC4 /* SceneDelegate.swift */; };
 		49599B34237EEA9200F24EC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49599B33237EEA9200F24EC4 /* Assets.xcassets */; };
 		49599B37237EEA9200F24EC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49599B35237EEA9200F24EC4 /* LaunchScreen.storyboard */; };
+		49811C98238BDD280074FF92 /* MainSceneConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49811C97238BDD280074FF92 /* MainSceneConstants.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		49357C522383FEAA00F1B51B /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
 		492BE4DC2382761B0034FB1B /* MainProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProtocol.swift; sourceTree = "<group>"; };
@@ -74,12 +99,23 @@
 		492BE569238295520034FB1B /* IBDesignable UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IBDesignable UIView.swift"; sourceTree = "<group>"; };
 		492BE56B2382A8CA0034FB1B /* MainViewActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewActionCell.swift; sourceTree = "<group>"; };
 		492BE56D2382A8D70034FB1B /* MainViewActionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewActionCell.xib; sourceTree = "<group>"; };
+		49357C3A2383E83A00F1B51B /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		49357C3C2383EC1400F1B51B /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		49357C402383ECB700F1B51B /* MapProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapProtocols.swift; sourceTree = "<group>"; };
+		49357C422383ECC000F1B51B /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
+		49357C442383ECC700F1B51B /* MapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
+		49357C462383ECD300F1B51B /* MapConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapConfigurator.swift; sourceTree = "<group>"; };
+		49357C482383ECDB00F1B51B /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
+		49357C4A2383ECE700F1B51B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		49357C4C2383ECEC00F1B51B /* MapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		49357C542383FEBA00F1B51B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		49599B27237EEA9000F24EC4 /* carWash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = carWash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49599B2A237EEA9000F24EC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49599B2C237EEA9000F24EC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		49599B33237EEA9200F24EC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49599B36237EEA9200F24EC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49599B38237EEA9200F24EC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49811C97238BDD280074FF92 /* MainSceneConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49357C552383FEBA00F1B51B /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +133,7 @@
 		492BE4DA238274D30034FB1B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				49357C3E2383ECA300F1B51B /* Map */,
 				492BE4DB238274F90034FB1B /* Main */,
 			);
 			path = Scenes;
@@ -121,6 +159,7 @@
 				492BE4E92382765F0034FB1B /* MainViewController.xib */,
 				492BE56B2382A8CA0034FB1B /* MainViewActionCell.swift */,
 				492BE56D2382A8D70034FB1B /* MainViewActionCell.xib */,
+				49811C97238BDD280074FF92 /* MainSceneConstants.swift */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -157,6 +196,7 @@
 			children = (
 				492BE5682382953F0034FB1B /* Extensions */,
 				492BE4EE2382939B0034FB1B /* Fonts */,
+				49357C3A2383E83A00F1B51B /* MainTabBarController.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -165,8 +205,39 @@
 			isa = PBXGroup;
 			children = (
 				492BE569238295520034FB1B /* IBDesignable UIView.swift */,
+				49357C3C2383EC1400F1B51B /* UIColor.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		49357C3E2383ECA300F1B51B /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				49357C3F2383ECAA00F1B51B /* Views */,
+				49357C402383ECB700F1B51B /* MapProtocols.swift */,
+				49357C422383ECC000F1B51B /* MapInteractor.swift */,
+				49357C442383ECC700F1B51B /* MapRouter.swift */,
+				49357C462383ECD300F1B51B /* MapConfigurator.swift */,
+				49357C482383ECDB00F1B51B /* MapPresenter.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		49357C3F2383ECAA00F1B51B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				49357C4A2383ECE700F1B51B /* MapViewController.swift */,
+				49357C4C2383ECEC00F1B51B /* MapViewController.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		49357C532383FEBA00F1B51B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49357C542383FEBA00F1B51B /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		49599B1E237EEA9000F24EC4 = {
@@ -174,6 +245,7 @@
 			children = (
 				49599B29237EEA9000F24EC4 /* carWash */,
 				49599B28237EEA9000F24EC4 /* Products */,
+				49357C532383FEBA00F1B51B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -188,11 +260,11 @@
 		49599B29237EEA9000F24EC4 /* carWash */ = {
 			isa = PBXGroup;
 			children = (
-				492BE567238295310034FB1B /* Utils */,
 				492BE4DA238274D30034FB1B /* Scenes */,
 				49599B2A237EEA9000F24EC4 /* AppDelegate.swift */,
 				49599B2C237EEA9000F24EC4 /* SceneDelegate.swift */,
 				49599B33237EEA9200F24EC4 /* Assets.xcassets */,
+				492BE567238295310034FB1B /* Utils */,
 				49599B35237EEA9200F24EC4 /* LaunchScreen.storyboard */,
 				49599B38237EEA9200F24EC4 /* Info.plist */,
 			);
@@ -211,6 +283,7 @@
 				49599B25237EEA9000F24EC4 /* Resources */,
 			);
 			buildRules = (
+				49357C522383FEAA00F1B51B /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -270,6 +343,7 @@
 				492BE552238293AD0034FB1B /* Gilroy-RegularItalic.ttf in Resources */,
 				492BE54F238293AD0034FB1B /* Gilroy-SemiBoldItalic.ttf in Resources */,
 				492BE553238293AD0034FB1B /* Gilroy-Thin.ttf in Resources */,
+				49357C4D2383ECEC00F1B51B /* MapViewController.xib in Resources */,
 				492BE534238293AD0034FB1B /* Gilroy-BlackItalic.ttf in Resources */,
 				492BE53B238293AD0034FB1B /* Gilroy-ExtraBoldItalic.ttf in Resources */,
 				492BE4ED2382890A0034FB1B /* MainViewController.xib in Resources */,
@@ -292,11 +366,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				49599B2B237EEA9000F24EC4 /* AppDelegate.swift in Sources */,
+				49357C472383ECD300F1B51B /* MapConfigurator.swift in Sources */,
+				49357C3D2383EC1400F1B51B /* UIColor.swift in Sources */,
+				49357C452383ECC700F1B51B /* MapRouter.swift in Sources */,
 				492BE4EC238284190034FB1B /* MainConfigurator.swift in Sources */,
 				49599B2D237EEA9000F24EC4 /* SceneDelegate.swift in Sources */,
+				49357C492383ECDB00F1B51B /* MapPresenter.swift in Sources */,
 				492BE56C2382A8CA0034FB1B /* MainViewActionCell.swift in Sources */,
+				49357C432383ECC000F1B51B /* MapInteractor.swift in Sources */,
+				49357C3B2383E83A00F1B51B /* MainTabBarController.swift in Sources */,
+				49357C412383ECB700F1B51B /* MapProtocols.swift in Sources */,
 				492BE4DD2382761B0034FB1B /* MainProtocol.swift in Sources */,
 				492BE4E1238276310034FB1B /* MainInteractor.swift in Sources */,
+				49357C4B2383ECE700F1B51B /* MapViewController.swift in Sources */,
+				49811C98238BDD280074FF92 /* MainSceneConstants.swift in Sources */,
 				492BE4DF238276240034FB1B /* MainPresenter.swift in Sources */,
 				492BE4E32382763D0034FB1B /* MainRouter.swift in Sources */,
 				492BE56A238295520034FB1B /* IBDesignable UIView.swift in Sources */,
@@ -439,6 +522,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W89PGV58R6;
 				INFOPLIST_FILE = carWash/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,6 +541,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W89PGV58R6;
 				INFOPLIST_FILE = carWash/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

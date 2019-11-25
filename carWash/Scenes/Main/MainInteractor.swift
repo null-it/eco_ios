@@ -6,8 +6,6 @@
 //  Copyright © 2019 VooDooLab. All rights reserved.
 //
 
-import Foundation
-
 class MainInteractor {
     
     unowned var presenter: MainPresenterProtocol

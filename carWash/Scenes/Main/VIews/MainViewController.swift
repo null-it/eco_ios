@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         configureTableView()
         scrollView.delegate = self
-        updateTopViewShadow()
+        createTopViewShadow()
     }
     
     
@@ -58,27 +58,48 @@ class MainViewController: UIViewController {
     }
     
     
-    private func updateTopViewShadow() {
-        let cornerRadius: CGFloat = 28
+    private func createTopViewShadow() {
         topView.layer.masksToBounds = false
-        topView.layer.cornerRadius = cornerRadius
+        topView.layer.cornerRadius = MainSceneConstants.cornerRadius
         topView.layer.shadowColor = UIColor.black.cgColor
-        topView.layer.shadowPath = UIBezierPath(roundedRect: topView.bounds, cornerRadius: cornerRadius).cgPath
-        topView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        topView.layer.shadowOpacity = 0.1
-        topView.layer.shadowRadius = 10
-        topView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        topView.layer.shadowPath = UIBezierPath(roundedRect: topView.bounds, cornerRadius: MainSceneConstants.cornerRadius).cgPath
+        topView.layer.shadowOffset = CGSize(width: MainSceneConstants.shadowOffsetX,
+                                            height: MainSceneConstants.shadowOffsetY)
+        topView.layer.shadowOpacity = MainSceneConstants.shadowOpacity
+        topView.layer.shadowRadius = MainSceneConstants.shadowRadius
+        if #available(iOS 11.0, *) {
+            topView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        }
     }
     
     
     private func set(view: UIView, hidden: Bool) {
-        UIView.animate(withDuration: 0.2, animations: {
-            view.isHidden = hidden
-            view.alpha = hidden ? 0 : 1
-        }) { [weak self] (_) in
-            self?.topView.setNeedsLayout()
-            self?.updateTopViewShadow()
+        var difference = view.frame.height
+        if hidden {
+            difference.negate()
         }
+        let newHeight = topView.frame.height + difference
+        var newBounds = self.topView.bounds
+        newBounds.size.height = newHeight
+        
+        UIView.animate(withDuration: MainSceneConstants.animationDuration,
+                       animations: { [weak self] in
+                        view.isHidden = hidden
+                        view.alpha = hidden ? 0 : 1
+                        if hidden {
+                            self?.updateShadow(bounds: newBounds,
+                                               cornerRadius: MainSceneConstants.cornerRadius)
+                        }
+        }) { [weak self] (_) in
+            if !hidden {
+                self?.updateShadow(bounds: newBounds,
+                                   cornerRadius: MainSceneConstants.cornerRadius)
+            }
+        }
+    }
+    
+    private func updateShadow(bounds: CGRect, cornerRadius: CGFloat) {
+        topView.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
     }
     
 }
