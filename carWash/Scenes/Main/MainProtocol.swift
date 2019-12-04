@@ -9,17 +9,20 @@
 
 // MARK: - View
 protocol MainViewProtocol: class {
-   
+   func updateFor(info: [CashbackTypeInfo])
 }
 
 // MARK: - Presenter
 protocol MainPresenterProtocol: class {
-   
+    func presentPaymentView()
+    func viewDidLoad()
+    func logout()
 }
 
 // MARK: - Router
 protocol MainRouterProtocol {
-    
+    func presentPaymentView()
+    func popToAuthorization()
 }
 
 // MARK: - Interactor

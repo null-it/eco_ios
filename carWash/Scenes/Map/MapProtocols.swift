@@ -9,17 +9,20 @@
 
 // MARK: - View
 protocol MapViewProtocol: class {
-   
+    func showInfo()
 }
 
 // MARK: - Presenter
 protocol MapPresenterProtocol: class {
-   
+    func didSelectPoint() // !
+    func presentSaleInfoView()
+    func popView()
 }
 
 // MARK: - Router
 protocol MapRouterProtocol {
-    
+    func presentSaleInfoView()
+    func popView()
 }
 
 // MARK: - Interactor

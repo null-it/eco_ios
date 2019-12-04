@@ -19,8 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // In iOS 13 setup is done in SceneDelegate
         } else {
             window = UIWindow(frame: UIScreen.main.bounds)
-            let mainConfigurator = MainConfigurator()
-            window?.rootViewController = mainConfigurator.viewController
+            let configurator = OnboardingConfigurator()
+            let navigationController = UINavigationController(rootViewController: configurator.viewController)
+            window?.rootViewController = navigationController
             window?.makeKeyAndVisible()
         }
         return true

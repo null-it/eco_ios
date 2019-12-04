@@ -24,29 +24,50 @@ class MainTabBarController: UITabBarController {
 
 
     private let tabBarItems: [UITabBarItem] = [
-        UITabBarItem(title: "Акции", image: UIImage(named: "sales"), selectedImage: nil),
-        UITabBarItem(title: "Профиль", image: UIImage(named: "profile"), selectedImage: nil),
-        UITabBarItem(title: "Карта", image: UIImage(named: "map"), selectedImage: nil),
+        UITabBarItem(title: nil, image: UIImage(named: "sales"), selectedImage: nil),
+        UITabBarItem(title: nil, image: UIImage(named: "profile"), selectedImage: nil),
+        UITabBarItem(title: nil, image: UIImage(named: "map"), selectedImage: nil),
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let views = [profileVC, salesVC, mapVC]
         self.viewControllers = views
-        tabBar.tintColor = UIColor(hex: "27AE60")
+        tabBar.tintColor = UIColor(hex: "27AE60") // !
+        tabBar.items?.forEach({ (item) in
+            item.imageInsets.top = 6 // !
+            item.imageInsets.bottom = -6 // !
+        })
         setRoundedCorners()
     }
     
     
     func setRoundedCorners() {
-        let cornerRadius: CGFloat = 28
-        tabBar.layer.masksToBounds = true
+        let cornerRadius: CGFloat = 28 // !        
+        if #available(iOS 13.0, *) {
+            let appearance = tabBar.standardAppearance.copy()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundImage = UIImage(named: "tabBarBackgrpund")
+            tabBar.standardAppearance = appearance
+        } else {
+            tabBar.backgroundColor = .clear
+//            let image = UIImage(ciImage: CIImage(color: CIColor.clear)).af_imageAspectScaled(toFit: tabBar.bounds.size)
+            tabBar.backgroundImage = UIImage(named: "tabBarBackgrpund")
+            tabBar.shadowImage = UIImage()
+        }
+        
+        tabBar.layer.masksToBounds = false
         tabBar.layer.cornerRadius = cornerRadius
+        tabBar.layer.shadowColor = UIColor.black.cgColor
+        tabBar.layer.shadowPath = UIBezierPath(roundedRect: tabBar.bounds, cornerRadius: cornerRadius).cgPath
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: 3)
+        tabBar.layer.shadowOpacity = 0.2
+        tabBar.layer.shadowRadius = 10
     }
     
     
     private func configureMap() -> UIViewController {
-        let configurator = MapConfigurator()
+        let configurator = MapConfigurator(isAuthorized: true)
         let vc = configurator.viewController
         vc.tabBarItem = tabBarItems[2]
         let navigationController = configureNavigationController(vc: vc, title: "Мойки в городе")
@@ -64,7 +85,8 @@ class MainTabBarController: UITabBarController {
     
     
     private func configureSales() -> UIViewController {
-        let vc = UIViewController() // !
+        let configurator = SalesConfigurator()
+        let vc = configurator.viewController
         vc.tabBarItem = tabBarItems[0]
         let navigationController = configureNavigationController(vc: vc, title: "Акции")
         return navigationController
@@ -78,6 +100,7 @@ class MainTabBarController: UITabBarController {
         navigationController.navigationBar.titleTextAttributes =
             [ NSAttributedString.Key.font: UIFont(name: "Gilroy-Medium", size: 18)!]
         navigationController.modalPresentationStyle = .fullScreen
+        navigationController.navigationBar.barTintColor = .white
         return navigationController
     }
     

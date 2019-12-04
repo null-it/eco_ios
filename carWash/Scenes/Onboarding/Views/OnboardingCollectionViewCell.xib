@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Regular.ttf">
+            <string>Gilroy-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OnboardingCollectionViewCell" id="iCD-my-TrG" customClass="OnboardingCollectionViewCell" customModule="carWash" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="350" height="493"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="2Jg-cO-Zv8">
+                <rect key="frame" x="0.0" y="0.0" width="350" height="493"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eJ0-GS-QVk">
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="350"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="350" id="qJw-e3-Y7l"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0uf-yS-OYq">
+                        <rect key="frame" x="32" y="360" width="218" height="120"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="120" id="SGs-FY-uv6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Gilroy-Regular" family="Gilroy" pointSize="22"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="0uf-yS-OYq" firstAttribute="top" secondItem="eJ0-GS-QVk" secondAttribute="bottom" constant="10" id="7Nh-sA-fYt"/>
+                    <constraint firstItem="eJ0-GS-QVk" firstAttribute="leading" secondItem="2Jg-cO-Zv8" secondAttribute="leading" id="7nM-kk-yis"/>
+                    <constraint firstAttribute="bottom" secondItem="0uf-yS-OYq" secondAttribute="bottom" id="K1x-bt-pSe"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0uf-yS-OYq" secondAttribute="bottom" id="KGc-36-fax"/>
+                    <constraint firstItem="eJ0-GS-QVk" firstAttribute="top" secondItem="2Jg-cO-Zv8" secondAttribute="top" id="ZXa-Bk-slO"/>
+                    <constraint firstAttribute="trailing" secondItem="0uf-yS-OYq" secondAttribute="trailing" constant="100" id="hp0-Hi-Lge"/>
+                    <constraint firstAttribute="trailing" secondItem="eJ0-GS-QVk" secondAttribute="trailing" id="n1X-FE-MLK"/>
+                    <constraint firstItem="0uf-yS-OYq" firstAttribute="leading" secondItem="2Jg-cO-Zv8" secondAttribute="leading" constant="32" id="yq5-82-4F5"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="KGc-36-fax"/>
+                    </mask>
+                </variation>
+            </collectionViewCellContentView>
+            <size key="customSize" width="221" height="493"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="0uf-yS-OYq" id="nEw-DM-LeB"/>
+                <outlet property="photoImageView" destination="eJ0-GS-QVk" id="mCD-Eb-RTO"/>
+            </connections>
+            <point key="canvasLocation" x="93.478260869565219" y="-73.995535714285708"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -12,17 +12,19 @@ class MapConfigurator: MapConfiguratorProtocol {
     
     var viewController: UIViewController
     
-    required init() {
+    required init(isAuthorized: Bool) {
         
-        let MapView: MapViewController? = MapViewController(nibName: "MapViewController", bundle: nil)
+        let MapView: MapViewController? = MapViewController(nibName: MapViewController.nibName, bundle: nil)
         
         guard let view = MapView else {
             viewController = UIViewController()
             print("error")
             return
         }
+        view.isAuthorized = isAuthorized
         let router = MapRouter(view: view)
         let presenter = MapPresenter(view: view, router: router)
+        presenter.isAuthorized = isAuthorized
         view.presenter = presenter
         let interactor = MapInteractor(presenter: presenter)
         presenter.interactor = interactor

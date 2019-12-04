@@ -14,7 +14,7 @@ class MainConfigurator: MainConfiguratorProtocol {
     
     required init() {
         
-        let mainView: MainViewController? = MainViewController(nibName: "MainViewController", bundle: nil)
+        let mainView: MainViewController? = MainViewController(nibName: MainViewController.nibName, bundle: nil)
         
         guard let view = mainView else {
             viewController = UIViewController()

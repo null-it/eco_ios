@@ -12,12 +12,12 @@ class MapPresenter {
     unowned let view: MapViewProtocol
     var interactor: MapInteractorProtocol!
     let router: MapRouterProtocol
-    
+    var isAuthorized: Bool = false
+
     init(view: MapViewProtocol,
          router: MapRouterProtocol) {
         self.view = view
         self.router = router
-        
     }
     
 }
@@ -25,4 +25,18 @@ class MapPresenter {
 
 extension MapPresenter: MapPresenterProtocol {
     
+    func didSelectPoint() {
+        view.showInfo()
+    }
+    
+    
+    func presentSaleInfoView() {
+        router.presentSaleInfoView()
+    }
+    
+    
+    func popView() {
+        router.popView()
+    }
+
 }

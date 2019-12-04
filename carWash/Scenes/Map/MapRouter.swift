@@ -22,6 +22,19 @@ class MapRouter {
 // MARK: - MapRouterProtocol
 
 extension MapRouter: MapRouterProtocol {
-
-  
+    
+    func presentSaleInfoView() {
+        guard let view = view else { return }
+        
+        let configurator = SaleInfoConfigurator()
+        let vc = configurator.viewController
+        
+        view.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    func popView() {
+        view?.navigationController?.popViewController(animated: true)
+    }
+    
 }
