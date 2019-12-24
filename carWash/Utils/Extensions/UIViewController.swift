@@ -25,4 +25,32 @@ extension UIViewController {
         view.endEditing(true)
     }
     
+    func showAlert(message: String, title: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    func showAlert(message: String,
+                   title: String,
+                   okButtonTitle: String,
+                   cancelButtonTitle: String,
+                   okAction: @escaping () -> (),
+                   cancelAction: @escaping () -> ()) {
+        
+        let alert = UIAlertController(title: title,
+                                             message: message,
+                                             preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: okButtonTitle, style: .default, handler: { (action: UIAlertAction!) in
+            okAction()
+        }))
+
+        alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { (action: UIAlertAction!) in
+            cancelAction()
+        }))
+
+        present(alert, animated: true, completion: nil)
+    }
+        
 }

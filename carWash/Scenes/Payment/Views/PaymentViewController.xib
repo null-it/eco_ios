@@ -11,15 +11,20 @@
         <array key="Gilroy-Bold.ttf">
             <string>Gilroy-Bold</string>
         </array>
+        <array key="Gilroy-Medium.ttf">
+            <string>Gilroy-Medium</string>
+        </array>
         <array key="Gilroy-Regular.ttf">
             <string>Gilroy-Regular</string>
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PaymentViewController" customModule="carWash" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PaymentViewController" customModule="ECO" customModuleProvider="target">
             <connections>
+                <outlet property="paymentTypeTitle" destination="Qc0-KA-VoA" id="M5I-VQ-a6Q"/>
                 <outlet property="tableView" destination="v9M-US-kNL" id="2G4-pA-5gW"/>
                 <outlet property="tableViewHeightConstraint" destination="wP2-rY-FDX" id="LHO-On-UFR"/>
+                <outlet property="textField" destination="e9n-PU-e6l" id="Mj6-NZ-6kN"/>
                 <outlet property="view" destination="iN0-l3-epB" id="9vV-1q-ril"/>
             </connections>
         </placeholder>
@@ -29,7 +34,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SkA-VJ-S02">
-                    <rect key="frame" x="0.0" y="88" width="414" height="161"/>
+                    <rect key="frame" x="0.0" y="196" width="414" height="161"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выберите способ оплаты" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qc0-KA-VoA">
                             <rect key="frame" x="16" y="16" width="218" height="22"/>
@@ -56,7 +61,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woV-9x-ZSh">
-                    <rect key="frame" x="0.0" y="265" width="414" height="135"/>
+                    <rect key="frame" x="0.0" y="373" width="414" height="135"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Платеж безопасен" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oa5-PC-v9R">
                             <rect key="frame" x="154" y="94" width="106" height="14"/>
@@ -108,21 +113,35 @@
                         <constraint firstItem="oa5-PC-v9R" firstAttribute="top" secondItem="uZk-nJ-xZu" secondAttribute="bottom" constant="23" id="yTt-P2-cZX"/>
                     </constraints>
                 </view>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите сумму" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e9n-PU-e6l">
+                    <rect key="frame" x="0.0" y="120" width="414" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="KGj-v4-Yni"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy" pointSize="16"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="e9n-PU-e6l" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="32" id="6ie-Sy-ML6"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SkA-VJ-S02" secondAttribute="trailing" id="Dvf-vs-1Q4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="e9n-PU-e6l" secondAttribute="trailing" id="EUR-Je-6iv"/>
                 <constraint firstItem="woV-9x-ZSh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="F9S-sk-qrh"/>
+                <constraint firstItem="SkA-VJ-S02" firstAttribute="top" secondItem="e9n-PU-e6l" secondAttribute="bottom" constant="32" id="NLa-BI-m4x"/>
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ZIH-FC-HBk"/>
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ZQa-Xg-RWp"/>
                 <constraint firstItem="woV-9x-ZSh" firstAttribute="top" secondItem="SkA-VJ-S02" secondAttribute="bottom" constant="16" id="cfJ-NP-XU0"/>
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="leading" secondItem="woV-9x-ZSh" secondAttribute="trailing" constant="-414" id="haB-Jm-UU7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="woV-9x-ZSh" secondAttribute="trailing" id="j1J-xe-Lqp"/>
+                <constraint firstItem="e9n-PU-e6l" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="pbP-cx-SLk"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="ZQa-Xg-RWp"/>
                     <exclude reference="haB-Jm-UU7"/>
                 </mask>
             </variation>

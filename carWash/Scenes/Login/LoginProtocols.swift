@@ -12,8 +12,16 @@ import Foundation
 protocol LoginViewProtocol: class {
     func setLoginButton(title: String?, enabled: Bool)
     func setSendPasswordAgainButton(title: String?, hidden: Bool)
-    func setPasswordField(hidden: Bool)
+    func setPasswordField(hidden: Bool, text: String?)
     func clearAllFields()
+    func setTimeout(text: String) 
+    func setSendPasswordAgainButton(enabled: Bool)
+    func passwordDidEnter(_ value: Bool)
+    func phoneNumberDidEnter(_ value: Bool)
+    func refreshView()
+    func configurePasswordInput()
+    func showAlert(message: String, title: String)
+    func setAlreadyHasPasswordButton(title: String?, hidden: Bool) 
 }
 
 // MARK: - Presenter
@@ -25,7 +33,10 @@ protocol LoginPresenterProtocol: class {
                                             replacementString string: String) -> String?
     func shouldChangePasswordCharacters(in range: NSRange,
                                         replacementString string: String) -> Bool
-    func viewWillAppear()
+    func viewDidLoad()
+    func sendPasswordAgain()
+    func backButtonPressed()
+    func alreadyHasPasswordButtonPressed()
 }
 
 // MARK: - Router
@@ -37,7 +48,12 @@ protocol LoginRouterProtocol {
 
 // MARK: - Interactor
 protocol LoginInteractorProtocol: class {
-    
+    func sendPassword(phoneNumber: String,
+                      onSuccess: @escaping (GetAuthCodeResponse) -> (),
+                      onFailure: @escaping () -> ()?)
+    func checkPassword(dto: CheckPasswordDTO,
+                       onSuccess: @escaping (LoginResponse) -> (),
+                       onFailure: @escaping () -> ()?)
 }
 
 // MARK: - Configurator

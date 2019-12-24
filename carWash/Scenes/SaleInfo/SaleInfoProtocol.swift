@@ -10,17 +10,19 @@ import Foundation
 
 // MARK: - View
 protocol SaleInfoViewProtocol: class {
-   
+    
 }
 
 // MARK: - Presenter
 protocol SaleInfoPresenterProtocol: class {
-   func popView()
+    func popView()
+    func addressButtonPressed() 
 }
 
 // MARK: - Router
 protocol SaleInfoRouterProtocol {
     func popView()
+    func presentMapView()
 }
 
 // MARK: - Interactor

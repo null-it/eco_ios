@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "49599B26237EEA9000F24EC4"
-               BuildableName = "carWash.app"
+               BuildableName = "ECO.app"
                BlueprintName = "carWash"
                ReferencedContainer = "container:carWash.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "49599B26237EEA9000F24EC4"
-            BuildableName = "carWash.app"
+            BuildableName = "ECO.app"
             BlueprintName = "carWash"
             ReferencedContainer = "container:carWash.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "49599B26237EEA9000F24EC4"
-            BuildableName = "carWash.app"
+            BuildableName = "ECO.app"
             BlueprintName = "carWash"
             ReferencedContainer = "container:carWash.xcodeproj">
          </BuildableReference>

@@ -22,5 +22,42 @@ class MapInteractor {
 
 extension MapInteractor: MapInteractorProtocol {
     
+    func getCities(onSuccess: @escaping () -> (),
+                   onFailure: @escaping () -> ()?) {
+        let request = Request.Cities.Get()
+        request.send().done { _ in
+            onSuccess()
+        }.catch { error in
+            print(error)
+            onFailure()
+        }
+    }
+    
+    
+    func getWashes(city: String?,
+                   onSuccess: @escaping (WashesResponse) -> (),
+                   onFailure: @escaping () -> ()?) {
+        let request = Request.Wash.Get(city: city)
+        request.send().done { response in
+            onSuccess(response)
+            
+        }.catch { error in
+            print(error)
+            onFailure()
+        }
+    }
+    
+    
+    func getWash(id: Int,
+                 onSuccess: @escaping (WashResponse) -> (),
+                 onFailure: @escaping () -> ()?) {
+        let request = Request.Wash.Get(id: id)
+        request.send().done { response in
+            onSuccess(response)
+        }.catch { error in
+            print(error)
+            onFailure()
+        }
+    }
     
 }

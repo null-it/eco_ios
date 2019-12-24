@@ -22,9 +22,17 @@ class SaleInfoRouter {
 // MARK: - SaleInfoRouterProtocol
 
 extension SaleInfoRouter: SaleInfoRouterProtocol {
-
+    
+    func presentMapView() {
+        guard let view = view else { return }
+        let configurator = MapConfigurator(isAuthorized: true)
+        let vc = configurator.viewController
+        view.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
     func popView() {
         view?.navigationController?.popViewController(animated: true)
     }
-  
+    
 }

@@ -11,6 +11,9 @@
         <array key="Gilroy-Bold.ttf">
             <string>Gilroy-Bold</string>
         </array>
+        <array key="Gilroy-Regular.ttf">
+            <string>Gilroy-Regular</string>
+        </array>
         <array key="Gilroy-SemiBold.ttf">
             <string>Gilroy-SemiBold</string>
         </array>
@@ -18,18 +21,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WashingInfoView" customModule="carWash" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WashingInfoView" customModule="ECO" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="294"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Акции на этой мойке" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0n7-Wu-UyL">
-                    <rect key="frame" x="16" y="120" width="382" height="20"/>
+                    <rect key="frame" x="16" y="120" width="382" height="19"/>
                     <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="zad-ap-3TA">
-                    <rect key="frame" x="0.0" y="156" width="414" height="122"/>
+                    <rect key="frame" x="0.0" y="155" width="414" height="122"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="122" id="NbK-c2-ZfC"/>
@@ -44,16 +47,28 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2m-nS-HHg">
                     <rect key="frame" x="16" y="28" width="382" height="75"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="autoPink" translatesAutoresizingMaskIntoConstraints="NO" id="35G-N6-GKK">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auto" translatesAutoresizingMaskIntoConstraints="NO" id="35G-N6-GKK">
                             <rect key="frame" x="16" y="14" width="47" height="47"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="47" id="8Pa-Ns-oNZ"/>
                                 <constraint firstAttribute="height" constant="47" id="fCw-sk-KQU"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="г. Воронеж, ул Бурденко 25" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aty-G9-LJ7">
-                            <rect key="frame" x="79" y="5" width="287" height="65"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aty-G9-LJ7">
+                            <rect key="frame" x="79" y="17" width="287" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="Yxf-Zf-g5f"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="C91-VH-SnV">
+                            <rect key="frame" x="79" y="44" width="287" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="Uho-6i-EBP"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Gilroy-Regular" family="Gilroy" pointSize="12"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -62,22 +77,24 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="aty-G9-LJ7" secondAttribute="trailing" constant="16" id="3Mb-3n-ssU"/>
                         <constraint firstAttribute="height" constant="75" id="4S4-yj-hKJ"/>
+                        <constraint firstItem="C91-VH-SnV" firstAttribute="leading" secondItem="aty-G9-LJ7" secondAttribute="leading" id="B1V-Tu-WUO"/>
+                        <constraint firstItem="C91-VH-SnV" firstAttribute="top" secondItem="aty-G9-LJ7" secondAttribute="bottom" constant="7" id="BcG-6i-FOD"/>
+                        <constraint firstAttribute="trailing" secondItem="C91-VH-SnV" secondAttribute="trailing" constant="16" id="Bx5-Nn-kaA"/>
                         <constraint firstItem="aty-G9-LJ7" firstAttribute="leading" secondItem="35G-N6-GKK" secondAttribute="trailing" constant="16" id="CZy-Kk-o4m"/>
-                        <constraint firstItem="aty-G9-LJ7" firstAttribute="centerY" secondItem="K2m-nS-HHg" secondAttribute="centerY" id="Jgc-db-Sit"/>
+                        <constraint firstAttribute="bottom" secondItem="C91-VH-SnV" secondAttribute="bottom" constant="11" id="UHZ-rg-W3T"/>
                         <constraint firstItem="35G-N6-GKK" firstAttribute="leading" secondItem="K2m-nS-HHg" secondAttribute="leading" constant="16" id="aNE-53-XBH"/>
-                        <constraint firstAttribute="bottom" secondItem="aty-G9-LJ7" secondAttribute="bottom" constant="5" id="dao-YW-lYB"/>
                         <constraint firstItem="35G-N6-GKK" firstAttribute="centerY" secondItem="K2m-nS-HHg" secondAttribute="centerY" id="hdd-Ts-8oH"/>
-                        <constraint firstItem="aty-G9-LJ7" firstAttribute="top" secondItem="K2m-nS-HHg" secondAttribute="top" constant="5" id="tNN-SR-BRw"/>
+                        <constraint firstItem="aty-G9-LJ7" firstAttribute="top" secondItem="K2m-nS-HHg" secondAttribute="top" constant="17" id="tNN-SR-BRw"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" red="1" green="0.50588235294117645" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                             <real key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="14"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.57647058819999997" green="0.75686274509999996" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
@@ -87,9 +104,9 @@
             <constraints>
                 <constraint firstItem="K2m-nS-HHg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="10u-cK-mpO"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zad-ap-3TA" secondAttribute="trailing" id="5aP-w6-NND"/>
-                <constraint firstItem="zad-ap-3TA" firstAttribute="top" secondItem="0n7-Wu-UyL" secondAttribute="bottom" constant="16" id="CLc-hl-cQh"/>
+                <constraint firstItem="zad-ap-3TA" firstAttribute="top" secondItem="0n7-Wu-UyL" secondAttribute="bottom" constant="15" id="CLc-hl-cQh"/>
                 <constraint firstItem="0n7-Wu-UyL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="WiS-eP-DQH"/>
-                <constraint firstItem="0n7-Wu-UyL" firstAttribute="top" secondItem="K2m-nS-HHg" secondAttribute="bottom" constant="17" id="Wl3-mE-kUc"/>
+                <constraint firstItem="0n7-Wu-UyL" firstAttribute="top" secondItem="K2m-nS-HHg" secondAttribute="bottom" constant="15" id="Wl3-mE-kUc"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zad-ap-3TA" secondAttribute="trailing" constant="122" id="dX4-Vb-RU9"/>
                 <constraint firstItem="K2m-nS-HHg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="28" id="eHB-W8-qwC"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="K2m-nS-HHg" secondAttribute="trailing" constant="16" id="uqh-kA-AgX"/>
@@ -106,11 +123,13 @@
             <connections>
                 <outlet property="addressLabel" destination="aty-G9-LJ7" id="hQN-yX-9Kj"/>
                 <outlet property="collectionView" destination="zad-ap-3TA" id="Iom-I1-cnQ"/>
+                <outlet property="salesLabel" destination="C91-VH-SnV" id="SZW-Pc-BsC"/>
+                <outlet property="salesTitleLabel" destination="0n7-Wu-UyL" id="gO7-kH-GGV"/>
             </connections>
             <point key="canvasLocation" x="40.579710144927539" y="-233.03571428571428"/>
         </view>
     </objects>
     <resources>
-        <image name="autoPink" width="47" height="47"/>
+        <image name="auto" width="47" height="47"/>
     </resources>
 </document>

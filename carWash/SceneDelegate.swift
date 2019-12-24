@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
+import Firebase
 
 @available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -20,11 +22,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        let configurator = OnboardingConfigurator()
-        let navigationController = UINavigationController(rootViewController: configurator.viewController)
+//        KeychainWrapper.standard.removeAllKeys()
+        let configurator = LoginConfigurator()
+        let vc = configurator.viewController
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.navigationBar.tintColor = .clear
+        navigationController.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController.modalPresentationStyle = .fullScreen
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+
+        if let _ = KeychainWrapper.standard.data(forKey: "userToken")  {
+            navigationController.pushViewController(MainTabBarController(), animated: false)
+            navigationController.navigationBar.isHidden = true
+        }
+        
     }
+    
     
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

@@ -14,6 +14,7 @@ class PaymentTableViewCell: UITableViewCell {
     
     func update(for info: PaymentTypeInfo) {
         titleTextField.text = info.title
+        self.set(enable: info.isEnabled)
     }
     
 }

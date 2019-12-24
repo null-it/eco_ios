@@ -12,7 +12,7 @@ class SalesConfigurator: SalesConfiguratorProtocol {
     
     var viewController: UIViewController
     
-    required init() {
+    required init(tabBarController: MainTabBarController) {
         
         let salesView: SalesViewController? = SalesViewController(nibName: SalesViewController.nibName, bundle: nil)
         
@@ -22,6 +22,7 @@ class SalesConfigurator: SalesConfiguratorProtocol {
             return
         }
         let router = SalesRouter(view: view)
+        router.tabBarController = tabBarController
         let presenter = SalesPresenter(view: view, router: router)
         view.presenter = presenter
         let interactor = SalesInteractor(presenter: presenter)

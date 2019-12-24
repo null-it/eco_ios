@@ -12,7 +12,7 @@ class MainConfigurator: MainConfiguratorProtocol {
     
     var viewController: UIViewController
     
-    required init() {
+    required init(tabBarController: MainTabBarController) {
         
         let mainView: MainViewController? = MainViewController(nibName: MainViewController.nibName, bundle: nil)
         
@@ -22,6 +22,7 @@ class MainConfigurator: MainConfiguratorProtocol {
             return
         }
         let router = MainRouter(view: view)
+        router.tabBarController = tabBarController
         let presenter = MainPresenter(view: view, router: router)
         view.presenter = presenter
         let interactor = MainInteractor(presenter: presenter)

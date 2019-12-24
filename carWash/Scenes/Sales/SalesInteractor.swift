@@ -6,6 +6,8 @@
 //  Copyright © 2019 VooDooLab. All rights reserved.
 //
 
+import SwiftKeychainWrapper
+
 class SalesInteractor {
     
     unowned var presenter: SalesPresenterProtocol
@@ -21,5 +23,29 @@ class SalesInteractor {
 
 extension SalesInteractor: SalesInteractorProtocol {
     
+    func logout(onSuccess: @escaping () -> (),
+                onFailure: @escaping () -> ()?) {
+        let request = Request.User.Logout.Get()
+        request.send().done { _ in
+            onSuccess()
+        }.catch { error in
+            print(error)
+            onFailure()
+        }
+    }
+    
+    
+    func getSales(city: String?,
+                  onSuccess: @escaping (SalesResponse) -> (),
+                  onFailure: @escaping () -> ()?) {
+        let request = Request.Sale.Get(city: city)
+        
+        request.send().done { response in
+            onSuccess(response)
+        }.catch { error in
+            print(error)
+            onFailure()
+        }
+    }
     
 }

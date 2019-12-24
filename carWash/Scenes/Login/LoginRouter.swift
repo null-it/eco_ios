@@ -45,8 +45,8 @@ extension LoginRouter: LoginRouterProtocol {
     func presentProfileView() {
         guard let view = view else { return }
         let vc = MainTabBarController()
-        vc.modalPresentationStyle = .fullScreen
-        view.present(vc, animated: true, completion: nil)
+        view.navigationController?.pushViewController(vc, animated: true)
+        view.navigationController? .navigationBar.isHidden = true
     }
   
 }

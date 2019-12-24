@@ -19,7 +19,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SaleInfoViewController" customModule="carWash" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SaleInfoViewController" customModule="ECO" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="c3Z-ni-lMu" id="YjD-QZ-8kG"/>
             </connections>
@@ -33,13 +33,12 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="1207"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TVH-QQ-GbL">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="572.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="600"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5qd-1o-YFV">
-                                    <rect key="frame" x="16" y="112" width="382" height="200"/>
-                                    <color key="backgroundColor" red="0.98431372549019602" green="0.90196078431372551" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background2" translatesAutoresizingMaskIntoConstraints="NO" id="5qd-1o-YFV">
+                                    <rect key="frame" x="16" y="112" width="382" height="222.5"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="200" id="6al-ib-IFB"/>
+                                        <constraint firstAttribute="width" secondItem="5qd-1o-YFV" secondAttribute="height" multiplier="343:200" id="Xdo-9r-Skp"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -48,7 +47,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcE-tG-Z1b">
-                                    <rect key="frame" x="16" y="340" width="382" height="97.5"/>
+                                    <rect key="frame" x="16" y="362.5" width="382" height="97.5"/>
                                     <string key="text">15 ноября открылась первая мойка в Воронеже!
 6 легковых постов, эффективная химия и новейшее оборудование!
 
@@ -57,57 +56,43 @@
                                     <color key="textColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ebk-iu-niE">
-                                    <rect key="frame" x="16" y="462.5" width="382" height="75"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="autoBlue" translatesAutoresizingMaskIntoConstraints="NO" id="2oL-0G-KQh">
-                                            <rect key="frame" x="16" y="14" width="47" height="47"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="47" id="JCB-VE-KHr"/>
-                                                <constraint firstAttribute="width" constant="47" id="OTw-W2-MjG"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="г. Воронеж, ул Бурденко 25" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wD5-ET-CvS">
-                                            <rect key="frame" x="79" y="5" width="287" height="65"/>
-                                            <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="15"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdP-Gd-veB" customClass="LeftAlignedIconButton" customModule="ECO" customModuleProvider="target">
+                                    <rect key="frame" x="24" y="490" width="382" height="75"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="wD5-ET-CvS" secondAttribute="trailing" constant="16" id="8DW-oT-Xzb"/>
-                                        <constraint firstItem="wD5-ET-CvS" firstAttribute="leading" secondItem="2oL-0G-KQh" secondAttribute="trailing" constant="16" id="B6o-5X-doU"/>
-                                        <constraint firstItem="wD5-ET-CvS" firstAttribute="top" secondItem="ebk-iu-niE" secondAttribute="top" constant="5" id="Oh6-Qc-riC"/>
-                                        <constraint firstItem="wD5-ET-CvS" firstAttribute="centerY" secondItem="ebk-iu-niE" secondAttribute="centerY" id="TIH-NS-vFD"/>
-                                        <constraint firstItem="2oL-0G-KQh" firstAttribute="leading" secondItem="ebk-iu-niE" secondAttribute="leading" constant="16" id="Zwg-6v-hss"/>
-                                        <constraint firstAttribute="bottom" secondItem="wD5-ET-CvS" secondAttribute="bottom" constant="5" id="dcT-Fg-xQP"/>
-                                        <constraint firstAttribute="height" constant="75" id="fJZ-gL-5h0"/>
-                                        <constraint firstItem="2oL-0G-KQh" firstAttribute="centerY" secondItem="ebk-iu-niE" secondAttribute="centerY" id="raU-a0-bHb"/>
+                                        <constraint firstAttribute="height" constant="75" id="ABZ-f9-CQP"/>
                                     </constraints>
+                                    <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="15"/>
+                                    <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                    <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="г. Воронеж, ул Бурденко 25" image="auto">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                            <color key="value" red="0.90588235294117647" green="0.95294117647058818" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                             <real key="value" value="1"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="14"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" red="0.57647058819999997" green="0.75686274509999996" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                </view>
+                                    <connections>
+                                        <action selector="addressButtonPressed:" destination="-1" eventType="touchUpInside" id="HMW-CR-aCt"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="kcE-tG-Z1b" firstAttribute="leading" secondItem="TVH-QQ-GbL" secondAttribute="leading" constant="16" id="8sa-EY-Skz"/>
+                                <constraint firstAttribute="bottom" secondItem="cdP-Gd-veB" secondAttribute="bottom" constant="35" id="9rG-bh-bdx"/>
+                                <constraint firstItem="cdP-Gd-veB" firstAttribute="leading" secondItem="TVH-QQ-GbL" secondAttribute="leading" constant="24" id="BZG-HD-wJ5"/>
                                 <constraint firstAttribute="trailing" secondItem="5qd-1o-YFV" secondAttribute="trailing" constant="16" id="D7H-we-vyn"/>
-                                <constraint firstItem="ebk-iu-niE" firstAttribute="top" secondItem="kcE-tG-Z1b" secondAttribute="bottom" constant="25" id="JhU-Xi-V1v"/>
                                 <constraint firstItem="kcE-tG-Z1b" firstAttribute="top" secondItem="5qd-1o-YFV" secondAttribute="bottom" constant="28" id="KcZ-vH-Obd"/>
-                                <constraint firstItem="ebk-iu-niE" firstAttribute="leading" secondItem="TVH-QQ-GbL" secondAttribute="leading" constant="16" id="MD2-mk-Ymm"/>
-                                <constraint firstAttribute="bottom" secondItem="ebk-iu-niE" secondAttribute="bottom" constant="35" id="Pq4-jU-tqq"/>
+                                <constraint firstItem="cdP-Gd-veB" firstAttribute="top" secondItem="kcE-tG-Z1b" secondAttribute="bottom" constant="30" id="Lg1-NT-xxA"/>
+                                <constraint firstAttribute="trailing" secondItem="cdP-Gd-veB" secondAttribute="trailing" constant="8" id="ODO-xF-s2l"/>
                                 <constraint firstItem="5qd-1o-YFV" firstAttribute="leading" secondItem="TVH-QQ-GbL" secondAttribute="leading" constant="16" id="VeZ-1b-xDa"/>
-                                <constraint firstAttribute="trailing" secondItem="ebk-iu-niE" secondAttribute="trailing" constant="16" id="cye-zZ-ZFv"/>
                                 <constraint firstAttribute="trailing" secondItem="kcE-tG-Z1b" secondAttribute="trailing" constant="16" id="zfg-Un-cAx"/>
                             </constraints>
                         </view>
@@ -146,6 +131,7 @@
         </view>
     </objects>
     <resources>
-        <image name="autoBlue" width="48" height="48"/>
+        <image name="auto" width="47" height="47"/>
+        <image name="background2" width="344" height="200"/>
     </resources>
 </document>

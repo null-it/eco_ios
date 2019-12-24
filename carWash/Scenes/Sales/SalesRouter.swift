@@ -11,7 +11,8 @@ import UIKit
 class SalesRouter {
     
     weak var view: SalesViewController?
-    
+    weak var tabBarController: MainTabBarController?
+
     init(view: SalesViewController?) {
         self.view = view
     }
@@ -31,6 +32,22 @@ extension SalesRouter: SalesRouterProtocol {
         
         view.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    
+     func popToAuthorization() {
+         tabBarController?.navigationController?.popViewController(animated: true)
+     }
+     
+     
+     func presentCityView() {
+         guard let view = view else { return }
+         
+         let configurator = CitiesConfigurator()
+         let vc = configurator.viewController
+         
+         view.navigationController?.pushViewController(vc, animated: true)
+     }
+     
     
   
 }

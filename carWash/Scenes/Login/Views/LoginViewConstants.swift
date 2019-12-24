@@ -12,6 +12,5 @@ class LoginViewConstants {
     static let loginButtonDefaultBottomConstant: CGFloat = 40
     static let loginButtonMinBottomSpace: CGFloat = 30
     static let textFieldLeftPadding: CGFloat = 16
-    static let green = UIColor(hex: "27AE60")
-    static let grey = UIColor(hex: "E0E0E0")
+    static let grey = UIColor(hex: "E1E1E4")?.withAlphaComponent(0.2)
 }

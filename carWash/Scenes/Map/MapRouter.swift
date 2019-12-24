@@ -23,6 +23,16 @@ class MapRouter {
 
 extension MapRouter: MapRouterProtocol {
     
+    func presentCityView() {
+        guard let view = view else { return }
+        
+        let configurator = CitiesConfigurator()
+        let vc = configurator.viewController
+        
+        view.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
     func presentSaleInfoView() {
         guard let view = view else { return }
         

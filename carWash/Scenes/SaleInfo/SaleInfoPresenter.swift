@@ -29,4 +29,8 @@ extension SaleInfoPresenter: SaleInfoPresenterProtocol {
         router.popView()
     }
     
+    func addressButtonPressed() {
+        router.presentMapView() //!
+    }
+    
 }

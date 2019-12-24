@@ -19,10 +19,7 @@ class ReviewView: UIView {
     
     override func awakeFromNib() {
         textField.setLeftPadding(16)
-        layer.cornerRadius = 24
-        if #available(iOS 11.0, *) {
-            layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        }
+        self.roundCorners([.layerMaxXMinYCorner, .layerMinXMinYCorner], radius: 24)
     }
     
 }

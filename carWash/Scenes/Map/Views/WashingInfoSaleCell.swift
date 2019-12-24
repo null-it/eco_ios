@@ -10,4 +10,12 @@ import UIKit
 
 class WashingInfoSaleCell: UICollectionViewCell {
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    func configure(title: String, date: String) {
+        titleLabel.text = title
+        dateLabel.text = date
+    }
+    
 }

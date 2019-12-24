@@ -8,4 +8,5 @@
 
 struct PaymentTypeInfo {
     var title: String
+    var isEnabled: Bool
 }

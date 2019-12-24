@@ -10,12 +10,25 @@ import UIKit
 
 class SaleInfoViewController: UIViewController {
     
+    
+    // MARK: - Properties
+    
     var presenter: SaleInfoPresenterProtocol!
     var configurator: SaleInfoConfiguratorProtocol!
+    
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         title = "Акция"
         createBackButton()
+    }
+    
+    
+    // MARK: - Actions
+    
+    @IBAction func addressButtonPressed(_ sender: Any) {
+        presenter.addressButtonPressed()
     }
     
 }

@@ -33,7 +33,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         let views = [profileVC, salesVC, mapVC]
         self.viewControllers = views
-        tabBar.tintColor = UIColor(hex: "27AE60") // !
+        tabBar.tintColor = Constants.green
         tabBar.items?.forEach({ (item) in
             item.imageInsets.top = 6 // !
             item.imageInsets.bottom = -6 // !
@@ -76,7 +76,7 @@ class MainTabBarController: UITabBarController {
     
     
     private func configureProfile() -> UIViewController {
-        let configurator = MainConfigurator()
+        let configurator = MainConfigurator(tabBarController: self)
         let vc = configurator.viewController
         vc.tabBarItem = tabBarItems[1]
         let navigationController = configureNavigationController(vc: vc, title: "Профиль")
@@ -85,7 +85,7 @@ class MainTabBarController: UITabBarController {
     
     
     private func configureSales() -> UIViewController {
-        let configurator = SalesConfigurator()
+        let configurator = SalesConfigurator(tabBarController: self)
         let vc = configurator.viewController
         vc.tabBarItem = tabBarItems[0]
         let navigationController = configureNavigationController(vc: vc, title: "Акции")

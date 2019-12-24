@@ -11,6 +11,7 @@ import UIKit
 class MainRouter {
     
     weak var view: MainViewController?
+    weak var tabBarController: MainTabBarController?
     
     init(view: MainViewController?) {
         self.view = view
@@ -37,7 +38,17 @@ extension MainRouter: MainRouterProtocol {
     
     
     func popToAuthorization() {
-        view?.dismiss(animated: true, completion: nil)
+        tabBarController?.navigationController?.popViewController(animated: true)
     }
-  
+    
+    
+    func presentCityView() {
+        guard let view = view else { return }
+        
+        let configurator = CitiesConfigurator()
+        let vc = configurator.viewController
+        
+        view.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }

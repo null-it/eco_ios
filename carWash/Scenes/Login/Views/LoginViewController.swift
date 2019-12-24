@@ -15,7 +15,6 @@ class LoginViewController: UIViewController {
     
     var presenter: LoginPresenterProtocol!
     var configurator: LoginConfiguratorProtocol!
-   
     
     // MARK: - Outlets
     
@@ -27,10 +26,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordView: UIView!
     @IBOutlet weak var sendPasswordAgainButton: UIButton!
     @IBOutlet weak var sendPasswordAgainView: UIView!
+    @IBOutlet weak var timeoutLabel: UILabel!
+    @IBOutlet weak var alreadyHasPasswordButton: UIButton!
     
     
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         addObservers()
         let gesture = hideKeyboardWhenTapped()
@@ -40,13 +41,16 @@ class LoginViewController: UIViewController {
         phoneNumberTextField.delegate = self
         passwordTextField.delegate = self
         configureNavigationBar()
+        presenter.viewDidLoad()
+        refreshView()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter.viewWillAppear()
+        self.navigationController?.navigationBar.isHidden = false
     }
     
-        
+    
     deinit {
         removeObservers()
     }
@@ -57,10 +61,21 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonPressed(_ sender: Any) {
         presenter.loginButtonPressed()
     }
-
+    
     @IBAction func mapButtonPressed(_ sender: Any) {
         presenter.presentMapView()
     }
+    
+    @IBAction func sendPasswordAgainButtonPressed(_ sender: Any) {
+        setSendPasswordAgainButton(enabled: false)
+        presenter.sendPasswordAgain()
+    }
+    
+    @IBAction func alreadyHasPasswordButtomPressed(_ sender: Any) {
+        presenter.alreadyHasPasswordButtonPressed()
+
+    }
+    
     
     // MARK: - Private
     
@@ -84,16 +99,16 @@ class LoginViewController: UIViewController {
             print(keyboardHeight)
             let value = loginButton.frame.maxY + keyboardHeight - view.frame.height + LoginViewConstants.loginButtonMinBottomSpace
             let constant = loginButtonBottomConstraint.constant + value
-            animateLoginButtonConstrain(constant: constant)
+            animateLoginButtonConstraint(constant: constant)
         }
     }
     
     
     @objc private func keyboardWillHide(notification: NSNotification) {
-        animateLoginButtonConstrain(constant: LoginViewConstants.loginButtonDefaultBottomConstant)
+        animateLoginButtonConstraint(constant: LoginViewConstants.loginButtonDefaultBottomConstant)
     }
     
-    private func animateLoginButtonConstrain(constant: CGFloat) {
+    private func animateLoginButtonConstraint(constant: CGFloat) {
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.loginButtonBottomConstraint.constant = constant
         }
@@ -103,8 +118,10 @@ class LoginViewController: UIViewController {
     private func configureNavigationBar() {
         title = "Авторизация"
         navigationController?.navigationBar.titleTextAttributes =
-            [ NSAttributedString.Key.font: UIFont(name: "Gilroy-Medium", size: 18)!]
-        navigationItem.setHidesBackButton(true, animated:true);
+            [NSAttributedString.Key.font: UIFont(name: "Gilroy-Medium", size: 18)!]
+        navigationItem.setHidesBackButton(true, animated:true)
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
 }
@@ -114,18 +131,41 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController: LoginViewProtocol {
     
+    func configurePasswordInput() {
+        passwordTextField.becomeFirstResponder()
+    }
+        
+    func passwordDidEnter(_ value: Bool) {
+        passwordTextField.borderColor = value ? Constants.green : .clear
+        passwordTextField.backgroundColor = value ? .white : LoginViewConstants.grey
+    }
+    
+    func phoneNumberDidEnter(_ value: Bool) {
+        phoneNumberTextField.borderColor = value ? Constants.green : .clear
+        phoneNumberTextField.backgroundColor = value ? .white : LoginViewConstants.grey
+    }
+
+    
+    func setTimeout(text: String) {
+        timeoutLabel.text = text
+    }
+    
+    
     func setLoginButton(title: String?, enabled: Bool) {
         loginButton.isEnabled = enabled
         loginButton.backgroundColor = enabled
-            ? LoginViewConstants.green
-            : LoginViewConstants.grey
+            ? Constants.green
+            : Constants.grey
         guard let title = title else { return }
         loginButton.setTitle(title, for: .normal)
     }
     
     
-    func setPasswordField(hidden: Bool) {
+    func setPasswordField(hidden: Bool, text: String?) {
         passwordView.isHidden = hidden
+        if let text = text {
+            passwordTextField.text = text
+        }
     }
     
     
@@ -140,7 +180,28 @@ extension LoginViewController: LoginViewProtocol {
         phoneNumberTextField.text = ""
         passwordTextField.text = ""
     }
+    
 
+    func setSendPasswordAgainButton(enabled: Bool) {
+        sendPasswordAgainButton.isEnabled = enabled
+        let alpha: CGFloat = enabled ? 1 : 0.5
+        let textColor = sendPasswordAgainButton.titleLabel?.textColor.withAlphaComponent(alpha)
+        sendPasswordAgainButton.setTitleColor(textColor, for: .normal)
+    }
+    
+    
+    func refreshView() {
+        passwordDidEnter(false)
+        phoneNumberDidEnter(false)
+    }
+    
+    
+    func setAlreadyHasPasswordButton(title: String?, hidden: Bool) {
+        alreadyHasPasswordButton.isHidden = hidden
+        alreadyHasPasswordButton.setTitle(title, for: .normal)
+    }
+    
+    
 }
 
 

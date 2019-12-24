@@ -12,8 +12,23 @@ class WashingInfoView: UIView {
     
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var salesLabel: UILabel!
+    @IBOutlet weak var salesTitleLabel: UILabel!
     
     var presenter: MapPresenterProtocol!
+    var sales: [StockResponse] = []
+    var isSalesViewHidden = false {
+        didSet {
+            collectionView.isHidden = isSalesViewHidden
+            salesLabel.isHidden = isSalesViewHidden
+            var size = frame.size
+            size.height = isSalesViewHidden ? MapViewConstants.smallInfoViewHeight : MapViewConstants.largeInfoViewHeight
+            frame.size = size
+            let screenSize = UIScreen.main.bounds
+            frame.origin.y = screenSize.height - frame.height
+            salesTitleLabel.isHidden = isSalesViewHidden
+        }
+    }
 
     override func awakeFromNib() {
         configureCollectionView()
@@ -26,6 +41,13 @@ class WashingInfoView: UIView {
         collectionView.register(cellNib, forCellWithReuseIdentifier: WashingInfoSaleCell.nibName)
     }
     
+    func set(address: String, cashback: String, sales: [StockResponse]) {
+        addressLabel.text = address
+        salesLabel.text = cashback
+        self.sales = sales
+        collectionView.reloadData()
+    }
+    
 }
 
 
@@ -34,12 +56,15 @@ class WashingInfoView: UIView {
 extension WashingInfoView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        let count = sales.count
+        isSalesViewHidden = count == 0
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WashingInfoSaleCell.nibName, for: indexPath) as? WashingInfoSaleCell {
-            // !..
+            let sale = sales[indexPath.row]
+            cell.configure(title: sale.title, date: sale.finished_at) // ! date
             return cell
         }
         return UICollectionViewCell()
