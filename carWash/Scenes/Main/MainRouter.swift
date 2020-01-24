@@ -17,7 +17,6 @@ class MainRouter {
         self.view = view
     }
     
-    
 }
 
 // MARK: - MainRouterProtocol
@@ -45,10 +44,18 @@ extension MainRouter: MainRouterProtocol {
     func presentCityView() {
         guard let view = view else { return }
         
-        let configurator = CitiesConfigurator()
+        let configurator = CitiesConfigurator(cityChanged: nil)
         let vc = configurator.viewController
         
         view.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func presentOperationsView() {
+         guard let view = view else { return }
+         
+         let configurator = OperationsConfigurator()
+         let vc = configurator.viewController
+         
+         view.navigationController?.pushViewController(vc, animated: true)
+     }
 }

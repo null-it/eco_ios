@@ -12,7 +12,7 @@ class CitiesConfigurator: CitiesConfiguratorProtocol {
     
     var viewController: UIViewController
     
-    required init() {
+    required init(cityChanged: (() -> ())?) {
         
         let CitiesView: CitiesViewController? = CitiesViewController(nibName: CitiesViewController.nibName, bundle: nil)
         
@@ -24,8 +24,10 @@ class CitiesConfigurator: CitiesConfiguratorProtocol {
         let router = CitiesRouter(view: view)
         let presenter = CitiesPresenter(view: view, router: router)
         view.presenter = presenter
+        presenter.cityChanged = cityChanged
         let interactor = CitiesInteractor(presenter: presenter)
         presenter.interactor = interactor
+//        presenter.cityChanged = cityChanged
         viewController = view
     }
 }

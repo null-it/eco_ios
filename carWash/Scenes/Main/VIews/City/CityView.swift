@@ -10,12 +10,17 @@ import UIKit
 
 class CityView: UIView {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var contentView: UIView!
     
+    
+    // MARK: - Properties
+    
     var presenter: MainPresenterProtocol!
-    var cities: [CityResponse] = [] {
+    private var cities: [CityResponse] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -23,10 +28,31 @@ class CityView: UIView {
     var hide: (() -> ())?
     var previousCell: CityViewCell?
     
+    
+    // MARK: - Lifecycle
+    
     override func awakeFromNib() {
         configureTableView()
         setShadow()
+        contentView.addObserver(self, forKeyPath: "bounds", options: .old, context: nil)
     }
+    
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if let object = object as? UIView {
+            if object == contentView {
+                setShadow()
+            }
+        }
+    }
+    
+    
+    deinit {
+        contentView.removeObserver(self, forKeyPath: "bounds")
+    }
+    
+    
+    // MARK: - Private
     
     private func setShadow() {
         let cornerRadius: CGFloat = 8
@@ -46,12 +72,20 @@ class CityView: UIView {
         tableView.register(cellNib, forCellReuseIdentifier: CityViewCell.nibName)
     }
     
+    func configure(cities: [CityResponse]) {
+        self.cities = cities
+    }
+    
+    // MARK: - Actions
+    
     @IBAction func nextButtonPressed(_ sender: Any) {
         hide?()
     }
     
 }
 
+
+// MARK: - UITableViewDataSource
 
 extension CityView: UITableViewDataSource {
     

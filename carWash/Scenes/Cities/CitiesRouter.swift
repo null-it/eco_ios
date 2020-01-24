@@ -27,12 +27,4 @@ extension CitiesRouter: CitiesRouterProtocol {
         view?.navigationController?.popViewController(animated: true)
     }
     
-    
-//    func presentProfileView() {
-//        guard let view = view else { return }
-//        let vc = MainTabBarController()
-//        vc.modalPresentationStyle = .fullScreen
-//        view.present(vc, animated: true, completion: nil)
-//    }
-  
 }

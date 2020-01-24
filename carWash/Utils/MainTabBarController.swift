@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class MainTabBarController: UITabBarController {
+    
 
     lazy var profileVC: UIViewController = {
         configureProfile()
@@ -29,8 +31,27 @@ class MainTabBarController: UITabBarController {
         UITabBarItem(title: nil, image: UIImage(named: "map"), selectedImage: nil),
     ]
     
+    // !
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.didRecieveSaleNotificationResponse = { [weak self] (saleNotificationResponse) in
+            guard let self = self else { return }
+            if let navigation = self.salesVC as? UINavigationController,
+                let vc = navigation.viewControllers.first as? SalesViewController {
+                self.selectedIndex = 1 //
+                vc.presentSaleInfoView(id: saleNotificationResponse.id)
+            }
+        }
+        
+        
+        if let _ = KeychainWrapper.standard.string(forKey: "notification"),
+            let notificationResponse = appDelegate.stockNotificationResponse {
+            appDelegate.didRecieveSaleNotificationResponse?(notificationResponse)
+            KeychainWrapper.standard.removeObject(forKey: "notification")
+        }
+        
         let views = [profileVC, salesVC, mapVC]
         self.viewControllers = views
         tabBar.tintColor = Constants.green
@@ -67,7 +88,7 @@ class MainTabBarController: UITabBarController {
     
     
     private func configureMap() -> UIViewController {
-        let configurator = MapConfigurator(isAuthorized: true)
+        let configurator = MapConfigurator(isAuthorized: true, washId: nil, tabBarController: self)
         let vc = configurator.viewController
         vc.tabBarItem = tabBarItems[2]
         let navigationController = configureNavigationController(vc: vc, title: "Мойки в городе")
@@ -98,10 +119,11 @@ class MainTabBarController: UITabBarController {
         let navigationController = UINavigationController(rootViewController: vc)
         navigationController.navigationBar.topItem?.title = title
         navigationController.navigationBar.titleTextAttributes =
-            [ NSAttributedString.Key.font: UIFont(name: "Gilroy-Medium", size: 18)!]
+            [ NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .semibold)]
         navigationController.modalPresentationStyle = .fullScreen
         navigationController.navigationBar.barTintColor = .white
         return navigationController
+        
     }
     
 }

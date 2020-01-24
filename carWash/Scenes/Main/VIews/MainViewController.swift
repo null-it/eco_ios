@@ -16,8 +16,13 @@ class MainViewController: UIViewController {
     var presenter: MainPresenterProtocol!
     var configurator: MainConfiguratorProtocol!
     var cashBackViewHeight: CGFloat!
-    var helloViewHeight: CGFloat!
+    var nameViewHeight: CGFloat!
 
+    lazy var isSE: Bool = {
+        let modelName = UIDevice.modelName
+        return Constants.SE.contains(modelName)
+    }()
+    
     let onceToken = "mainViewConfiguration"
     var textFieldText: String?
     
@@ -39,6 +44,23 @@ class MainViewController: UIViewController {
      
     private let refreshControl = UIRefreshControl()
 
+    private lazy var reviewsBackgroundView: UIView = {
+        let currentWindow: UIWindow = UIApplication.shared.keyWindow!
+        let backgroundView = UIView(frame: currentWindow.frame)
+        currentWindow.addSubview(backgroundView)
+        backgroundView.frame.origin = CGPoint(x: 0, y: 0)
+        backgroundView.backgroundColor = UIColor(hex: "000000")?.withAlphaComponent(0.5)
+        return backgroundView
+    }()
+    
+    private var sendReviewViews: [ReviewView] = [] {
+        didSet {
+            reviewsBackgroundView.isHidden = sendReviewViews.count == 0
+        }
+    }
+    
+    private lazy  var reviewTextViews: [ReviewTextView] = []
+    
     
     // MARK: - Outlets
     
@@ -51,6 +73,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var helloView: UIView!
+    @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var cashBackView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var stackView: UIStackView!
@@ -64,8 +87,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var fourthCashbackLabel: UILabel!
     @IBOutlet weak var fifthCashbackLabel: UILabel!
     
-    
-    
     @IBOutlet weak var cashbackProgressView: UIProgressView!
     @IBOutlet weak var currentCashbackIndicator: UIView!
     @IBOutlet weak var nextCashbackIndicator: UIView!
@@ -74,7 +95,11 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var operationsViewTitle: UILabel!
     @IBOutlet weak var cashbackDescription: UILabel!
-    
+    @IBOutlet weak var cardAspectRatio: NSLayoutConstraint!
+    @IBOutlet weak var cardView: UIImageView!
+    @IBOutlet weak var paymentButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var paymentButton: UIButton!
+
     // MARK: - Lifecicle
     
     override func viewDidLoad() {
@@ -88,20 +113,28 @@ class MainViewController: UIViewController {
         createExitButton()
         createLocationButton()
         configureProgressView()
-
-        cashBackViewHeight = cashBackView.frame.height
-        helloViewHeight = helloView.frame.height
+        configureCard()
+       
         
-        presenter.viewDidLoad() // !
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        presenter.viewDidLoad(notificationResponse: appDelegate.reviewNotificationResponse)
+        appDelegate.didRecieveReviewNotificationResponse = { [weak self] in
+            self?.presenter.didRecieveNotification(appDelegate.reviewNotificationResponse)
+        }
+       
     }
     
-
-//    override func viewDidAppear(_ animated: Bool) {
-//        updateCashbacks(progress: 0.35, currentCashbackProgress: 0.25, nextCashbackProgress: 0.5, currentCashbackIndex: 1)
-//    }
-    
     override func viewDidLayoutSubviews() {
+        if #available(iOS 11.0, *) {
+            cashBackViewHeight = cashBackView.frame.height
+            nameViewHeight = isSE ? nameView.frame.height : helloView.frame.height + nameView.frame.height
+        }
+        
         DispatchQueue.once(token: onceToken) {
+            if #available(iOS 11.0, *) {} else { // !
+                cashBackViewHeight = cashBackView.frame.height
+                nameViewHeight = isSE ? nameView.frame.height : helloView.frame.height + nameView.frame.height
+            }
             configureOperationsView()
             createTopViewShadow()
         }
@@ -133,7 +166,6 @@ class MainViewController: UIViewController {
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.prefetchDataSource = self
         let cellNib = UINib(nibName: MainViewActionCell.nibName, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: MainViewActionCell.nibName)
         tableView.addObserver(self, forKeyPath: "contentSize", options: .old, context: nil)
@@ -145,10 +177,22 @@ class MainViewController: UIViewController {
     
     
     @objc private func refreshOperationsData(_ sender: Any) {
-        presenter.getOperations()
-        refreshControl.endRefreshing()
+        presenter.refreshData()
     }
     
+    
+    private func configureCard() {
+        if isSE {
+            cardAspectRatio.isActive = false
+//            cardView.layoutIfNeeded()
+            cardView.heightAnchor.constraint(equalToConstant: 110).isActive = true
+            paymentButtonBottomConstraint.constant = 33
+            cardView.image = UIImage(named: "cardBackgroundSE")
+            cardView.layoutIfNeeded()
+            paymentButton.cornerRadius = 6
+            helloView.isHidden = true
+        }
+    }
     
     private func createTopViewShadow() {
         topView.layer.masksToBounds = false
@@ -159,17 +203,22 @@ class MainViewController: UIViewController {
                                             height: MainSceneConstants.shadowOffsetY)
         topView.layer.shadowOpacity = MainSceneConstants.shadowOpacity
         topView.layer.shadowRadius = MainSceneConstants.shadowRadius
-        topView.roundCorners([.layerMaxXMaxYCorner, .layerMinXMaxYCorner],
-                             radius: MainSceneConstants.cornerRadius)
+        topViewCornerRadius()
     }
-    
+     
+    private func topViewCornerRadius() {
+        topView.layer.cornerRadius = MainSceneConstants.cornerRadius
+        if #available(iOS 11, *) {
+            topView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        }
+    }
     
     private func set(view: UIView, hidden: Bool) {
 
 //        var difference = view.frame.height
-        var difference = view == helloView
-            ? helloViewHeight!
-            : cashBackViewHeight! // ! ios 10
+        var difference = view == nameView
+            ? nameViewHeight!
+            : cashBackViewHeight!
         
         if hidden {
             // difference.negate()
@@ -181,11 +230,18 @@ class MainViewController: UIViewController {
                 
         UIView.animate(withDuration: MainSceneConstants.animationDuration,
                        animations: { [weak self] in
+                        guard let self = self else { return }
+                        
+                        if view == self.nameView && !self.isSE {
+                            self.helloView.isHidden = hidden
+                            self.helloView.alpha = hidden ? 0 : 1
+                        }
                         view.isHidden = hidden
                         view.alpha = hidden ? 0 : 1
+                        
                         if hidden {
-                            self?.updateShadow(bounds: newBounds,
-                                               cornerRadius: MainSceneConstants.cornerRadius)
+                            self.updateShadow(bounds: newBounds,
+                                              cornerRadius: MainSceneConstants.cornerRadius)
                         }
         }) { [weak self] (_) in
             if !hidden {
@@ -197,6 +253,7 @@ class MainViewController: UIViewController {
     }
     
     private func updateShadow(bounds: CGRect, cornerRadius: CGFloat) {
+        topViewCornerRadius()
         topView.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
     }
     
@@ -243,25 +300,75 @@ class MainViewController: UIViewController {
     
     
     @objc private func keyboardWillShow(notification: NSNotification) {
-        textFieldText = nameTextField.text
-        nameTextField.placeholder = textFieldText
-        nameTextField.text = ""
+        
+        if nameTextField.isFirstResponder {
+            textFieldText = nameTextField.text
+            nameTextField.placeholder = textFieldText
+            nameTextField.text = ""
+            return
+        }
+                
+        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
+            .cgRectValue.height {
+            updateRevieTextViewFrame(keyboardHeight: keyboardHeight)
+        }
+        
     }
     
     
     @objc private func keyboardWillHide(notification: NSNotification) {
-        if let text = nameTextField.text,
-            text.isEmpty {
-            nameTextField.text = textFieldText
+        if nameTextField.isFirstResponder {
+            if let text = nameTextField.text,
+                text.isEmpty {
+                nameTextField.text = textFieldText
+            }
+            nameTextField.resignFirstResponder()
+            presenter.nameEditindDidEnd(nameTextField.text)
+            return
         }
-        nameTextField.resignFirstResponder()
-        presenter.nameEditindDidEnd(nameTextField.text)
+        updateRevieTextViewFrame(keyboardHeight: 0)
+    }
+    
+    private func updateRevieTextViewFrame(keyboardHeight: CGFloat) {
+        if let view  = reviewTextViews.last {
+            let currentWindow: UIWindow = UIApplication.shared.keyWindow!
+            let y = currentWindow.frame.height - view.frame.height - keyboardHeight
+            view.frame.origin.y = y
+        }
+    }
+    
+    private func createReviewTextView() -> ReviewTextView {
+        let reviewTextView: ReviewTextView = .fromNib()!
+        let currentWindow: UIWindow = UIApplication.shared.keyWindow!
+        let width = currentWindow.frame.width
+        let height = reviewTextView.frame.height
+        reviewTextView.frame.size = CGSize(width: width,
+                                           height: height)
+        
+        return reviewTextView
+    }
+    
+        
+    @objc private func hideInfoViewIfNeeded() {
+        showAlert(message: "Уверены, что хотите закрыть окно?",
+                  title: "",
+                  okButtonTitle: "Да",
+                  cancelButtonTitle: "Отмена",
+                  okAction: { [weak self] in
+                    self?.hideInfoView()
+        },
+                  cancelAction: {})
     }
     
     // MARK: - Actions
     
     @IBAction func paymentButtonPressed(_ sender: Any) {
         presenter.presentPaymentView()
+    }
+    
+    
+    @IBAction func allOperationsButtonPressed(_ sender: Any) {
+        presenter.allOperationsButtonPressed()
     }
     
 }
@@ -271,10 +378,81 @@ class MainViewController: UIViewController {
 
 extension MainViewController: MainViewProtocol {
     
+    func dataRefreshed() {
+        refreshControl.endRefreshing() 
+    }
+    
+    func showReviewView(price: String, date: String, address: String) -> Int {
+        let currentWindow: UIWindow = UIApplication.shared.keyWindow!
+        let reviewView: ReviewView = .fromNib()!
+        reviewsBackgroundView.addSubview(reviewView)
+        var y = currentWindow.frame.height - reviewView.frame.height
+        let width = currentWindow.frame.width
+        let height = reviewView.frame.height
+        reviewView.frame.origin = CGPoint(x: 0, y: y)
+        reviewView.frame.size = CGSize(width: width,
+                                       height: height)
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(MainViewController.hideInfoViewIfNeeded))
+        swipeGesture.direction = .down
+        reviewView.addGestureRecognizer(swipeGesture)
+        sendReviewViews.append(reviewView)
+        reviewView.configure(price: price, date: date, address: address)
+        
+        
+        let reviewTextView = self.createReviewTextView()
+        y = currentWindow.frame.height - reviewTextView.frame.height
+        reviewTextView.frame.origin = CGPoint(x: 0, y: y)
+        reviewTextView.doneButtonPressed = { [weak self] (text) in
+            guard let self = self else { return }
+            self.presenter?.didChange(reviewText: text, index: self.sendReviewViews.count - 1)
+        }
+        self.reviewTextViews.append(reviewTextView)
+        
+        reviewView.reviewButtonPressed = { [weak self] in
+            self?.reviewsBackgroundView.addSubview(reviewTextView)
+            reviewTextView.configure()
+
+        }
+        
+        reviewView.doneButtonPressed = { [weak self] in
+            guard let self = self else { return }
+            self.presenter.reviewDoneButtonPressed(index: self.sendReviewViews.count - 1)
+        }
+        
+        reviewView.ratingDidChanged = { [weak self] (rating) in
+            guard let self = self else { return }
+            self.presenter.ratingDidChanged(index: self.sendReviewViews.count - 1, rating: rating)
+        }
+        
+        return self.sendReviewViews.count - 1
+    }
+
+    
+    func hideInfoView() { // ! MOVE
+    //        guard !infoView.isHidden else { return }
+    //        move(up: false) { [weak self] in
+    //            self?.infoView.isHidden = true
+    //        }
+    //        mapView.removeGestureRecognizer(tapGesture)
+        
+        sendReviewViews.last?.removeFromSuperview()
+        sendReviewViews.removeLast()
+        reviewTextViews.removeLast()
+    }
+    
+    
+    func didChange(reviewText: String, index: Int) {
+        sendReviewViews[index].set(text: reviewText)
+        reviewTextViews[index].removeFromSuperview()
+    }
+    
+    
+
+    
     func selectCity(cities: [CityResponse]) {
         let cityView: CityView = .fromNib()!
         cityView.presenter = presenter
-        cityView.cities = cities
+        cityView.configure(cities: cities)
         let window = UIApplication.shared.keyWindow!
         cityView.frame = window.bounds
         window.addSubview(cityView)
@@ -286,19 +464,20 @@ extension MainViewController: MainViewProtocol {
     
     
     func configureTextFieldForName() {
-        nameTextField.font = UIFont(name: "Gilroy-Bold", size: 22)
+        nameTextField.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         nameTextField.textColor = .black
     }
     
     
     func configureTextFieldForPhone() {
-        nameTextField.font = UIFont(name: "Gilroy-Medium", size: 22)
+        nameTextField.font = UIFont.systemFont(ofSize: 22, weight: .medium)
         nameTextField.textColor = UIColor(hex: "828282") // !
     }
     
     
     func set(name: String,
              balance: String) {
+        nameTextField.backgroundColor = .clear
         nameTextField.text = name
         balanceLabel.text = balance
     }
@@ -329,7 +508,8 @@ extension MainViewController: MainViewProtocol {
             if let currentCashbackIndex = currentCashbackIndex,
                 let label = self.cashbackLabels[currentCashbackIndex] {
                 label.textColor = .black
-                label.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
+                label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+                label.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
             }
         }) { [weak self] (_) in
             self?.currentCashbackIndicator.isHidden = currentCashbackProgress == nil
@@ -385,10 +565,11 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: UITableViewDataSource {
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = presenter.operationsCount
+        let count = presenter.operationsInfo.count
         configureTableView(isEmpty: count == 0)
         return count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewActionCell", for: indexPath)
@@ -397,31 +578,20 @@ extension MainViewController: UITableViewDataSource {
                 let image = UIImage(named: info.imageName)
                 cell.configure(image: image,
                                title: info.title,
-                               sum: info.sum)
+                               sum: info.sum,
+                               time: info.time)
             }
             return cell
         }
         return UITableViewCell()
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 67
     }
     
-}
-
-
-// MARK: - UITableViewDataSourcePrefetching
-
-extension MainViewController: UITableViewDataSourcePrefetching {
     
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            //            if presenter.getOperation(row: indexPath.row) == nil { // move to presenter
-                            presenter.loadPage(for: indexPath.row)
-            //            }
-        }
-    }
 }
 
 
@@ -430,19 +600,19 @@ extension MainViewController: UITableViewDataSourcePrefetching {
 extension MainViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let helloViewHeight = helloViewHeight,
+        guard let nameViewHeight = nameViewHeight,
             let cashBackViewHeight = cashBackViewHeight else {
                 return
         }
         
         let spacing = scrollView.contentInset.top + scrollView.contentOffset.y
-        let hideHelloView = spacing >= helloViewHeight
-        let hideCashBackView =  spacing >= cashBackViewHeight + helloViewHeight
+        let hideHelloView = spacing >= nameViewHeight
+        let hideCashBackView =  spacing >= cashBackViewHeight + nameViewHeight
         
-        if hideHelloView && !helloView.isHidden {
-            set(view: helloView, hidden: true)
-        } else if !hideHelloView && helloView.isHidden {
-            set(view: helloView, hidden: false)
+        if hideHelloView && !nameView.isHidden {
+            set(view: nameView, hidden: true)
+        } else if !hideHelloView && nameView.isHidden {
+            set(view: nameView, hidden: false)
         }
         
         if hideCashBackView && !cashBackView.isHidden {
@@ -463,6 +633,7 @@ extension MainViewController: NavigationBarConfigurationProtocol {
         presenter.logout()
     }
 
+    
     @objc func locationButtonPressed() {
         presenter.selectCity()
     }

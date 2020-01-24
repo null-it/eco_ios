@@ -25,7 +25,7 @@ extension LoginRouter: LoginRouterProtocol {
     
     func presentMapView() {
         guard let view = view else { return }
-        let configurator = MapConfigurator(isAuthorized: false)
+        let configurator = MapConfigurator(isAuthorized: false, washId: nil, tabBarController: nil)
         let vc = configurator.viewController
         if let navigationController = view.navigationController {
             navigationController.pushViewController(vc, animated: true)

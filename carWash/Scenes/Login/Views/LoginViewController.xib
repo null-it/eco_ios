@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Gilroy-Medium.ttf">
-            <string>Gilroy-Medium</string>
-        </array>
-        <array key="Gilroy-Regular.ttf">
-            <string>Gilroy-Regular</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="ECO" customModuleProvider="target">
             <connections>
@@ -41,7 +33,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30.5" id="5fT-QC-e2h"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Gilroy-Regular" family="Gilroy" pointSize="13"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -51,6 +43,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="VKM-Gi-Qyb"/>
                     </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                     <state key="normal" title="Получить пароль">
                         <color key="titleColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
@@ -76,7 +69,7 @@
                                         <constraint firstAttribute="height" constant="48" id="xod-uD-xpL"/>
                                     </constraints>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" name="Gilroy-Regular" family="Gilroy" pointSize="15"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="username"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -110,7 +103,7 @@
                                         <constraint firstAttribute="height" constant="48" id="Y5w-Wf-LTP"/>
                                     </constraints>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" name="Gilroy-Regular" family="Gilroy" pointSize="15"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="one-time-code"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -138,11 +131,11 @@
                             <rect key="frame" x="0.0" y="120" width="350" height="80"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIl-7U-Uhy">
-                                    <rect key="frame" x="66.5" y="60" width="181" height="20"/>
+                                    <rect key="frame" x="63.5" y="60" width="187" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="Hpa-ny-VWI"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy" pointSize="15"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                     <state key="normal" title="Отправить SMS повторно">
                                         <color key="titleColor" red="0.57647058823529407" green="0.75686274509803919" blue="0.23921568627450979" alpha="0.5" colorSpace="calibratedRGB"/>
                                     </state>
@@ -151,17 +144,17 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBy-pQ-S7f">
-                                    <rect key="frame" x="255.5" y="70" width="0.0" height="0.0"/>
-                                    <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy" pointSize="15"/>
+                                    <rect key="frame" x="258.5" y="70" width="0.0" height="0.0"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вам отправлено SMS с кодом" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drw-RV-ySR">
-                                    <rect key="frame" x="71" y="32" width="208.5" height="18"/>
+                                    <rect key="frame" x="66" y="32" width="218" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="18" id="jeD-G5-Mqq"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy" pointSize="15"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                     <color key="textColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -192,7 +185,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="CZT-cV-3Qk"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                     <state key="normal" title="Где купить карту?">
                         <color key="titleColor" red="0.17254901960784313" green="0.16470588235294117" blue="0.41568627450980389" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     </state>
@@ -212,11 +205,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4N-3T-Nm7">
-                    <rect key="frame" x="153" y="595.5" width="117" height="18"/>
+                    <rect key="frame" x="150.5" y="595.5" width="122" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="18" id="gch-e4-20x"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                     <state key="normal" title="Уже есть пароль">
                         <color key="titleColor" red="0.57647058819999997" green="0.75686274509999996" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     </state>
@@ -231,7 +224,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Rog-AA-Skz" secondAttribute="trailing" constant="32" id="Kuf-qq-wDN"/>
                 <constraint firstItem="LCP-wE-bEZ" firstAttribute="top" secondItem="Rog-AA-Skz" secondAttribute="bottom" priority="900" constant="305" id="L8B-6J-ceA"/>
                 <constraint firstItem="Rog-AA-Skz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="OcR-qQ-74k"/>
-                <constraint firstItem="LCP-wE-bEZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Rog-AA-Skz" secondAttribute="bottom" constant="10" id="Oxu-yS-X9U"/>
+                <constraint firstItem="W4N-3T-Nm7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Rog-AA-Skz" secondAttribute="bottom" constant="10" id="Oxu-yS-X9U"/>
                 <constraint firstItem="Q5K-jQ-MWL" firstAttribute="top" secondItem="JVH-2b-GZh" secondAttribute="bottom" constant="32" id="Q1P-HC-NL0"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Q5K-jQ-MWL" secondAttribute="bottom" constant="32" id="T55-GQ-fll"/>
                 <constraint firstItem="LCP-wE-bEZ" firstAttribute="top" secondItem="W4N-3T-Nm7" secondAttribute="bottom" constant="24" id="Txb-RR-WKs"/>

@@ -34,6 +34,18 @@ extension MapInteractor: MapInteractorProtocol {
     }
     
     
+    func logout(onSuccess: @escaping () -> (),
+                onFailure: @escaping () -> ()?) {
+        let request = Request.User.Logout.Get()
+        request.send().done { _ in
+            onSuccess()
+        }.catch { error in
+            print(error)
+            onFailure()
+        }
+    }
+    
+    
     func getWashes(city: String?,
                    onSuccess: @escaping (WashesResponse) -> (),
                    onFailure: @escaping () -> ()?) {

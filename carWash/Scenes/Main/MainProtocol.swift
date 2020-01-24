@@ -34,20 +34,30 @@ protocol MainViewProtocol: class {
     func configureTextFieldForName()
     func configureTextFieldForPhone()
     func selectCity(cities: [CityResponse])
+    func showReviewView(price: String, date: String, address: String) -> Int
+    func didChange(reviewText: String, index: Int)
+    func hideInfoView()
+    func showAlert(message: String, title: String)
+    func dataRefreshed()
 }
 
 // MARK: - Presenter
 protocol MainPresenterProtocol: class {
     func presentPaymentView()
-    func viewDidLoad()
-    func logout()
-    func loadPage(for row: Int)
-    var operationsCount: Int { get }
+    func viewDidLoad(notificationResponse: ReviewNotificationResponse?)
+    func didRecieveNotification(_ notificationResponse: ReviewNotificationResponse?)
     var operationsInfo: [OperationInfo?] { get }
-    func getOperations()
+    func getOperations(isRefreshing: Bool)
+    func logout()
     func selectCity()
     func nameEditindDidEnd(_ name: String?)
     func didSelectCity(row: Int)
+    func didChange(reviewText: String, index: Int)
+    func didChange(reviewRating: Double, index: Int)
+    func reviewDoneButtonPressed(index: Int)
+    func ratingDidChanged(index: Int, rating: Double)
+    func allOperationsButtonPressed()
+    func refreshData() 
 }
 
 // MARK: - Router
@@ -55,6 +65,7 @@ protocol MainRouterProtocol {
     func presentPaymentView()
     func popToAuthorization()
     func presentCityView()
+    func presentOperationsView()
 }
 
 // MARK: - Interactor
@@ -72,6 +83,15 @@ protocol MainInteractorProtocol: class {
                      onFailure: @escaping () -> ()?)
     func getCities(onSuccess: @escaping ([CityResponse]) -> (),
                    onFailure: (() -> ())?)
+    func postCity(city: String,
+                  onSuccess: @escaping () -> (),
+                  onFailure: @escaping () -> ()?)
+    func postReview(userId: Int,
+                    operationId: Int,
+                    text: String,
+                    stars: Double,
+                    onSuccess: @escaping (ReviewResponse) -> (),
+                    onFailure: @escaping () -> ()?)
 }
 
 // MARK: - Configurator

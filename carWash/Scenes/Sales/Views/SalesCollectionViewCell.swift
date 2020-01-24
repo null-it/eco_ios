@@ -15,7 +15,7 @@ class SalesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
     
-    private func setShadow() { // !
+    private func setShadow() {
         layer.masksToBounds = false
         layer.cornerRadius = 16
         layer.shadowColor = UIColor.black.cgColor
@@ -25,22 +25,30 @@ class SalesCollectionViewCell: UICollectionViewCell {
         layer.shadowRadius = 7
     }
     
-    func configure(data: SaleResponseData) {
-        imageView.image = UIImage(named: "empty")
+    func configure(title: String, date: String) {
         setShadow()
-        titleLabel.text = data.title
-        guard !data.logo.isEmpty else { return }
-        let url = URL(string: data.logo)
-        DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: url!) {
-                DispatchQueue.main.async { [weak self] in
-                    if let image = UIImage(data: data) {
-                        self?.imageView.image = image
-                    }
-                }
-            }
+        titleLabel.text = title
+        dateLabel.text = date
+    }
+    
+    func setImage(_ image: UIImage?) {
+        if let image = image {
+            imageView.image = image
+        } else {
+            imageView.image = UIImage(named: "empty")
         }
     }
+
+//    override func awakeFromNib() {
+//        imageView.roundCorners(topLeft: Constants.defaultCornerRadius,
+//                               topRight: Constants.defaultCornerRadius,
+//                               bottomLeft: Constants.minCornerRadius,
+//                               bottomRight: Constants.defaultCornerRadius)
+//        roundCorners(topLeft: Constants.defaultCornerRadius,
+//                      topRight: Constants.defaultCornerRadius,
+//                      bottomLeft: Constants.minCornerRadius,
+//                      bottomRight: Constants.defaultCornerRadius)
+//    }
     
 }
 

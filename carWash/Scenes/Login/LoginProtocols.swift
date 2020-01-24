@@ -21,7 +21,9 @@ protocol LoginViewProtocol: class {
     func refreshView()
     func configurePasswordInput()
     func showAlert(message: String, title: String)
-    func setAlreadyHasPasswordButton(title: String?, hidden: Bool) 
+    func setAlreadyHasPasswordButton(title: String?, hidden: Bool)
+    func loginRequestDidSend()
+    func loginResponseDidRecieve()
 }
 
 // MARK: - Presenter
@@ -32,7 +34,8 @@ protocol LoginPresenterProtocol: class {
     func shouldChangePhoneNumberCharacters(in range: NSRange,
                                             replacementString string: String) -> String?
     func shouldChangePasswordCharacters(in range: NSRange,
-                                        replacementString string: String) -> Bool
+                                        replacementString string: String,
+                                        isFirstChange: Bool) -> Bool
     func viewDidLoad()
     func sendPasswordAgain()
     func backButtonPressed()

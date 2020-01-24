@@ -33,5 +33,18 @@ extension CitiesInteractor: CitiesInteractorProtocol {
         }
     }
     
+    func postCity(city: String,
+                  onSuccess: @escaping () -> (),
+                  onFailure: @escaping () -> ()?) {
+        let request = Request.User.SetCity.Post(city: city)
+        
+        request.send().done { response in
+            onSuccess()
+        }.catch { error in
+            print(error)
+            onFailure()
+        }
+    }
+    
 }
 

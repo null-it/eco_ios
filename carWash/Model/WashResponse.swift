@@ -14,6 +14,7 @@ struct WashResponse: Codable {
     var cashback: Int
     var seats: Int
     var stocks: [StockResponse]?
+    var pivot: Pivot?
 }
 
 

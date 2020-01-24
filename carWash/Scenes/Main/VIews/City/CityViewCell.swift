@@ -11,19 +11,27 @@ import BEMCheckBox
 
 class CityViewCell: UITableViewCell {
     
-    @IBOutlet weak var nameLabel: UILabel!
+    // MARK: - Outlets
     
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var isSelectedCheckBox: BEMCheckBox!
+    
+    // MARK: - Properties
+    
     var valueChanged: ((Bool) -> ())?
+    
+    // MARK: - Actions
+    
+    @IBAction func checkBoxValueChanged(_ sender: Any) {
+        valueChanged?(isSelectedCheckBox.on)
+    }
+    
     
     func configure(name: String, isSelected: Bool) {
         nameLabel.text = name
         isSelectedCheckBox.on = isSelected
     }
     
-    @IBAction func checkBoxValueChanged(_ sender: Any) {
-        valueChanged?(isSelectedCheckBox.on)
-    }
     
     func set(selected: Bool) {
         isSelectedCheckBox.on = selected

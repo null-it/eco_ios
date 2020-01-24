@@ -7,35 +7,9 @@
 //
 import SwiftKeychainWrapper
 
-
-enum OperationType: String {
-    case waste //= "Cписание"
-    case replenish_online //= "Пополнение онлайн"
-    case replenish_offline //= "Пополнение оффлайн"
-    case cashback //= "Кэшбэк"
-    
-    func description() -> String {
-        switch self {
-        case .waste:
-            return "Cписание"
-        case .replenish_online:
-            return "Пополнение онлайн"
-        case .replenish_offline:
-            return "Пополнение оффлайн"
-        case .cashback:
-            return "Кэшбэк"
-        }
-    }
-}
-
-struct OperationInfo {
-    var imageName: String = ""
-    var title: String = ""
-    var sum: String = ""
-}
-
-
 class MainPresenter {
+    
+    // MARK: - Properties
     
     unowned let view: MainViewProtocol
     var interactor: MainInteractorProtocol!
@@ -47,20 +21,235 @@ class MainPresenter {
         self.router = router
     }
     
-    var qty = 10
-    var pagesTriedToLoad: [Int] = []
-    var lastPage: Int?
-    var operationsCount = 0
+    var operationsCount = 15
+    var qty = 15
     var operationsInfo: [OperationInfo?] = []
     var name = ""
     var cities: [CityResponse] = []
+    var reviewText: [Int: String] = [:]
+    var reviewRating: [Int: Double] = [:]
+    var reviewOperationId: [Int: Int] = [:]
+    
+    
+    // MARK: - Private
+    
+    
+    private func reloadOperations() {
+        view.reloadData()
+    }
+    
+    
+    private func toRub(value: Int?) -> String {
+        var balance = String(value ?? 0)
+        balance += " ₽"
+        return balance
+    }
+    
+    
+    private func toPercent(value: Int?) -> String {
+        var percent = String(value ?? 0)
+        percent += " %"
+        return percent
+    }
+    
+    
+    private func checkNotification(notificationResponse: ReviewNotificationResponse?) {
+        if let _ = KeychainWrapper.standard.string(forKey: "notification"),
+            let notificationResponse = notificationResponse,
+            notificationResponse.type == "review" {
+            view.showReviewView(price: notificationResponse.price,
+                                date: "",
+                                address: notificationResponse.wash.address) // !
+            KeychainWrapper.standard.removeObject(forKey: "notification")
+        }
+    }
+    
+    
+    private func setCityIfNeeded() {
+        if KeychainWrapper.standard.data(forKey: "city") == nil {
+            interactor.getCities(onSuccess: { [weak self] (cities) in
+                guard let self = self else { return }
+                if !cities.isEmpty {
+                    self.cities = cities
+                    self.view.selectCity(cities: self.cities)
+                }
+                }, onFailure: nil)
+        }
+    }
+    
+    
+    private func initLoadingInfo() {
+        operationsInfo = []
+        operationsCount = 0
+    }
+    
+    
+    private func getUserInfo() { // !
+        interactor.getUserInfo(onSuccess: { [weak self] (response) in
+            guard let self = self else { return }
+            let data = response.data
+            KeychainWrapper.standard.set(data.id, forKey: "userId")
+            self.name = data.name ?? data.phone
+            if let _ = data.name {
+                self.view.configureTextFieldForName()
+            } else {
+                self.view.configureTextFieldForPhone()
+            }
+            let balance = self.toRub(value: data.balance)
+            self.view.set(name: self.name, balance: balance)
+            if !response.data.city.isEmpty {
+                KeychainWrapper.standard.set(response.data.city, forKey: "city")
+            }
+            self.setCityIfNeeded()
+            
+            let firstPercent = self.toPercent(value: response.month_cash_back[0].percent)
+            let firstValue = self.toRub(value: response.month_cash_back[0].value)
+            let secondPercent = self.toPercent(value: response.month_cash_back[1].percent)
+            let secondValue =  self.toRub(value: response.month_cash_back[1].value)
+            let thirdPercent = self.toPercent(value: response.month_cash_back[2].percent)
+            let thirdValue =  self.toRub(value: response.month_cash_back[2].value)
+            let fourthPercent = self.toPercent(value: response.month_cash_back[3].percent)
+            let fourthValue =  self.toRub(value: response.month_cash_back[3].value)
+            let fifthPercent = self.toPercent(value: response.month_cash_back[4].percent)
+            let fifthValue =  self.toRub(value: response.month_cash_back[4].value)
+            
+            self.view.setCahbackInfo(firstPercent: firstPercent, firstValue: firstValue,
+                                     secondPercent: secondPercent, secondValue: secondValue,
+                                     thirdPercent: thirdPercent, thirdValue: thirdValue,
+                                     fourthPercent: fourthPercent, fourthValue: fourthValue,
+                                     fifthPercent: fifthPercent, fifthValue: fifthValue)
+            
+            let distance: Float = 1 / Float(response.month_cash_back.count - 1)
+            
+            var nextCashbackIndex = 0
+            while (nextCashbackIndex <= 4)
+                && (response.month_cash_back[nextCashbackIndex].value < response.data.month_spent) {
+                    nextCashbackIndex += 1
+            }
+            
+            let nextCashbackProgress = Float(nextCashbackIndex) * distance
+            
+            let currentCashbackProgress = nextCashbackProgress - distance
+            let currentCashbackIndex = nextCashbackIndex - 1
+            
+            var description = ""
+            if nextCashbackIndex >= 0 && nextCashbackIndex <= 4 { // ! other messages
+                let value = response.month_cash_back[nextCashbackIndex].value - response.data.month_spent
+                description = "До следующего уровня осталось потратить \(value) ₽"
+            } else if nextCashbackIndex == 5 {
+                description = "Вы достигли максимально допустимого процента по кэшбеку"
+            }
+            
+            var currentCashback = 0
+            if currentCashbackIndex > 0 {
+                currentCashback = response.month_cash_back[currentCashbackIndex].value
+            }
+            let difference = response.data.month_spent - currentCashback
+            
+            let nextCashback: Int?
+            var sectionProgress: Float = 1
+            
+            if nextCashbackIndex <= 4 {
+                nextCashback = response.month_cash_back[nextCashbackIndex].value
+                sectionProgress = Float(difference) / Float(nextCashback! - currentCashback)
+            }
+            
+            let progress = sectionProgress * distance + currentCashbackProgress
+            
+            self.view.updateCashbacks(progress: progress,
+                                      currentCashbackProgress: currentCashbackProgress.isLess(than: 0) ? nil : currentCashbackProgress,
+                                      nextCashbackProgress: !nextCashbackProgress.isLess(than: 1) ? nil : nextCashbackProgress,
+                                      currentCashbackIndex: currentCashbackIndex < 0 ? nil : currentCashbackIndex,
+                                      description: description)
+        }) {
+            () // ! alert
+        }
+    }
+    
 }
 
 
+// MARK: - MainPresenterProtocol
+
 extension MainPresenter: MainPresenterProtocol {
+    
+    func refreshData() {
+        initLoadingInfo()
+        getOperations(isRefreshing: true)
+    }
+    
+    func allOperationsButtonPressed() {
+        router.presentOperationsView()
+    }
+    
+    
+    func ratingDidChanged(index: Int, rating: Double) {
+        reviewRating[index] = rating
+    }
+    
+    
+    func reviewDoneButtonPressed(index: Int) {
+        
+        guard let text = reviewText[index],
+            let rating = reviewRating[index],
+            let operationId = reviewOperationId[index],
+            let userId = KeychainWrapper.standard.integer(forKey: "userId"),
+//            !text.isEmpty,
+            !rating.isZero else {
+                view.showAlert(message: "Заполните все поля", title: "Ошибка")
+                return
+        }
+        
+        let onSuccess: (ReviewResponse) -> () = { [weak self] (response) in
+            if response.status == "ok" {
+                self?.view.hideInfoView()
+            } else {
+                let message = response.msg ?? "Не удалось отправить отзыв"
+                self?.view.showAlert(message: message, title: "Ошибка")
+            }
+        }
+        let onFailure = { [weak self] in
+            self?.view.showAlert(message: "Не удалось отправить отзыв", title:  "Ошибка")
+        }
+        
+        interactor.postReview(userId: userId,
+                              operationId: operationId,
+                              text: text.isEmpty ? "..." : text,
+                              stars: rating,
+                              onSuccess: onSuccess,
+                              onFailure: onFailure)
+    }
+    
+    
+    func didChange(reviewRating: Double, index: Int) {
+        self.reviewRating[index] = reviewRating
+    }
+    
+    
+    func didChange(reviewText: String, index: Int) {
+        self.reviewText[index] = reviewText
+        view.didChange(reviewText: reviewText, index: index)
+    }
+    
+    
+    func didRecieveNotification(_ notificationResponse: ReviewNotificationResponse?) {
+        guard let notificationResponse = notificationResponse else { return }
+        print(notificationResponse)
+        let index = view.showReviewView(price: notificationResponse.price,
+                                        date: "",
+                                        address: notificationResponse.wash.address)
+        reviewText[index] = ""
+        reviewRating[index] = 0
+        reviewOperationId[index] = notificationResponse.operationId
+        
+    }
+    
     
     func didSelectCity(row: Int) {
         KeychainWrapper.standard.set(cities[row].city, forKey: "city") // !
+        KeychainWrapper.standard.set(cities[row].coordinates[1], forKey: "cityLongitude")
+        KeychainWrapper.standard.set(cities[row].coordinates[0], forKey: "cityLatitude")
+        interactor.postCity(city: cities[row].city, onSuccess: {}, onFailure: {})
     }
     
     
@@ -86,6 +275,7 @@ extension MainPresenter: MainPresenterProtocol {
         router.presentCityView()
     }
     
+    
     func logout() {
         view.showAlert(message: "Вы действительно хотите выйти?",
                        title: "Выход",
@@ -103,110 +293,10 @@ extension MainPresenter: MainPresenterProtocol {
     }
     
     
-    func viewDidLoad() {
+    func viewDidLoad(notificationResponse: ReviewNotificationResponse?) {
         getUserInfo()
         getOperations()
-        setCityIfNeeded()
-    }
-    
-    
-    private func setCityIfNeeded() {
-        if KeychainWrapper.standard.data(forKey: "city") == nil {
-            interactor.getCities(onSuccess: { [weak self] (cities) in
-                guard let self = self else { return }
-                if !cities.isEmpty {
-                    self.cities = cities
-                    self.view.selectCity(cities: self.cities)
-                }
-                }, onFailure: nil)
-        }
-    }
-    
-    
-    func getOperations() {
-        initLoadingInfo()
-        load(page: 1)
-    }
-    
-    
-    private func initLoadingInfo() {
-        lastPage = nil
-        operationsInfo = []
-        operationsCount = 0
-        pagesTriedToLoad = []
-    }
-    
-    
-    private func getUserInfo() { // !
-        interactor.getUserInfo(onSuccess: { [weak self] (response) in
-            guard let self = self else { return }
-            let data = response.data
-            self.name = data.name ?? data.phone
-            if let _ = data.name {
-                self.view.configureTextFieldForName()
-            } else {
-                self.view.configureTextFieldForPhone()
-            }
-            let balance = self.toRub(value: data.balance)
-            self.view.set(name: self.name, balance: balance)
-            
-            let firstPercent = self.toPercent(value: response.month_cash_back[0].percent)
-            let firstValue = self.toRub(value: response.month_cash_back[0].value)
-            let secondPercent = self.toPercent(value: response.month_cash_back[1].percent)
-            let secondValue =  self.toRub(value: response.month_cash_back[1].value)
-            let thirdPercent = self.toPercent(value: response.month_cash_back[2].percent)
-            let thirdValue =  self.toRub(value: response.month_cash_back[2].value)
-            let fourthPercent = self.toPercent(value: response.month_cash_back[3].percent)
-            let fourthValue =  self.toRub(value: response.month_cash_back[3].value)
-            let fifthPercent = self.toPercent(value: response.month_cash_back[4].percent)
-            let fifthValue =  self.toRub(value: response.month_cash_back[4].value)
-                
-            self.view.setCahbackInfo(firstPercent: firstPercent, firstValue: firstValue,
-                                     secondPercent: secondPercent, secondValue: secondValue,
-                                     thirdPercent: thirdPercent, thirdValue: thirdValue,
-                                     fourthPercent: fourthPercent, fourthValue: fourthValue,
-                                     fifthPercent: fifthPercent, fifthValue: fifthValue)
-                                    
-            let distance: Float = 1 / Float(response.month_cash_back.count - 1)
-            
-            var nextCashbackIndex = 0
-            while (nextCashbackIndex <= 4)
-                && (response.month_cash_back[nextCashbackIndex].value < response.data.month_spent) {
-                nextCashbackIndex += 1
-            }
-            
-            let nextCashbackProgress = Float(nextCashbackIndex) * distance
-            
-            let currentCashbackProgress = nextCashbackProgress - distance
-            let currentCashbackIndex = nextCashbackIndex - 1
-
-            var description = ""
-            if nextCashbackIndex >= 0 && nextCashbackIndex <= 4 { // ! other messages
-                let value = response.month_cash_back[nextCashbackIndex].value - response.data.month_spent
-                description = "До следующего уровня осталось потратить \(value) ₽"
-            }
-            
-            let currentCashback = response.month_cash_back[currentCashbackIndex].value
-            let difference = response.data.month_spent - currentCashback
-            
-            let nextCashback: Int?
-            var sectionProgress: Float = 1
-            
-            if nextCashbackIndex <= 4 {
-                nextCashback = response.month_cash_back[nextCashbackIndex].value
-                sectionProgress = Float(difference) / Float(nextCashback! - currentCashback)
-            }
-            
-            let progress = sectionProgress * distance + currentCashbackProgress
-
-            self.view.updateCashbacks(progress: progress,
-                                      currentCashbackProgress: currentCashbackProgress.isLess(than: 0) ? nil : currentCashbackProgress,
-                                      nextCashbackProgress: !nextCashbackProgress.isLess(than: 1) ? nil : nextCashbackProgress,
-                                      currentCashbackIndex: currentCashbackIndex < 0 ? nil : currentCashbackIndex,
-                                      description: description)
-        }) {
-            () // ! alert
-        }
+        checkNotification(notificationResponse: notificationResponse)
     }
     
     
@@ -214,52 +304,11 @@ extension MainPresenter: MainPresenterProtocol {
     func presentPaymentView() {
         router.presentPaymentView()
     }
-    
-    private func toRub(value: Int?) -> String {
-        var balance = String(value ?? 0)
-        balance += " ₽"
-        return balance
-    }
-    
-    private func toPercent(value: Int?) -> String {
-        var percent = String(value ?? 0)
-        percent += " %"
-        return percent
-    }
-    
-    func loadPage(for row: Int) {
-        if operationsInfo[row] == nil {
-            let pageForLoad = page(for: row)
-            load(page: pageForLoad)
-        }
-    }
-    
-    private func page(for row: Int) -> Int {
-        let page: Int = row / qty + 1
-        return page
-    }
-    
-    private func load(page: Int) {
-        guard !pagesTriedToLoad.contains(page) else {
-            return
-        }
-        pagesTriedToLoad.append(page)
-        
-        if let lastPage = lastPage {
-            guard page <= lastPage else {
-                return
-            }
-        }
-        
+
+    func getOperations(isRefreshing: Bool = false) {
         let onSuccess: (UserOperationsResponse) -> () = { [weak self] (model) in
             guard let self = self else {
                 return
-            }
-            
-            if page == 1 {
-                self.operationsInfo = Array(repeating: nil, count: model.total)
-                self.operationsCount = model.total
-                self.lastPage = model.last_page
             }
             
             let operations = model.data.map { [weak self] (model) -> OperationInfo in
@@ -270,14 +319,28 @@ extension MainPresenter: MainPresenterProtocol {
                 let typeDescription = type.description()
                 let imageName = type.rawValue
                 let title = typeDescription // !
-                let sum = self.toRub(value: model.value)
+                var sum = self.toRub(value: model.value)
+                
+                switch type {
+                case .cashback:
+                    ()
+                case .replenish_online, .replenish_offline:
+                    sum = "+ " + sum
+                case .waste:
+                    sum = "- " + sum
+                }
+                
                 let info = OperationInfo(imageName: imageName,
                                          title: title,
-                                         sum: sum)
+                                         sum: sum,
+                                         time: model.created_at)
                 return info
             }
-            self.add(operations: operations, page: page)
-            self.reloadRows(for: page)
+            self.operationsInfo = operations
+            self.reloadOperations()
+            if isRefreshing {
+                self.view.dataRefreshed()
+            }
             
         }
         
@@ -285,47 +348,10 @@ extension MainPresenter: MainPresenterProtocol {
             // ! alert
         }
         
-        interactor.getOperations(page: page,
+        interactor.getOperations(page: 1,
                                  qty: qty,
                                  onSuccess: onSuccess,
                                  onFailure: onFailure)
-        
-    }
-    
-    
-    private func add(operations: [OperationInfo],
-                     page: Int) {
-        if let indexes = range(for: page) {
-            self.operationsInfo.replaceSubrange(indexes, with: operations)
-        }
-    }
-    
-    
-    private func range(for page: Int) -> Range<Int>? {
-        let startIndex = (page - 1) * qty
-        let supposedEndIndex = startIndex + qty
-        let endIndex = supposedEndIndex < operationsCount
-            ? supposedEndIndex
-            : operationsCount
-        if startIndex > endIndex {
-            return nil
-        }
-        let range = startIndex..<endIndex
-        return range
-    }
-    
-    
-    private func reloadRows(for page: Int) {
-        guard let range = range(for: page) else {
-            return
-        }
-        let rows = range.filter { _ in true }
-        
-        if page == 1 {
-            view.reloadData()
-        } else {
-            view.reload(rows: rows)
-        }
     }
     
 }

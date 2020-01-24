@@ -16,6 +16,13 @@ class LoginViewController: UIViewController {
     var presenter: LoginPresenterProtocol!
     var configurator: LoginConfiguratorProtocol!
     
+    var isFirstPasswordChange = true
+    
+    lazy var activityView: UIView = {
+       configureActivityView()
+    }()
+    
+    
     // MARK: - Outlets
     
     @IBOutlet weak var phoneNumberTextField: UITextField!
@@ -79,6 +86,28 @@ class LoginViewController: UIViewController {
     
     // MARK: - Private
     
+    private func configureActivityView() -> UIView {
+        let activityView = UIView()
+        let currentWindow = UIApplication.shared.keyWindow!
+        activityView.frame = currentWindow.frame
+//        activityView.translatesAutoresizingMaskIntoConstraints = false
+//        activityView.widthAnchor.constraint(equalToConstant: currentWindow.frame.width).isActive = true
+//        activityView.heightAnchor.constraint(equalToConstant: currentWindow.frame.height).isActive = true
+        
+        activityView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        let activityIndicator = UIActivityIndicatorView()
+        
+        activityView.addSubview(activityIndicator)
+        activityIndicator.center = activityView.center
+//        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+//        activityIndicator.centerXAnchor.constraint(equalTo: activityView.centerXAnchor).isActive = true
+//        activityIndicator.centerYAnchor.constraint(equalTo: activityView.centerYAnchor).isActive = true
+        
+        activityIndicator.startAnimating()
+        activityIndicator.color = .black
+        return activityView
+    }
+    
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame),
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -118,7 +147,7 @@ class LoginViewController: UIViewController {
     private func configureNavigationBar() {
         title = "Авторизация"
         navigationController?.navigationBar.titleTextAttributes =
-            [NSAttributedString.Key.font: UIFont(name: "Gilroy-Medium", size: 18)!]
+            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .semibold)] 
         navigationItem.setHidesBackButton(true, animated:true)
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -130,6 +159,17 @@ class LoginViewController: UIViewController {
 // MARK: - LoginViewProtocol
 
 extension LoginViewController: LoginViewProtocol {
+    
+    func loginRequestDidSend() {
+        dismissKeyboard()
+        let currentWindow = UIApplication.shared.keyWindow!
+        currentWindow.addSubview(activityView)
+    }
+    
+    func loginResponseDidRecieve() {
+        activityView.removeFromSuperview()
+    }
+    
     
     func configurePasswordInput() {
         passwordTextField.becomeFirstResponder()
@@ -229,12 +269,20 @@ extension LoginViewController: UITextFieldDelegate {
             }
             return false
         case passwordTextField:
-            return presenter.shouldChangePasswordCharacters(in: range, replacementString: string)
+            let changeCharacter = presenter.shouldChangePasswordCharacters(in: range, replacementString: string, isFirstChange: isFirstPasswordChange)
+            isFirstPasswordChange = false
+            return changeCharacter
         default:
             ()
         }
         
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == passwordTextField {
+            isFirstPasswordChange = true
+        }
     }
     
 }

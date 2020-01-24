@@ -11,23 +11,23 @@
 
 struct SalesResponse: Codable {
     var current_page: Int
-    var data: [SaleResponseData]
+    var data: [SaleResponse]
     var first_page_url: String
     var from: Int?
     var last_page: Int
     var last_page_url: String
     var next_page_url: String?
     var path: String
-    var per_page: Int
+    var per_page: String
     var prev_page_url: String?
-    var to: Int
+    var to: Int?
     var total: Int
 }
 
 
 // MARK: - SaleResponseData
 
-struct SaleResponseData: Codable {
+struct SaleResponse: Codable {
     var id: Int
     var status: String
     var started_at: String?
@@ -36,4 +36,5 @@ struct SaleResponseData: Codable {
     var title: String
     var text: String
     var logo: String
+    var washes: [WashResponse]?
 }

@@ -19,8 +19,11 @@ class CitiesPresenter {
     let router: CitiesRouterProtocol
     
     var cities: [String]!
+    var coordinates: [[Double]]!
+    
     var titles = ["Текущий город", "Список городов"] // !
     var currentCity: String = KeychainWrapper.standard.string(forKey: "city")! // !
+    var cityChanged: (() -> ())?
     
     // MARK: - Lifecycle
     
@@ -37,8 +40,14 @@ class CitiesPresenter {
 
 extension CitiesPresenter: CitiesPresenterProtocol {
     
-    func didSelectCity(row: Int) {
-        KeychainWrapper.standard.set(cities[row], forKey: "city")
+    func didSelectCity(row: Int, isCurrent: Bool) {
+        if !isCurrent {
+            KeychainWrapper.standard.set(cities[row], forKey: "city")
+            KeychainWrapper.standard.set(coordinates[row][1], forKey: "cityLongitude")
+            KeychainWrapper.standard.set(coordinates[row][0], forKey: "cityLatitude")
+            interactor.postCity(city: cities[row], onSuccess: {}, onFailure: {})
+            cityChanged?()
+        }
         popView()
     }
     
@@ -49,19 +58,26 @@ extension CitiesPresenter: CitiesPresenterProtocol {
     
     
     func viewDidLoad() {
+        view.requestDidSend()
         interactor.getCities(onSuccess: { [weak self] (response) in
             guard let self = self else { return }
-            self.cities = response
+            self.view.responseDidRecieve()
+            let filteredResponse = response.filter {
+                $0.city != self.currentCity
+            }
+            
+            self.cities = filteredResponse
                 .map { $0.city }
-                .filter({ [weak self] (city) -> Bool in
-                    city != self?.currentCity
-                })
+            self.coordinates = filteredResponse
+                .map { $0.coordinates }
+            
             self.view.update(currentCity: self.currentCity,
                              cities: self.cities,
                              titles: self.titles) // !
             
         }) {
             // alert
+            self.view.responseDidRecieve()
         }
     }
     

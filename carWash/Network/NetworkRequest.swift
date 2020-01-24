@@ -29,7 +29,7 @@ class Request
             var method: HTTPMethod = .get
             var parameters: Parameters?
             var headers: HTTPHeaders?
-            var succeedCodes = [200, 404, 409] // remoce 401
+            var succeedCodes = [200, 404, 409]
             var encoding: ParameterEncoding = URLEncoding(destination: .methodDependent, arrayEncoding: .noBrackets, boolEncoding: .numeric)
             
             private let networkClient: NetworkClientProtocol
@@ -152,6 +152,42 @@ class Request
             
         }
         
+        
+        class SetCity {
+            
+            class Post: NetworkRequestProtocol {
+                
+                var url = "user/set-city"
+                var method: HTTPMethod = .post
+                var parameters: Parameters?
+                var headers: HTTPHeaders?
+                var succeedCodes = [200, 422]
+                var encoding: ParameterEncoding = JSONEncoding.default
+                
+                private let networkClient: NetworkClientProtocol
+                
+                required init(_ networkClient: NetworkClientProtocol) {
+                    self.networkClient = networkClient
+                    self.headers = HTTPHeaders()
+                    self.headers?["Content-Type"] = Request.contentType
+                    self.headers?["Accept"] = Request.accept
+                    self.headers?["Authorization"] = Request.authorization
+                }
+                
+                convenience init(city: String, networkClient: NetworkClientProtocol = NetworkClient.shared) {
+                    self.init(networkClient)
+                    self.parameters = Parameters()
+                    self.parameters?["city"] = city
+                }
+                
+                func send() -> Promise<NameChangeResponse> { // !
+                    return self.networkClient.send(request: self)
+                }
+                
+            }
+            
+        }
+        
         class Logout {
             
             class Get: NetworkRequestProtocol {
@@ -160,7 +196,7 @@ class Request
                 var method: HTTPMethod = .get
                 var parameters: Parameters?
                 var headers: HTTPHeaders?
-                var succeedCodes = [200]
+                var succeedCodes = [200, 401]
                 var encoding: ParameterEncoding = URLEncoding(destination: .methodDependent, arrayEncoding: .noBrackets, boolEncoding: .numeric)
                 
                 private let networkClient: NetworkClientProtocol
@@ -192,7 +228,7 @@ class Request
                 var parameters: Parameters?
                 var headers: HTTPHeaders?
                 var succeedCodes = [200]
-                var encoding: ParameterEncoding = URLEncoding(destination: .methodDependent, arrayEncoding: .noBrackets, boolEncoding: .numeric)
+                var encoding: ParameterEncoding = URLEncoding(destination: .methodDependent, arrayEncoding: .brackets, boolEncoding: .numeric)
                 
                 private let networkClient: NetworkClientProtocol
                 
@@ -204,12 +240,37 @@ class Request
                     self.headers?["Content-Type"] = Request.contentType
                 }
                 
-                convenience init( page: Int, qty: Int?, networkClient: NetworkClientProtocol = NetworkClient.shared) {
+                convenience init(page: Int, qty: Int?, networkClient: NetworkClientProtocol = NetworkClient.shared) {
                     self.init(networkClient)
                     self.parameters = Parameters()
                     self.parameters?["page"] = page
                     if let qty = qty {
                         self.parameters?["qty"] = qty
+                    }
+                }
+                
+                convenience init(page: Int,
+                                 qty: Int?,
+                                 types: [String]?,
+                                 periodFrom: String?,
+                                 periodTo: String?,
+                                 networkClient: NetworkClientProtocol = NetworkClient.shared) {
+                    self.init(networkClient)
+                    self.parameters = Parameters()
+                    self.parameters?["page"] = page
+                    if let qty = qty {
+                        self.parameters?["qty"] = qty
+                    }
+                    if let types = types, !types.isEmpty {
+                        self.parameters?["types"] = types
+                    }
+                    if let periodFrom = periodFrom,
+                        !periodFrom.isEmpty {
+                        self.parameters?["period_from"] = periodFrom
+                    }
+                    if let periodTo = periodTo,
+                        !periodTo.isEmpty {
+                        self.parameters?["period_to"] = periodTo
                     }
                 }
                 
@@ -250,6 +311,42 @@ class Request
                 }
                 
                 func send() -> Promise<SetFirebaseTokenResponse> {
+                    return self.networkClient.send(request: self)
+                }
+                
+            }
+            
+        }
+        
+        
+        class SetStockViewed {
+            
+            class Post: NetworkRequestProtocol {
+                
+                var url = "user/set-viewed-stock"
+                var method: HTTPMethod = .post
+                var parameters: Parameters?
+                var headers: HTTPHeaders?
+                var succeedCodes = [200]
+                var encoding: ParameterEncoding = JSONEncoding.default
+                
+                private let networkClient: NetworkClientProtocol
+                
+                required init(_ networkClient: NetworkClientProtocol) {
+                    self.networkClient = networkClient
+                    self.headers = HTTPHeaders()
+                    self.headers?["Content-Type"] = Request.contentType
+                    self.headers?["Accept"] = Request.accept
+                    self.headers?["Authorization"] = Request.authorization
+                }
+                
+                convenience init(stockId: Int, networkClient: NetworkClientProtocol = NetworkClient.shared) {
+                    self.init(networkClient)
+                    self.parameters = Parameters()
+                    self.parameters?["stock_id"] = stockId
+                }
+                
+                func send() -> Promise<SetStockViewedResponse> {
                     return self.networkClient.send(request: self)
                 }
                 
@@ -350,7 +447,6 @@ class Request
             var headers: HTTPHeaders?
             var succeedCodes = [200]
             var encoding: ParameterEncoding = URLEncoding(destination: .methodDependent, arrayEncoding: .noBrackets, boolEncoding: .numeric)
-            
             private let networkClient: NetworkClientProtocol
             
             required init(_ networkClient: NetworkClientProtocol = NetworkClient.shared) {
@@ -361,20 +457,77 @@ class Request
                 self.headers?["Content-Type"] = Request.contentType
             }
             
-            convenience init(city: String?, networkClient: NetworkClientProtocol = NetworkClient.shared) {
+            convenience init(page: Int, qty: Int?, city: String?, networkClient: NetworkClientProtocol = NetworkClient.shared) {
                 self.init(networkClient)
+                self.parameters = Parameters()
                 if let city = city {
-                    self.parameters = Parameters()
                     self.parameters?["city"] = city
+                }
+                self.parameters?["page"] = page
+                if let qty = qty {
+                    self.parameters?["qty"] = qty
                 }
             }
             
+            convenience init(id: Int, networkClient: NetworkClientProtocol = NetworkClient.shared) {
+                self.init(networkClient)
+                url += "/\(id)"
+            }
+            
+            
             func send() -> Promise<SalesResponse> {
+                return self.networkClient.send(request: self)
+            }
+            
+            func send() -> Promise<SaleResponse> {
                 return self.networkClient.send(request: self)
             }
         }
         
     }
     
+    
+    // MARK: - Review
+    class Review {
+        
+        class Post: NetworkRequestProtocol {
+            
+            var url = "reviews"
+            var method: HTTPMethod = .post
+            var parameters: Parameters?
+            var headers: HTTPHeaders?
+            var succeedCodes = [201, 422]
+            var encoding: ParameterEncoding = JSONEncoding.default
+            
+            private let networkClient: NetworkClientProtocol
+            
+            required init(_ networkClient: NetworkClientProtocol) {
+                self.networkClient = networkClient
+                self.headers = HTTPHeaders()
+                self.headers?["Content-Type"] = Request.contentType
+                self.headers?["Accept"] = Request.accept
+                self.headers?["Authorization"] = Request.authorization
+            }
+            
+            convenience init(userId: Int,
+                             operationId: Int,
+                             text: String,
+                             stars: Double,
+                             networkClient: NetworkClientProtocol = NetworkClient.shared) {
+                self.init(networkClient)
+                self.parameters = Parameters()
+                self.parameters?["user_id"] = userId
+                self.parameters?["operation_id"] = operationId
+                self.parameters?["text"] = text
+                self.parameters?["stars"] = stars
+            }
+            
+            func send() -> Promise<ReviewResponse> {
+                return self.networkClient.send(request: self)
+            }
+            
+        }
+        
+    }
     
 }

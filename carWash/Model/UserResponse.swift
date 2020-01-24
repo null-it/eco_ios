@@ -37,6 +37,7 @@ struct UserResponseData: Codable {
     var id: Int
     var name: String?
     var phone: String
+    var city: String
     var balance: Int?
     var month_spent: Int
     var email: String?
@@ -55,6 +56,7 @@ struct UserResponseData: Codable {
         name = try? container.decode(String.self, forKey: .name)
         phone = try container.decode(String.self, forKey: .phone)
         balance = try? container.decode(Int?.self, forKey: .balance)
+        city = try container.decode(String.self, forKey: .city)
         if let _ = balance {
             balance! /= 100
         }

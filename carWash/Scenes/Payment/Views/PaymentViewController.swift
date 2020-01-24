@@ -11,7 +11,6 @@ import SafariServices
 
 class PaymentViewController: UIViewController {
 
-    
     // MARK: - Properties
     
     var presenter: PaymentPresenterProtocol!
@@ -110,9 +109,10 @@ extension PaymentViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            guard let url = URL(string: "https://vk.com") else { return }
-            let svc = SFSafariViewController(url: url)
-            present(svc, animated: true, completion: nil)
+            ()
+//            guard let url = URL(string: "https://vk.com") else { return }
+//            let svc = SFSafariViewController(url: url)
+//            present(svc, animated: true, completion: nil)
         case 1:
             ()
         default:

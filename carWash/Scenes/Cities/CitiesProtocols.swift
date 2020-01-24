@@ -11,13 +11,15 @@ import Foundation
 // MARK: - View
 protocol CitiesViewProtocol: class {
     func update(currentCity: String, cities: [String], titles: [String])
+    func requestDidSend() 
+    func responseDidRecieve()
 }
 
 // MARK: - Presenter
 protocol CitiesPresenterProtocol: class {
     func popView()
     func viewDidLoad()
-    func didSelectCity(row: Int)
+    func didSelectCity(row: Int, isCurrent: Bool)    
 }
 
 // MARK: - Router
@@ -29,6 +31,9 @@ protocol CitiesRouterProtocol {
 protocol CitiesInteractorProtocol: class {
     func getCities(onSuccess: @escaping ([CityResponse]) -> (),
                    onFailure: @escaping () -> ()?)
+    func postCity(city: String,
+                     onSuccess: @escaping () -> (),
+                     onFailure: @escaping () -> ()?)
 }
 
 // MARK: - Configurator

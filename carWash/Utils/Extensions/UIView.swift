@@ -25,31 +25,47 @@ extension UIView {
             self.layer.cornerRadius = radius
             self.layer.maskedCorners = corners
         } else {
-//            var cornerMask = UIRectCorner()
-//            if(corners.contains(.layerMinXMinYCorner)){
-//                cornerMask.insert(.topLeft)
-//            }
-//            if(corners.contains(.layerMaxXMinYCorner)){
-//                cornerMask.insert(.topRight)
-//            }
-//            if(corners.contains(.layerMinXMaxYCorner)){
-//                cornerMask.insert(.bottomLeft)
-//            }
-//            if(corners.contains(.layerMaxXMaxYCorner)){
-//                cornerMask.insert(.bottomRight)
-//            }
-//
-//            let path = UIBezierPath(roundedRect: self.bounds,
-//                                    byRoundingCorners: cornerMask,
-//                                    cornerRadii: CGSize(width: radius, height: radius))
-//            let mask = CAShapeLayer()
-//            mask.bounds = self.frame
-//            mask.position = self.center
-//            mask.path = path.cgPath
-//            self.layer.mask = mask
-            self.layer.cornerRadius = radius
+            
+            var cornerMask = UIRectCorner()
+            if(corners.contains(.layerMinXMinYCorner)){
+                cornerMask.insert(.topLeft)
+            }
+            if(corners.contains(.layerMaxXMinYCorner)){
+                cornerMask.insert(.topRight)
+            }
+            if(corners.contains(.layerMinXMaxYCorner)){
+                cornerMask.insert(.bottomLeft)
+            }
+            if(corners.contains(.layerMaxXMaxYCorner)){
+                cornerMask.insert(.bottomRight)
+            }
+
+            let path = UIBezierPath(roundedRect: self.bounds,
+                                    byRoundingCorners: cornerMask,
+                                    cornerRadii: CGSize(width: radius, height: radius))
+            let mask = CAShapeLayer()
+            mask.frame = bounds
+            mask.path = path.cgPath
+            self.layer.mask = mask
+            
+            
+            
+//            self.layer.cornerRadius = radius
         }
         
         
     }
+
+    func roundCorners(topLeft: CGFloat = 0, topRight: CGFloat = 0, bottomLeft: CGFloat = 0, bottomRight: CGFloat = 0) {//(topLeft: CGFloat, topRight: CGFloat, bottomLeft: CGFloat, bottomRight: CGFloat) {
+        let topLeftRadius = CGSize(width: topLeft, height: topLeft)
+        let topRightRadius = CGSize(width: topRight, height: topRight)
+        let bottomLeftRadius = CGSize(width: bottomLeft, height: bottomLeft)
+        let bottomRightRadius = CGSize(width: bottomRight, height: bottomRight)
+        let maskPath = UIBezierPath(shouldRoundRect: bounds, topLeftRadius: topLeftRadius, topRightRadius: topRightRadius, bottomLeftRadius: bottomLeftRadius, bottomRightRadius: bottomRightRadius)
+        let shape = CAShapeLayer()
+        shape.path = maskPath.cgPath
+        layer.mask = shape
+    }
+    
+    
 }

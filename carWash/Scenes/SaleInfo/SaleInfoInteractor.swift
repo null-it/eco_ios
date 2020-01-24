@@ -21,5 +21,17 @@ class SaleInfoInteractor {
 
 extension SaleInfoInteractor: SaleInfoInteractorProtocol {
     
+    func getSale(id: Int,
+                 onSuccess: @escaping (SaleResponse) -> (),
+                 onFailure: @escaping () -> ()?) {
+        let request = Request.Sale.Get(id: id)
+        
+        request.send().done { response in
+            onSuccess(response)
+        }.catch { error in
+            print(error)
+            onFailure()
+        }
+    }
     
 }

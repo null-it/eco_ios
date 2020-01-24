@@ -10,6 +10,8 @@ import Foundation
 
 class PaymentPresenter {
     
+    // MARK: - Properties
+    
     unowned let view: PaymentViewProtocol
     var interactor: PaymentInteractorProtocol!
     let router: PaymentRouterProtocol
@@ -30,6 +32,8 @@ class PaymentPresenter {
     
 }
 
+
+// MARK: - PaymentPresenterProtocol
 
 extension PaymentPresenter: PaymentPresenterProtocol {
     

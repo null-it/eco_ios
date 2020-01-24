@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-//        KeychainWrapper.standard.removeAllKeys()
+                    
         let configurator = LoginConfigurator()
         let vc = configurator.viewController
         let navigationController = UINavigationController(rootViewController: vc)
@@ -31,11 +31,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navigationController.modalPresentationStyle = .fullScreen
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
-
+        
+        let userDefaults = UserDefaults.standard
+        if !userDefaults.bool(forKey: "hasRunBefore") {
+            KeychainWrapper.standard.removeAllKeys()
+            userDefaults.set(true, forKey: "hasRunBefore")
+        }
+        
         if let _ = KeychainWrapper.standard.data(forKey: "userToken")  {
+            if let _ = connectionOptions.notificationResponse {
+                KeychainWrapper.standard.set("", forKey: "notification")
+            }
             navigationController.pushViewController(MainTabBarController(), animated: false)
             navigationController.navigationBar.isHidden = true
         }
+        
+
         
     }
     

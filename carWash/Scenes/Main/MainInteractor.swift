@@ -26,8 +26,9 @@ extension MainInteractor: MainInteractorProtocol {
         let request = Request.User.Get()
         request.send().done { response in
             onSuccess(response)
-        }.catch { error in
+        }.catch { [weak self] error in
             print(error)
+            self?.logout(onSuccess: {}, onFailure: {})
             onFailure()
         }
     }
@@ -81,6 +82,39 @@ extension MainInteractor: MainInteractorProtocol {
         }.catch { error in
             print(error)
             onFailure?()
+        }
+    }
+    
+    
+    func postCity(city: String,
+                  onSuccess: @escaping () -> (),
+                  onFailure: @escaping () -> ()?) {
+        let request = Request.User.SetCity.Post(city: city)
+        
+        request.send().done { response in
+            onSuccess()
+        }.catch { error in
+            print(error)
+            onFailure()
+        }
+    }
+    
+    func postReview(userId: Int,
+                    operationId: Int,
+                    text: String,
+                    stars: Double,
+                    onSuccess: @escaping (ReviewResponse) -> (),
+                    onFailure: @escaping () -> ()?) {
+        let request = Request.Review.Post(userId: userId,
+                                          operationId: operationId,
+                                          text: text,
+                                          stars: stars)
+        
+        request.send().done { response in
+            onSuccess(response)
+        }.catch { error in
+            print(error)
+            onFailure()
         }
     }
     

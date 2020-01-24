@@ -9,19 +9,28 @@
 import UIKit
 import MapKit
 
-class CustomPointAnnotation: MKPointAnnotation { // !
-    var pinCustomImageName:String!
+class CustomPointAnnotation: MKPointAnnotation {
+    var pinCustomImageName: String!
     var action: (()->())?
+    var id: Int?
+    var text: String?
 }
 
 
 class MapViewController: UIViewController {
     
+    // MARK: - Outlet
+    
     @IBOutlet weak var mapView: MKMapView!
     
-    let locationDelta: Double = 5
+    
+     // MARK: - Properties
+    
+    let locationDelta: Double = 0.7
     var presenter: MapPresenterProtocol!
     var configurator: MapConfiguratorProtocol!
+    var pinImageName: String!
+    var selectedPinImageName: String!
     var isAuthorized: Bool = false {
         didSet {
             pinImageName = "mapPinDarkBlue" 
@@ -29,40 +38,20 @@ class MapViewController: UIViewController {
         }
     }
     
-    var pinImageName: String!
-    var selectedPinImageName: String!
-
-    
     lazy var pointAnnotations: [CustomPointAnnotation] = []
     
     lazy var tapGesture: UITapGestureRecognizer = {
-        let tapGesture =  UITapGestureRecognizer(target: self, action: #selector(MapViewController.hideInfoView))
-        tapGesture.delegate = self
-        return tapGesture
+        configureTapGestureRecognizer()
     }()
     
     lazy var infoView: WashingInfoView = {      
-        let infoView: WashingInfoView = .fromNib()!
-        infoView.isSalesViewHidden = !isAuthorized
-        view.addSubview(infoView)
-        infoView.presenter = presenter
-        infoView.isHidden = true
-        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(MapViewController.hideInfoView))
-        swipeGesture.direction = .down
-        infoView.addGestureRecognizer(swipeGesture)
-        
-        var frame = infoView.frame
-        frame.size.width = view.frame.width
-        if let tabBarHeight = self.tabBarController?.tabBar.frame.height {
-            frame.size.height += tabBarHeight
-        }
-        infoView.frame = frame
-        
-        infoView.roundCorners([.layerMinXMinYCorner, .layerMaxXMinYCorner],
-                             radius: 24) // !
-
-        return infoView
+       configureWashingInfoView()
     }()
+    
+    lazy var activityView: UIView = {
+        configureActivityView()
+    }()
+    
     
     // MARK: -  Lifecycle
     
@@ -72,14 +61,71 @@ class MapViewController: UIViewController {
         presenter.viewDidLoad()
     }
     
-
-    // MARK: -  Configurators
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.viewWillAppear()
+    }
+    
+    // MARK: -  Private
+    
+    private func configureTapGestureRecognizer() -> UITapGestureRecognizer {
+        let tapGesture =  UITapGestureRecognizer(target: self, action: #selector(MapViewController.hideInfoView))
+        tapGesture.delegate = self
+        return tapGesture
+    }
+    
+    private func configureWashingInfoView() -> WashingInfoView {
+        let infoView: WashingInfoView = .fromNib()!
+        infoView.isSalesViewHidden = !isAuthorized
+        view.addSubview(infoView)
+        infoView.presenter = presenter
+        infoView.isHidden = true
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(MapViewController.hideInfoView))
+        swipeGesture.direction = .down
+        infoView.addGestureRecognizer(swipeGesture)
+        var frame = infoView.frame
+        frame.size.width = view.frame.width
+        infoView.frame = frame
+        infoView.heightChanged = { [weak self] (frameHeight) in
+            guard let self = self else { return }
+            var y = self.view.frame.height - frameHeight
+            if let tabBarHeight = self.tabBarController?.tabBar.frame.height {
+                y -= tabBarHeight
+            }
+            infoView.frame.origin.y = y
+        }
+        infoView.roundCorners([.layerMinXMinYCorner, .layerMaxXMinYCorner],
+                              radius: 24) // !
+        
+        return infoView
+    }
+    
+    
+    private func configureActivityView() -> UIView {
+        let activityView = UIView()
+        let currentWindow = UIApplication.shared.keyWindow!
+        activityView.translatesAutoresizingMaskIntoConstraints = false
+        activityView.widthAnchor.constraint(equalToConstant: currentWindow.frame.width).isActive = true
+        activityView.heightAnchor.constraint(equalToConstant: currentWindow.frame.height).isActive = true
+        
+        activityView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        let activityIndicator = UIActivityIndicatorView()
+        
+        activityView.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: activityView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: activityView.centerYAnchor).isActive = true
+        
+        activityIndicator.startAnimating()
+        activityIndicator.color = .black
+        return activityView
+    }
+    
     
     private func configurePinAnnotation() -> CustomPointAnnotation {
         let pointAnnotation = CustomPointAnnotation()
         pointAnnotation.pinCustomImageName = pinImageName
-        let pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
-        mapView.addAnnotation(pinAnnotationView.annotation!)
+//        let pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
+//        mapView.addAnnotation(pinAnnotationView.annotation!)
         return pointAnnotation
     }
     
@@ -103,27 +149,16 @@ class MapViewController: UIViewController {
             completion?()
         }
     }
-    
-    private func setVisible(region: MKCoordinateRegion) { // !
-        
-//        let rect = mapView.convert(region, toRectTo: view)
-//        let mapRect = MKMapRect(x: Double(rect.minX),
-//                                y: Double(rect.minY),
-//                                width: Double(rect.width),
-//                                height: Double(rect.height))
-//        mapView.setVisibleMapRect(mapRect, animated: true)
-        
-//        mapView.setRegion(region, animated: true) // ! no
-        
-    }
+
     
     private func configureNavigationBar() {
-//        createCityButton(title: "Воронеж") // !
         if !isAuthorized {
             createBackButton()
             title = "Где купить карту"
+        } else {
+            createExitButton()
         }
-//        createSkipButton()
+        createLocationButton()
     }
     
 }
@@ -131,6 +166,51 @@ class MapViewController: UIViewController {
 //MARK: - MapViewProtocol
 
 extension MapViewController: MapViewProtocol {
+    
+    func requestDidSend() {
+        view.addSubview(activityView)
+    }
+    
+    func responseDidRecieve() {
+        activityView.removeFromSuperview()
+    }
+    
+    func configureDefaultMode(latitude: Double, longitude: Double) {
+        let span = MKCoordinateSpan(latitudeDelta: locationDelta,
+                                    longitudeDelta: locationDelta)
+        
+        let coordinate = CLLocationCoordinate2D(latitude: latitude,
+                                                longitude: longitude)
+        let region = MKCoordinateRegion(center: coordinate,
+                                        span: span)
+        mapView.setRegion(region, animated: true)
+    }
+    
+    
+    func configureSelectedWashMode() {
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.rightBarButtonItems = nil
+        createBackButton()
+        title = "Мойки в городе"
+    }
+    
+    
+    func selectWash(id: Int) {
+        let annotaions = pointAnnotations.filter { (annotation) -> Bool in
+            annotation.id == id
+        }
+        if let annotaion = annotaions.first {
+            mapView.selectAnnotation(annotaion, animated: true)
+            let span = MKCoordinateSpan(latitudeDelta: locationDelta,
+                                        longitudeDelta: locationDelta)
+            let coordinate = CLLocationCoordinate2D(latitude: annotaion.coordinate.latitude - locationDelta / 4,
+                                                    longitude: annotaion.coordinate.longitude)
+            let region = MKCoordinateRegion(center: coordinate,
+                                            span: span)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
     
     func showInfo(address: String, cashback: String, sales: [StockResponse]) {
         infoView.set(address: address, cashback: cashback, sales: sales)
@@ -154,25 +234,18 @@ extension MapViewController: MapViewProtocol {
     }
     
     
-    func set(latitude: Double, longitude: Double, action: (()->())?) {
+    func set(latitude: Double, longitude: Double, id: Int, cashbackText: String, action: (()->())?) {
         let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let span = MKCoordinateSpan(latitudeDelta: locationDelta,
-                                    longitudeDelta: locationDelta)
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude,
-                                                                       longitude: longitude),
-                                        span: span)
-        mapView.setRegion(region, animated: true)
+
         let pointAnnotation = configurePinAnnotation()
         pointAnnotation.coordinate = location
-        
-        let action = { [weak self] in
-            action?()
-            self?.setVisible(region: region)
-        }
-        
         pointAnnotation.action = action
+        pointAnnotation.id = id
+        pointAnnotation.text = cashbackText
         
-        
+        let pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
+        mapView.addAnnotation(pinAnnotationView.annotation!)
+
         pointAnnotations.append(pointAnnotation)
     }
     
@@ -194,6 +267,24 @@ extension MapViewController: MKMapViewDelegate  {
         
         if let customPointAnnotation = annotation as? CustomPointAnnotation {
             annotationView?.image = UIImage(named: customPointAnnotation.pinCustomImageName)
+            let label = UILabel()
+//            label.frame.size = CGSize(width: 21, height: 19)
+//            label.frame.origin = CGPoint(x: MapViewConstants.pinXOrigin,
+//                                         y: MapViewConstants.pinYOrigin)
+           
+            label.textColor = .white
+            label.text = customPointAnnotation.text
+            label.font =  UIFont.systemFont(ofSize: 12, weight: .bold) 
+            label.tag = MapViewConstants.pinLabelTag
+            label.sizeToFit()
+            
+            let x =  (annotationView!.frame.width - label.frame.width) / 2
+            let y = MapViewConstants.pinYOrigin
+            label.frame.origin = CGPoint(x: x, y: y)
+            
+            annotationView?.subviews.forEach({ $0.removeFromSuperview() })
+            annotationView?.addSubview(label)
+            //            label.center = annotationView!.center
         }
         return annotationView
     }
@@ -203,12 +294,32 @@ extension MapViewController: MKMapViewDelegate  {
         if let annotation = view.annotation as? CustomPointAnnotation {
             annotation.action?()
             view.image = UIImage(named: selectedPinImageName)
+            if let label = view.viewWithTag(MapViewConstants.pinLabelTag) as? UILabel {
+                label.font = label.font.withSize(15)
+//                label.frame.origin = CGPoint(x: MapViewConstants.selectedPinXOrigin,
+//                                             y: MapViewConstants.selectedPinYOrigin)
+                label.sizeToFit()
+                let x =  (view.frame.width - label.frame.width) / 2
+                let y = MapViewConstants.selectedPinYOrigin
+                label.frame.origin = CGPoint(x: x,
+                                             y: y)
+                
+            }
+            
+            
         }
     }
     
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         view.image = UIImage(named: pinImageName)
+        if let label = view.viewWithTag(MapViewConstants.pinLabelTag) as? UILabel {
+            label.font = label.font.withSize(12)
+            label.sizeToFit()
+            let x =  (view.frame.width - label.frame.width) / 2
+            let y = MapViewConstants.pinYOrigin
+            label.frame.origin = CGPoint(x: x, y: y)
+        }
     }
 }
 
@@ -237,24 +348,18 @@ extension MapViewController: UIGestureRecognizerDelegate {
 
 extension MapViewController: NavigationBarConfigurationProtocol {
     
-    func backButtonPressed() {
+    @objc func backButtonPressed() {
         presenter.popView()
     }
     
-//
-//    func skipButtonPressed() {
-//        let reviewView: ReviewView = .fromNib()!
-//        view.addSubview(reviewView)
-//        let y = view.frame.height - reviewView.frame.height
-//        let origin = CGPoint(x: 0, y: y)
-//        var size = reviewView.frame.size
-//        size.width = view.frame.width
-//        let frame = CGRect(origin: origin, size: size)
-//        reviewView.frame = frame
-//    }
-    
-    func cityButtonPressed() {
-        presenter.selectCity()
+    @objc func exitButtonPressed() {
+        presenter.logout()
+    }
+
+    @objc func locationButtonPressed() {
+        presenter.selectCity() { [weak self] in
+            self?.hideInfoView()
+        }
     }
     
 }

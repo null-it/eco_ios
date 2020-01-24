@@ -12,6 +12,8 @@ import SwiftKeychainWrapper
 
 class LoginPresenter {
     
+    // MARK: - Properties
+    
     var phoneNumberText = ""
     var passwordText = ""
 
@@ -39,8 +41,128 @@ class LoginPresenter {
         self.router = router
     }
     
+    
+    // MARK: - Private
+    
+    private func setTimeout(seconds: Int) {
+        guard seconds != 0 else {
+            view.setTimeout(text: "")
+            return
+        }
+        
+        var seconds = seconds
+        Timer.scheduledTimer(withTimeInterval: 1,
+                             repeats: true) { [weak self] (timer) in
+                                guard let self = self else { return }
+                                self.timer = timer
+                                let timeoutText = self.toString(seconds: seconds)
+                                self.view.setTimeout(text: timeoutText)
+                                seconds -= 1
+                                
+                                if seconds < 0 {
+                                    timer.invalidate()
+                                    self.view.setTimeout(text: "")
+                                    self.view.setSendPasswordAgainButton(enabled: true)
+                                    return
+                                }
+        }
+    }
+    
+    
+    private func toString(seconds: Int) -> String {
+        let min = seconds / 60
+        let sec = seconds % 60
+        var text = "\(min):"
+        text += String(sec).leftPadding(toLength: 2, withPad: "0")
+        return text
+    }
+    
+    
+    private func obtainPassword(isFirstTime: Bool) {
+        if let ints = getAllIntFrom(string: phoneNumberText) {
+            let str = String(ints)
+            interactor.sendPassword(phoneNumber: str, onSuccess: { [weak self] response in
+                guard let self = self else { return }
+                switch response.type {
+                case .ok:
+                    self.didReceiveResponse(seconds: response.seconds_to_send,
+                                            isFirstTime: isFirstTime)
+                case .timeout:
+                    self.didReceiveResponse(seconds: response.seconds_to_send,
+                                            isFirstTime: isFirstTime)
+                case .error:
+                    if let message = response.msg {
+                        self.view.showAlert(message: message, title: "Ошибка")
+                    }
+                }
+            }) { [weak self] in
+                self?.view.showAlert(message: "Возникли проблемы соединения с сервером. Пожалуйста, попробуйте позже", title: "Ошибка")
+            }
+        }
+    
+    }
+    
+    
+    private func didReceiveResponse(seconds: Int?, isFirstTime: Bool) {
+        self.view.setAlreadyHasPasswordButton(title: nil, hidden: true)
+        alreadyHasPassword = false
+        self.isPasswordSended = true
+        self.view.setPasswordField(hidden: false, text: nil)
+        if let seconds = seconds {
+            self.setTimeout(seconds: seconds)
+        }
+        if isFirstTime {
+            self.view.setLoginButton(title: "Войти", enabled: false)
+        }
+        self.obtainPasswordRequestDidSend()
+    }
+    
+    
+    private func obtainPasswordRequestDidSend() {
+        self.view.setSendPasswordAgainButton(title: nil, hidden: false)
+        self.view.setSendPasswordAgainButton(enabled: false)
+        passwordText = ""
+        self.view.setPasswordField(hidden: false, text: passwordText)
+        self.view.passwordDidEnter(false)
+    }
+    
+    
+    private func login() {
+        // validation (password & phone)
+        if let ints = getAllIntFrom(string: phoneNumberText) {
+            view.loginRequestDidSend()
+            let str = String(ints)
+            let dto = CheckPasswordDTO(phone: str, code: passwordText)
+            interactor.checkPassword(dto: dto, onSuccess: { [weak self] (response) in
+                switch response.type {
+                case .ok:
+                    let userToken = "\(response.data!.token_type) \(response.data!.token)"
+                    KeychainWrapper.standard.set(userToken, forKey: "userToken")
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.configureFirebase()
+                    
+                    self?.view.loginResponseDidRecieve()
+                    self?.router.presentProfileView()
+                    self?.viewDidLoad()
+                    self?.view.refreshView()
+                case .error:
+                    self?.view.loginResponseDidRecieve()
+                    if let message = response.msg {
+                        self?.view.showAlert(message: message, title: "Ошибка")
+                    }
+                }
+            }) { [weak self] in
+                self?.view.loginResponseDidRecieve()
+                return self?.view.showAlert(message: "Возникли проблемы соединения с сервером. Пожалуйста, попробуйте позже", title: "Ошибка") // !
+            }
+        }
+    }
+    
 }
 
+
+// MARK: - LoginPresenterProtocol
 
 extension LoginPresenter: LoginPresenterProtocol {
     
@@ -89,7 +211,6 @@ extension LoginPresenter: LoginPresenterProtocol {
             return
         }
         
-        
         //        guard !phoneNumberText.isEmpty else { // validation
         //            view.showAlert(message: "Введите номер", title: "Ошибка")
         //            return
@@ -117,83 +238,6 @@ extension LoginPresenter: LoginPresenterProtocol {
         obtainPassword(isFirstTime: false)
     }
     
-    private func obtainPassword(isFirstTime: Bool) {
-        if let ints = getAllIntFrom(string: phoneNumberText) {
-            let str = String(ints)
-            interactor.sendPassword(phoneNumber: str, onSuccess: { [weak self] response in
-                guard let self = self else { return }
-                switch response.type {
-                case .ok:
-                    self.didReceiveResponse(seconds: response.seconds_to_send,
-                                            isFirstTime: isFirstTime)
-                case .timeout:
-                    self.didReceiveResponse(seconds: response.seconds_to_send,
-                                            isFirstTime: isFirstTime)
-                case .error:
-                    if let message = response.msg {
-                        self.view.showAlert(message: message, title: "Ошибка")
-                    }
-                }
-            }) { [weak self] in
-                self?.view.showAlert(message: "Возникли проблемы соединения с сервером. Пожалуйста, попробуйте позже", title: "Ошибка")
-            }
-        }
-
-        
-
-//        self.didReceiveResponse(seconds: 100,
-//                                isFirstTime: isFirstTime)
-    }
-    
-    
-    private func didReceiveResponse(seconds: Int?, isFirstTime: Bool) {
-        self.view.setAlreadyHasPasswordButton(title: nil, hidden: true)
-        alreadyHasPassword = false
-        self.isPasswordSended = true
-        self.view.setPasswordField(hidden: false, text: nil)
-        if let seconds = seconds {
-            self.setTimeout(seconds: seconds)
-        }
-        if isFirstTime {
-            self.view.setLoginButton(title: "Войти", enabled: false)
-        }
-        self.obtainPasswordRequestDidSend()
-    }
-    
-    
-    private func obtainPasswordRequestDidSend() {
-        self.view.setSendPasswordAgainButton(title: nil, hidden: false)
-        self.view.setSendPasswordAgainButton(enabled: false)
-        passwordText = ""
-        self.view.setPasswordField(hidden: false, text: passwordText)
-        self.view.passwordDidEnter(false)
-    }
-    
-    
-    private func login() {
-        // validation (password & phone)
-        if let ints = getAllIntFrom(string: phoneNumberText) {
-            let str = String(ints)
-            let dto = CheckPasswordDTO(phone: str, code: passwordText)
-            interactor.checkPassword(dto: dto, onSuccess: { [weak self] (response) in
-                switch response.type {
-                case .ok:
-                    let userToken = "\(response.data!.token_type) \(response.data!.token)"
-                    KeychainWrapper.standard.set(userToken, forKey: "userToken")
-
-                    self?.router.presentProfileView()
-                    self?.viewDidLoad()
-                    self?.view.refreshView()
-                case .error:
-                    if let message = response.msg {
-                        self?.view.showAlert(message: message, title: "Ошибка")
-                    }
-                }
-            }) { [weak self] in
-                self?.view.showAlert(message: "Возникли проблемы соединения с сервером. Пожалуйста, попробуйте позже", title: "Ошибка") // !
-            }
-        }
-    }
     
     
     func getAllIntFrom(string: String)-> Int? {
@@ -201,7 +245,12 @@ extension LoginPresenter: LoginPresenterProtocol {
         return number
     }
     
-    func shouldChangePasswordCharacters(in range: NSRange, replacementString string: String) -> Bool {
+    func shouldChangePasswordCharacters(in range: NSRange, replacementString string: String, isFirstChange: Bool) -> Bool {
+        guard !isFirstChange else {
+            passwordText = string
+            return true
+        }
+        
         guard let textRange = Range(range, in: passwordText),
             string.matches(for: "[0-9]").count ==  string.count else {
                 return false
@@ -262,39 +311,5 @@ extension LoginPresenter: LoginPresenterProtocol {
         self.view.setSendPasswordAgainButton(title: nil, hidden: true)
         lastPhoneNumber = phoneNumberText
     }
-    
-    
-    private func setTimeout(seconds: Int) {
-        guard seconds != 0 else {
-            view.setTimeout(text: "")
-            return
-        }
-        
-        var seconds = seconds
-        Timer.scheduledTimer(withTimeInterval: 1,
-                             repeats: true) { [weak self] (timer) in
-                                guard let self = self else { return }
-                                self.timer = timer
-                                let timeoutText = self.toString(seconds: seconds)
-                                self.view.setTimeout(text: timeoutText)
-                                seconds -= 1
-                                
-                                if seconds < 0 {
-                                    timer.invalidate()
-                                    self.view.setTimeout(text: "")
-                                    self.view.setSendPasswordAgainButton(enabled: true)
-                                    return
-                                }
-        }
-    }
-    
-    
-    private func toString(seconds: Int) -> String {
-         let min = seconds / 60
-         let sec = seconds % 60
-         var text = "\(min):"
-         text += String(sec).leftPadding(toLength: 2, withPad: "0")
-         return text
-     }
     
 }

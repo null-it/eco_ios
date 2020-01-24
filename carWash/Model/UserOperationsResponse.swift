@@ -20,7 +20,7 @@ struct UserOperationsResponse: Codable {
     var path: String
     var per_page: String
     var prev_page_url: String?
-    var to: Int
+    var to: Int?
     var total: Int
     
     init(from decoder: Decoder) throws {
@@ -35,7 +35,7 @@ struct UserOperationsResponse: Codable {
         self.path = try container.decode(String.self, forKey: .path)
         self.per_page = try container.decode(String.self, forKey: .per_page)
         self.prev_page_url = try? container.decode(String?.self, forKey: .prev_page_url)
-        self.to = try container.decode(Int.self, forKey: .to)
+        self.to = try? container.decode(Int?.self, forKey: .to)
         self.total = try container.decode(Int.self, forKey: .total)
     }
 }

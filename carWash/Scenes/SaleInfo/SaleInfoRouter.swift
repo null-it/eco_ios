@@ -23,11 +23,15 @@ class SaleInfoRouter {
 
 extension SaleInfoRouter: SaleInfoRouterProtocol {
     
-    func presentMapView() {
+    func presentMapView(washId: Int) {
         guard let view = view else { return }
-        let configurator = MapConfigurator(isAuthorized: true)
+        let configurator = MapConfigurator(isAuthorized: true, washId: washId, tabBarController: nil)
         let vc = configurator.viewController
-        view.navigationController?.pushViewController(vc, animated: true)
+        if let navigationController = view.navigationController {
+            navigationController.pushViewController(vc, animated: true)
+        } else {
+            view.present(vc, animated: true)
+        }
     }
     
     

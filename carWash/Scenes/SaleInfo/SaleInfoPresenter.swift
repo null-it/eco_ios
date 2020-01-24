@@ -12,6 +12,13 @@ class SaleInfoPresenter {
     unowned let view: SaleInfoViewProtocol
     var interactor: SaleInfoInteractorProtocol!
     let router: SaleInfoRouterProtocol
+    var sale: SaleResponse?
+    var id: Int! {
+        didSet {
+            getSaleInfo()
+        }
+    }
+    
     
     init(view: SaleInfoViewProtocol,
          router: SaleInfoRouterProtocol) {
@@ -20,6 +27,17 @@ class SaleInfoPresenter {
         
     }
     
+    
+    private func getSaleInfo() {
+        interactor.getSale(id: id,
+                           onSuccess: { [weak self] (sale) in
+                            self?.view.updateInfo(sale: sale)
+                            self?.sale = sale
+        },
+                           onFailure: {
+                            // ! alert !
+        })
+    }
 }
 
 
@@ -29,8 +47,10 @@ extension SaleInfoPresenter: SaleInfoPresenterProtocol {
         router.popView()
     }
     
-    func addressButtonPressed() {
-        router.presentMapView() //!
+    func addressButtonPressed(row: Int) {
+        if let washId = sale?.washes?[row].id {
+            router.presentMapView(washId: washId)
+        }
     }
     
 }

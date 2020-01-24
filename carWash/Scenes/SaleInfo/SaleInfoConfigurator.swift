@@ -12,7 +12,7 @@ class SaleInfoConfigurator: SaleInfoConfiguratorProtocol {
     
     var viewController: UIViewController
     
-    required init() {
+    required init(id: Int) {
         
         let saleInfoView: SaleInfoViewController? = SaleInfoViewController(nibName: SaleInfoViewController.nibName, bundle: nil)
         
@@ -26,6 +26,7 @@ class SaleInfoConfigurator: SaleInfoConfiguratorProtocol {
         view.presenter = presenter
         let interactor = SaleInfoInteractor(presenter: presenter)
         presenter.interactor = interactor
+        presenter.id = id
         viewController = view
     }
 }

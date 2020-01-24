@@ -18,6 +18,10 @@ class CitiesViewController: UIViewController {
     var currentCity: String = ""
     var citiesSectionsTitles: [String] = [] // !
     
+    lazy var activityView: UIView = {
+        configureActivityView()
+    }()
+    
     
     // MARK: - Outlets
     
@@ -37,12 +41,32 @@ class CitiesViewController: UIViewController {
     // MARK: - Private
     
     private func configureTableView() {
+        tableView.isHidden = true // !
         tableView.delegate = self
         tableView.dataSource = self
         let cellNib = UINib(nibName: CitiesTableViewCell.nibName, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: CitiesTableViewCell.nibName)
     }
     
+    private func configureActivityView() -> UIView {
+        let activityView = UIView()
+        let currentWindow = UIApplication.shared.keyWindow!
+        activityView.translatesAutoresizingMaskIntoConstraints = false
+        activityView.widthAnchor.constraint(equalToConstant: currentWindow.frame.width).isActive = true
+        activityView.heightAnchor.constraint(equalToConstant: currentWindow.frame.height).isActive = true
+        
+        activityView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        let activityIndicator = UIActivityIndicatorView()
+        
+        activityView.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: activityView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: activityView.centerYAnchor).isActive = true
+        
+        activityIndicator.startAnimating()
+        activityIndicator.color = .black
+        return activityView
+    }
 }
 
 
@@ -57,6 +81,7 @@ extension CitiesViewController: CitiesViewProtocol {
         self.cities = cities
         self.citiesSectionsTitles = titles
         tableView.reloadData()
+        tableView.isHidden = false // !
     }
     
 }
@@ -70,6 +95,7 @@ extension CitiesViewController: UITableViewDataSource {
         return 2
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -81,6 +107,7 @@ extension CitiesViewController: UITableViewDataSource {
         }
         
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: CitiesTableViewCell.nibName, for: indexPath) as? CitiesTableViewCell {
@@ -97,15 +124,11 @@ extension CitiesViewController: UITableViewDataSource {
         return UITableViewCell()
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        guard !citiesSectionsTitles.isEmpty,
-//            citiesSectionsTitles.endIndex >= section else { return nil }
-//        return citiesSectionsTitles[section]
-//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 56 // !
     }
+    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard !citiesSectionsTitles.isEmpty,
@@ -120,7 +143,7 @@ extension CitiesViewController: UITableViewDataSource {
                                   width: tableView.frame.width,
                                   height: 56)
         label.text = citiesSectionsTitles[section]
-        label.font = UIFont(name: "Gilroy-regular", size: 12)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular) 
         label.textColor = UIColor(hex: "#8D8D8D")
         headerView.addSubview(label)
         return headerView
@@ -134,7 +157,7 @@ extension CitiesViewController: UITableViewDataSource {
 extension CitiesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didSelectCity(row: indexPath.row)
+        presenter.didSelectCity(row: indexPath.row, isCurrent: indexPath.section == 0)
     }
     
 }
@@ -143,9 +166,17 @@ extension CitiesViewController: UITableViewDelegate {
 // MARK: - NavigationBarConfigurationProtocol
 
 extension CitiesViewController: NavigationBarConfigurationProtocol {
-
+    
     func backButtonPressed() {
         presenter.popView()
+    }
+    
+    func requestDidSend() {
+        view.addSubview(activityView)
+    }
+    
+    func responseDidRecieve() {
+        activityView.removeFromSuperview()
     }
     
 }

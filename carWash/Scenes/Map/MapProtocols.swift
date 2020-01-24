@@ -10,22 +10,36 @@
 // MARK: - View
 protocol MapViewProtocol: class {
     func showInfo(address: String, cashback: String, sales: [StockResponse]) 
-    func set(latitude: Double, longitude: Double, action: (()->())?)
+    func set(latitude: Double, longitude: Double, id: Int, cashbackText: String, action: (()->())?) 
+    func selectWash(id: Int)
+    func configureSelectedWashMode()
+    func configureDefaultMode(latitude: Double, longitude: Double)
+    func showAlert(message: String,
+                   title: String,
+                   okButtonTitle: String,
+                   cancelButtonTitle: String,
+                   okAction: @escaping () -> (),
+                   cancelAction: @escaping () -> ())
+    func requestDidSend()
+    func responseDidRecieve()
 }
 
 // MARK: - Presenter
 protocol MapPresenterProtocol: class {
-    func presentSaleInfoView()
+    func presentSaleInfoView(row: Int) 
     func popView()
     func viewDidLoad()
-    func selectCity()
+    func selectCity(cityChanged: (() -> ())?) 
+    func viewWillAppear()
+    func logout()
 }
 
 // MARK: - Router
 protocol MapRouterProtocol {
-    func presentSaleInfoView()
+    func presentSaleInfoView(id: Int)
     func popView()
-    func presentCityView()
+    func presentCityView(cityChanged: (() -> ())?)
+    func popToAuthorization()
 }
 
 // MARK: - Interactor
@@ -38,6 +52,8 @@ protocol MapInteractorProtocol: class {
     func getWash(id: Int,
                  onSuccess: @escaping (WashResponse) -> (),
                  onFailure: @escaping () -> ()?)
+    func logout(onSuccess: @escaping () -> (),
+                onFailure: @escaping () -> ()?)
 }
 
 // MARK: - Configurator

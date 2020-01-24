@@ -35,10 +35,12 @@ extension SalesInteractor: SalesInteractorProtocol {
     }
     
     
-    func getSales(city: String?,
+    func getSales(page: Int,
+                  qty: Int?,
+                  city: String?,
                   onSuccess: @escaping (SalesResponse) -> (),
                   onFailure: @escaping () -> ()?) {
-        let request = Request.Sale.Get(city: city)
+        let request = Request.Sale.Get(page: page, qty: qty, city: city)
         
         request.send().done { response in
             onSuccess(response)

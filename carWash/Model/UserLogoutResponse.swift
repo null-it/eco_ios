@@ -10,5 +10,5 @@
 // MARK: - UserLogoutResponse
 
 struct UserLogoutResponse: Codable {
-    var status: String
+    var status: String?
 }

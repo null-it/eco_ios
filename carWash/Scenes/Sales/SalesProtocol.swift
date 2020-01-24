@@ -10,34 +10,43 @@ import Foundation
 
 // MARK: - View
 protocol SalesViewProtocol: class {
-    func updateSales(sales: [SaleResponseData])
     func showAlert(message: String,
                    title: String,
                    okButtonTitle: String,
                    cancelButtonTitle: String,
                    okAction: @escaping () -> (),
                    cancelAction: @escaping () -> ())
-
+    func reload(rows: [Int], sales: [SaleResponse?])
+    func reloadData(sales: [SaleResponse?])
+    func requestDidSend()
+    func responseDidRecieve()
+    func presentSaleInfoView(id: Int)
+    func refreshDidEnd()
 }
 
 // MARK: - Presenter
 protocol SalesPresenterProtocol: class {
-    func presentSaleInfoView()
+    func presentSaleInfoView(row: Int) 
     func viewDidLoad()
     func logout()
     func selectCity()
+    func loadPage(for row: Int)
+    func presentSaleInfoView(id: Int)
+    func refreshData() 
 }
 
 // MARK: - Router
 protocol SalesRouterProtocol {
-    func presentSaleInfoView()
+    func presentSaleInfoView(id: Int)
     func popToAuthorization()
-    func presentCityView()
+    func presentCityView(cityChanged: (() -> ())?) 
 }
 
 // MARK: - Interactor
 protocol SalesInteractorProtocol: class {
-    func getSales(city: String?,
+    func getSales(page: Int,
+                  qty: Int?,
+                  city: String?,
                   onSuccess: @escaping (SalesResponse) -> (),
                   onFailure: @escaping () -> ()?)
     func logout(onSuccess: @escaping () -> (),

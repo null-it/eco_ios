@@ -10,10 +10,13 @@ import UIKit
 
 @objc protocol NavigationBarConfigurationProtocol {
     @objc optional func backButtonPressed()
+    @objc optional func filterButtonPressed()
     @objc optional func exitButtonPressed()
     @objc optional func skipButtonPressed()
     //    @objc optional func cityButtonPressed()
     @objc optional func locationButtonPressed()
+    @objc optional func closeButtonPressed()
+    @objc optional func clearButtonPressed()
 }
 
 
@@ -30,7 +33,7 @@ extension NavigationBarConfigurationProtocol where Self: UIViewController {
         backButton.addTarget(self, action: #selector(NavigationBarConfigurationProtocol.backButtonPressed), for: .touchUpInside)
         
         let label = UILabel(frame: CGRect(x: backButton.frame.maxX + 8, y: 0, width: 90, height: 22))
-        label.font =  UIFont(name: "Gilroy-Regular", size: 16)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         view.addSubview(label)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NavigationBarConfigurationProtocol.backButtonPressed))
@@ -47,17 +50,28 @@ extension NavigationBarConfigurationProtocol where Self: UIViewController {
         }
     }
     
+    func createCloseButton() {
+        let backButton = UIButton()
+        backButton.setTitle("Закрыть", for: .normal)
+        backButton.setTitleColor(Constants.green, for: .normal)
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        backButton.frame = CGRect(x: 0, y: 0, width: 70, height: 20)
+        backButton.addTarget(self, action: #selector(NavigationBarConfigurationProtocol.closeButtonPressed), for: .touchUpInside)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: backButton)
+    }
     
-    //    func createExitButton() {
-    //        let exitButton: UIButton = UIButton(type: UIButton.ButtonType.custom)
-    //        exitButton.setTitle("Выйти", for: .normal) // !
-    //        exitButton.addTarget(self, action: #selector(NavigationBarConfigurationProtocol.exitButtonPressed), for: UIControl.Event.touchUpInside)
-    //        exitButton.setTitleColor(Constants.green, for: .normal) // !
-    //        exitButton.titleLabel?.font = UIFont(name: "Gilroy-Medium", size: 15)
-    //        exitButton.frame = CGRect(x: 0, y: 0, width: 50, height: 20)
-    //        let exitBarButton = UIBarButtonItem(customView: exitButton)
-    //        navigationItem.rightBarButtonItem = exitBarButton
-    //    }
+    
+    func createClearButton() {
+        let skipButton: UIButton = UIButton(type: UIButton.ButtonType.custom)
+        skipButton.setTitle("Сбросить", for: .normal)  // !
+        skipButton.addTarget(self, action: #selector(NavigationBarConfigurationProtocol.clearButtonPressed), for: UIControl.Event.touchUpInside)
+        skipButton.setTitleColor(Constants.green, for: .normal) // !
+        skipButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        skipButton.frame = CGRect(x: 0, y: 0, width: 80, height: 20)
+        let skipBarButton = UIBarButtonItem(customView: skipButton)
+        navigationItem.rightBarButtonItem = skipBarButton
+    }
     
     
     func createSkipButton() {
@@ -65,23 +79,13 @@ extension NavigationBarConfigurationProtocol where Self: UIViewController {
         skipButton.setTitle("Пропустить", for: .normal)  // !
         skipButton.addTarget(self, action: #selector(NavigationBarConfigurationProtocol.skipButtonPressed), for: UIControl.Event.touchUpInside)
         skipButton.setTitleColor(Constants.green, for: .normal) // !
-        skipButton.titleLabel?.font = UIFont(name: "Gilroy-Medium", size: 15)
+        skipButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         skipButton.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
         let skipBarButton = UIBarButtonItem(customView: skipButton)
         navigationItem.rightBarButtonItem = skipBarButton
     }
     
-    //    func createCityButton(title: String) {
-    //        let skipButton: UIButton = UIButton(type: UIButton.ButtonType.custom)
-    //        skipButton.setTitle(title, for: .normal)  // !
-    //        skipButton.addTarget(self, action: #selector(NavigationBarConfigurationProtocol.cityButtonPressed), for: UIControl.Event.touchUpInside)
-    //        skipButton.setTitleColor(Constants.green, for: .normal) // !
-    //        skipButton.titleLabel?.font = UIFont(name: "Gilroy-Medium", size: 15)
-    //        skipButton.frame = CGRect(x: 0, y: 0, width: 70, height: 20)
-    //        let skipBarButton = UIBarButtonItem(customView: skipButton)
-    //        navigationItem.rightBarButtonItem = skipBarButton
-    //    }
-    //
+    
     func createLocationButton() {
         let locationButton: UIButton = UIButton(type: UIButton.ButtonType.custom)
         let image = UIImage(named: "locationMarker")
@@ -96,6 +100,7 @@ extension NavigationBarConfigurationProtocol where Self: UIViewController {
             self.navigationItem.rightBarButtonItems = [locationBarButton]
         }
     }
+    
     
     func createExitButton() {
         let exitButton: UIButton = UIButton(type: UIButton.ButtonType.custom)
@@ -112,5 +117,20 @@ extension NavigationBarConfigurationProtocol where Self: UIViewController {
         }
     }
     
+    
+    func createFilterButton() {
+        let exitButton: UIButton = UIButton(type: UIButton.ButtonType.custom)
+        let image = UIImage(named: "filter")
+        exitButton.setImage(image, for: UIControl.State.normal)
+        exitButton.addTarget(self, action: #selector(NavigationBarConfigurationProtocol.filterButtonPressed), for: UIControl.Event.touchUpInside)
+        exitButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        exitButton.setNeedsLayout()
+        let exitBarButton = UIBarButtonItem(customView: exitButton)
+        if let _ = self.navigationItem.rightBarButtonItems {
+            self.navigationItem.rightBarButtonItems!.append(exitBarButton)
+        } else {
+            self.navigationItem.rightBarButtonItems = [exitBarButton]
+        }
+    }
 }
 

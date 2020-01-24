@@ -23,31 +23,29 @@ class SalesRouter {
 // MARK: - SalesRouterProtocol
 
 extension SalesRouter: SalesRouterProtocol {
-
-    func presentSaleInfoView() {
+    
+    func presentSaleInfoView(id: Int) {
         guard let view = view else { return }
         
-        let configurator = SaleInfoConfigurator()
+        let configurator = SaleInfoConfigurator(id: id)
         let vc = configurator.viewController
         
         view.navigationController?.pushViewController(vc, animated: true)
     }
     
     
-     func popToAuthorization() {
-         tabBarController?.navigationController?.popViewController(animated: true)
-     }
-     
-     
-     func presentCityView() {
-         guard let view = view else { return }
-         
-         let configurator = CitiesConfigurator()
-         let vc = configurator.viewController
-         
-         view.navigationController?.pushViewController(vc, animated: true)
-     }
-     
+    func popToAuthorization() {
+        tabBarController?.navigationController?.popViewController(animated: true)
+    }
     
-  
+    
+    func presentCityView(cityChanged: (() -> ())?) {
+        guard let view = view else { return }
+        
+        let configurator = CitiesConfigurator(cityChanged: cityChanged)
+        let vc = configurator.viewController
+        
+        view.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
