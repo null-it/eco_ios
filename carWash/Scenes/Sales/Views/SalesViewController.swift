@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 
 class SalesViewController: UIViewController {
@@ -18,12 +19,11 @@ class SalesViewController: UIViewController {
     var sales: [SaleResponse?] = []
     var images: [UIImage?] = []
     let emptyCollectionBackgroundView: EmptySalesView = .fromNib()!
-    private let refreshControl = UIRefreshControl()
-
-    lazy var activityView: UIView = {
-       configureActivityView()
+    var refreshControl = UIRefreshControl()
+    lazy var isSE: Bool = {
+        let modelName = UIDevice.modelName
+        return Constants.SE.contains(modelName)
     }()
-    
     
     // MARK: - Outlet
     
@@ -41,6 +41,8 @@ class SalesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         presenter.viewDidLoad()
+        configureRefreshControl()
+        collectionView.setContentOffset(.zero, animated: true)
     }
     
     
@@ -52,10 +54,14 @@ class SalesViewController: UIViewController {
         let cellNib = UINib(nibName: SalesCollectionViewCell.nibName, bundle: nil)
         collectionView.register(cellNib, forCellWithReuseIdentifier: SalesCollectionViewCell.nibName)
         collectionView.prefetchDataSource = self
-        collectionView.refreshControl = refreshControl
-        collectionView.isHidden = true
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-
+    }
+    
+    
+    private func configureRefreshControl() {
+         refreshControl = UIRefreshControl()
+         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+         collectionView.refreshControl = refreshControl
+         refreshControl.setValue(Constants.refreshControlValue, forKey: "_snappingHeight")
     }
     
     
@@ -72,24 +78,9 @@ class SalesViewController: UIViewController {
         }
     }
     
-    private func configureActivityView() -> UIView {
-        let activityView = UIView()
-        let currentWindow = UIApplication.shared.keyWindow!
-        activityView.translatesAutoresizingMaskIntoConstraints = false
-        activityView.widthAnchor.constraint(equalToConstant: currentWindow.frame.width).isActive = true
-        activityView.heightAnchor.constraint(equalToConstant: currentWindow.frame.height).isActive = true
-        
-        activityView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-        let activityIndicator = UIActivityIndicatorView()
-        
-        activityView.addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.centerXAnchor.constraint(equalTo: activityView.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: activityView.centerYAnchor).isActive = true
-        
-        activityIndicator.startAnimating()
-        activityIndicator.color = .black
-        return activityView
+    private func showAnimatedSkeleton(view: UIView, color: UIColor) {
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight, duration:  MainSceneConstants.sceletonAnimationDuration) // !!!
+        view.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: color), animation: animation)
     }
     
 }
@@ -108,13 +99,11 @@ extension SalesViewController: SalesViewProtocol {
     }
     
     func requestDidSend() {
-        view.addSubview(activityView)
-        collectionView.isHidden = true
+        showAnimatedSkeleton(view: view, color: .clouds)
     }
     
     func responseDidRecieve() {
-        activityView.removeFromSuperview()
-        collectionView.isHidden = false
+        view.hideSkeleton(transition: .crossDissolve(Constants.skeletonCrossDissolve))
     }
     
     
@@ -152,7 +141,7 @@ extension SalesViewController: UICollectionViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension SalesViewController: UICollectionViewDataSource {
+extension SalesViewController {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let count = sales.count
@@ -163,10 +152,11 @@ extension SalesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { // !
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesCollectionViewCell.nibName, for: indexPath) as? SalesCollectionViewCell {
             if let data = sales[indexPath.row] {
+                cell.hideSkeleton()
                 cell.tag = data.id
                 let image = images[indexPath.row]
                 cell.setImage(image)
-                cell.configure(title: data.title, date: data.finished_at ?? "")
+                cell.configure(title: data.title, date: "\(data.startedAt!) - \(data.finishedAt!)") // !
                 if image == nil {
                     if !data.logo.isEmpty {
                         let url = URL(string: data.logo)
@@ -186,12 +176,22 @@ extension SalesViewController: UICollectionViewDataSource {
                     }
                 }
             } else {
-                cell.setImage(nil)
-                cell.configure(title: "", date: "")
+//                cell.setImage(nil)
+//                cell.configure(title: "", date: "")
+                showAnimatedSkeleton(view: cell, color: .clouds)
             }
             return cell
         }
         return UICollectionViewCell()
+    }
+    
+}
+
+
+extension SalesViewController: SkeletonCollectionViewDataSource {
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        SalesCollectionViewCell.nibName
     }
     
 }
@@ -202,8 +202,17 @@ extension SalesViewController: UICollectionViewDataSource {
 extension SalesViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = view.frame.width - 2 * SalesViewConstants.standartSpacing
-        let height = SalesViewConstants.saleCellHeight // width * SalesViewConstants.saleCellAspectRatio
+        let width: CGFloat!
+        let height: CGFloat!
+        
+        if isSE {
+            width = SalesViewConstants.saleSECellWidth
+            height = SalesViewConstants.saleSECellHeight
+        } else {
+            width = view.frame.width - 2 * SalesViewConstants.standartSpacing
+            height = width * SalesViewConstants.saleCellAspectRatio
+        }
+        
         let size = CGSize(width: width, height: height)
         return size
     }

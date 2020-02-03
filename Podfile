@@ -18,5 +18,8 @@ target 'carWash' do
   pod 'PromiseKit/Alamofire', '~> 6.0'
   pod 'SwiftKeychainWrapper', "~> 3.4"
   pod 'BEMCheckBox', '~> 1.4.1'
-
+  pod "SkeletonView", '~> 1.8.2'
+  pod "ReachabilitySwift"
+  pod 'SwiftEntryKit', '1.2.3'
+  
 end

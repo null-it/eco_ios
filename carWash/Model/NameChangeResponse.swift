@@ -10,6 +10,7 @@
 // MARK: - NameChangeResponse
 
 struct NameChangeResponse: Codable {
+    
     var status: String?
     var message: String?
     var errors: NameChangeErrors?
@@ -21,6 +22,7 @@ struct NameChangeResponse: Codable {
         self.errors = try? container.decode(NameChangeErrors?.self, forKey: .errors)
     
     }
+    
 }
 
 

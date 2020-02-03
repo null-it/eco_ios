@@ -40,9 +40,9 @@ class OperationsFilterPresenter {
     unowned let view: OperationsFilterViewProtocol
     var interactor: OperationsFilterInteractorProtocol!
     let router: OperationsFilterRouterProtocol
-      
-//    var operations: [OperationFilter]?
-    var operation: OperationFilter = .all
+    
+    var operations: [OperationFilter]?
+    //    var operation: OperationFilter = .all
     var periodFrom: Date?
     var periodTo: Date?
     var completion: (([OperationFilter]?, Date?, Date?) -> ())?
@@ -70,21 +70,21 @@ extension OperationsFilterPresenter: OperationsFilterPresenterProtocol {
     func clearFields() {
         periodTo = nil
         periodFrom = nil
-        operation = .all
+        operations = OperationFilter.allCases()
         view.setDate(from: "",
                      date: nil)
         view.setDate(to: "",
                      date: nil)
-        view.setMarker(operations: [operation])
-
+        view.setMarker(operations: operations!)
+        
     }
     
     
     func filterButtonPressed() {
         router.popView()
-        completion?([operation], periodFrom, periodTo)
+        completion?(operations, periodFrom, periodTo)
     }
-
+    
     
     func fromDateChanged(date: Date) {
         periodFrom = date
@@ -105,10 +105,10 @@ extension OperationsFilterPresenter: OperationsFilterPresenterProtocol {
     
     
     func viewDidLoad() {
-//        if operations == nil {
-//            operations = OperationFilter.allCases()
-//        }
-        view.setMarker(operations: [operation])
+        if operations == nil {
+            operations = OperationFilter.allCases()
+        }
+        view.setMarker(operations: operations!)
         if let periodTo = periodTo {
             view.setDate(to: format(date: periodTo),
                          date: periodTo)
@@ -120,35 +120,32 @@ extension OperationsFilterPresenter: OperationsFilterPresenterProtocol {
     }
     
     func operationTypeDidChange(operation: OperationFilter) {
-//        if operations == nil {
-//            operations = []
-//        }
-//
-//        let remove = operations!.contains(operation)
-//
-//        if remove {
-//            if operation == .all {
-//                operations!.removeAll()
-//            } else {
-//                operations!.removeAll { (operationFilter) -> Bool in
-//                    operationFilter == operation || operationFilter == .all
-//                }
-//            }
-//        } else {
-//            if operation == .all {
-//                operations = OperationFilter.allCases()
-//            } else {
-//                operations?.append(operation)
-//                if operations?.count == OperationFilter.allCases().count - 1 {
-//                    operations = OperationFilter.allCases()
-//                }
-//            }
-//        }
-        self.operation = operation
-        view.setMarker(operations: [operation])
+        if operations == nil {
+            operations = []
+        }
+        
+        let remove = operations!.contains(operation)
+        
+        if remove {
+            if operation == .all {
+                operations!.removeAll()
+            } else {
+                operations!.removeAll { (operationFilter) -> Bool in
+                    operationFilter == operation || operationFilter == .all
+                }
+            }
+        } else {
+            if operation == .all {
+                operations = OperationFilter.allCases()
+            } else {
+                operations?.append(operation)
+                if operations?.count == OperationFilter.allCases().count - 1 {
+                    operations = OperationFilter.allCases()
+                }
+            }
+        }
+        view.setMarker(operations: operations!)
     }
-    
-    
     
 }
 

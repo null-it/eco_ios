@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        
+        try? window.addReachabilityObserver()
                     
         let configurator = LoginConfigurator()
         let vc = configurator.viewController

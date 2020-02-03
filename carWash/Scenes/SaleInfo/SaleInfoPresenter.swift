@@ -37,6 +37,7 @@ class SaleInfoPresenter {
                            onFailure: {
                             // ! alert !
         })
+        view.requestDidSend()
     }
 }
 

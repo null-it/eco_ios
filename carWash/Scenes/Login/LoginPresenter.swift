@@ -85,10 +85,10 @@ class LoginPresenter {
                 guard let self = self else { return }
                 switch response.type {
                 case .ok:
-                    self.didReceiveResponse(seconds: response.seconds_to_send,
+                    self.didReceiveResponse(seconds: response.secondsToSend,
                                             isFirstTime: isFirstTime)
                 case .timeout:
-                    self.didReceiveResponse(seconds: response.seconds_to_send,
+                    self.didReceiveResponse(seconds: response.secondsToSend,
                                             isFirstTime: isFirstTime)
                 case .error:
                     if let message = response.msg {

@@ -10,23 +10,23 @@
 // MARK: - UserResponse
 
 struct UserResponse: Codable {
+    
     var status: String?
     var message: String?
     var data: UserResponseData
-    var month_cash_back: [Cashback]
+    var monthCashBack: [Cashback]
 
+    private enum CodingKeys : String, CodingKey {
+        case status, message, data, monthCashBack = "month_cash_back"
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.status = try? container.decode(String.self, forKey: .status)
         self.message = try? container.decode(String.self, forKey: .message)
         self.data = try container.decode(UserResponseData.self, forKey: .data)
-        self.month_cash_back = try container.decode([Cashback].self, forKey: .month_cash_back)
+        self.monthCashBack = try container.decode([Cashback].self, forKey: .monthCashBack)
     }
-    
-    private enum CodingKeys : String, CodingKey {
-        case status, message, data, month_cash_back
-    }
-
     
 }
 
@@ -39,17 +39,26 @@ struct UserResponseData: Codable {
     var phone: String
     var city: String
     var balance: Int?
-    var month_spent: Int
+    var monthSpent: Int
     var email: String?
-    var email_verified_at: String?
-    var last_sms_send_at: String?
-    var created_at: String?
-    var updated_at: String?
+    var emailVerifiedAt: String?
+    var lastSmsSendAt: String?
+    var createdAt: String?
+    var updatedAt: String?
     
-//    private enum CodingKeys : String, CodingKey {
-//        case id, name, phone, balance, month_balance, email, email_verified_at, last_sms_send_at, created_at, updated_at
-//    }
-
+    private enum CodingKeys : String, CodingKey {
+        case id,
+        name,
+        phone,
+        city,
+        balance,
+        email, emailVerifiedAt = "email_verified_at",
+        lastSmsSendAt = "last_sms_send_at",
+        createdAt = "created_at",
+        updatedAt = "updated_at",
+        monthSpent = "month_spent"
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
@@ -60,17 +69,19 @@ struct UserResponseData: Codable {
         if let _ = balance {
             balance! /= 100
         }
-        self.month_spent = try container.decode(Int.self, forKey: .month_spent) / 100
+        self.monthSpent = try container.decode(Int.self, forKey: .monthSpent) / 100
         self.email = try? container.decode(String?.self, forKey: .email)
-        self.email_verified_at = try? container.decode(String?.self, forKey: .email_verified_at)
-        self.last_sms_send_at = try? container.decode(String?.self, forKey: .last_sms_send_at)
-        self.created_at = try? container.decode(String?.self, forKey: .created_at)
-        self.updated_at = try? container.decode(String?.self, forKey: .updated_at)
+        self.emailVerifiedAt = try? container.decode(String?.self, forKey: .emailVerifiedAt)
+        self.lastSmsSendAt = try? container.decode(String?.self, forKey: .lastSmsSendAt)
+        self.createdAt = try? container.decode(String?.self, forKey: .createdAt)
+        self.updatedAt = try? container.decode(String?.self, forKey: .updatedAt)
     }
 
 }
 
+
 struct Cashback: Codable {
+    
     var percent: Int
     var value: Int
     

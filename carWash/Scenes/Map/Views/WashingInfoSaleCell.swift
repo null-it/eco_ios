@@ -18,11 +18,4 @@ class WashingInfoSaleCell: UICollectionViewCell {
         dateLabel.text = date
     }
 
-//    override func awakeFromNib() {
-//        roundCorners(topLeft: Constants.defaultCornerRadius,
-//                     topRight: Constants.defaultCornerRadius,
-//                     bottomLeft: Constants.minCornerRadius,
-//                     bottomRight: Constants.defaultCornerRadius)
-//    }
-
 }

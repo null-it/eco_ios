@@ -9,7 +9,7 @@
 
 // MARK: - View
 protocol MapViewProtocol: class {
-    func showInfo(address: String, cashback: String, sales: [StockResponse]) 
+    func showInfo(address: String, cashback: String, sales: [StockResponse], happyTimesText: String?, isHappyTimesHidden: Bool) 
     func set(latitude: Double, longitude: Double, id: Int, cashbackText: String, action: (()->())?) 
     func selectWash(id: Int)
     func configureSelectedWashMode()

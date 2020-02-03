@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // In iOS 13 setup is done in SceneDelegate
         } else {
             window = UIWindow(frame: UIScreen.main.bounds)
+            try? window?.addReachabilityObserver()
             let configurator = LoginConfigurator()
             let vc = configurator.viewController
             let navigationController = UINavigationController(rootViewController: vc)
@@ -107,6 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+        self.window?.removeReachabilityObserver()
     }
     
     
@@ -217,11 +219,9 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
                     let operationId = Int(operationIdStr),
                     let jsonData = washJson.data(using: .utf8),
                     let wash = try? JSONDecoder().decode(WashResponse.self, from: jsonData) {
-                    
                     var rub = price
                     rub.removeLast(2)
                     rub += " ₽"
-                    
                     reviewNotificationResponse = ReviewNotificationResponse(price: rub,
                                                                             type: type,
                                                                             wash: wash,

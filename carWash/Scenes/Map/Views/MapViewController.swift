@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import SkeletonView
+
 
 class CustomPointAnnotation: MKPointAnnotation {
     var pinCustomImageName: String!
@@ -56,6 +58,8 @@ class MapViewController: UIViewController {
     // MARK: -  Lifecycle
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        infoView.frame.origin = CGPoint(x: 0, y: view.frame.height)
         configureMap()
         configureNavigationBar()
         presenter.viewDidLoad()
@@ -64,6 +68,7 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         presenter.viewWillAppear()
     }
+    
     
     // MARK: -  Private
     
@@ -86,19 +91,20 @@ class MapViewController: UIViewController {
         frame.size.width = view.frame.width
         infoView.frame = frame
         infoView.heightChanged = { [weak self] (frameHeight) in
-            guard let self = self else { return }
-            var y = self.view.frame.height - frameHeight
-            if let tabBarHeight = self.tabBarController?.tabBar.frame.height {
-                y -= tabBarHeight
-            }
-            infoView.frame.origin.y = y
+            self?.updateInfoViewLayout(height: frameHeight)
         }
-        infoView.roundCorners([.layerMinXMinYCorner, .layerMaxXMinYCorner],
-                              radius: 24) // !
-        
+        infoView.roundCorners([.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 24) // !
         return infoView
     }
     
+    private func updateInfoViewLayout(height: CGFloat) {
+        var y = self.view.frame.height - height
+        if let tabBarHeight = self.tabBarController?.tabBar.frame.height {
+            y -= tabBarHeight
+        }
+        y += MapViewConstants.infoViewBottomInset
+        infoView.frame.origin.y = y
+    }
     
     private func configureActivityView() -> UIView {
         let activityView = UIView()
@@ -141,7 +147,10 @@ class MapViewController: UIViewController {
     private func move(up: Bool, completion: (()->())? = nil) {
         var y = self.view.frame.height
         y -= up ? self.infoView.frame.height : 0
-    
+        y += MapViewConstants.infoViewBottomInset
+        if let tabBarHeight = self.tabBarController?.tabBar.frame.height {
+            y -= tabBarHeight
+        }
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             guard let self = self else { return }
             self.infoView.frame.origin = CGPoint(x: 0, y: y)
@@ -149,7 +158,7 @@ class MapViewController: UIViewController {
             completion?()
         }
     }
-
+ 
     
     private func configureNavigationBar() {
         if !isAuthorized {
@@ -196,6 +205,7 @@ extension MapViewController: MapViewProtocol {
     
     
     func selectWash(id: Int) {
+//        updateInfoViewLayout(height: infoView.frame.height)
         let annotaions = pointAnnotations.filter { (annotation) -> Bool in
             annotation.id == id
         }
@@ -212,13 +222,19 @@ extension MapViewController: MapViewProtocol {
     }
     
     
-    func showInfo(address: String, cashback: String, sales: [StockResponse]) {
-        infoView.set(address: address, cashback: cashback, sales: sales)
-        guard infoView.isHidden else { return }
-        infoView.isHidden = false
-        infoView.frame.origin = CGPoint(x: 0, y: view.frame.height)
-        mapView.addGestureRecognizer(tapGesture)
-        move(up: true)
+    func showInfo(address: String, cashback: String, sales: [StockResponse], happyTimesText: String?, isHappyTimesHidden: Bool) {
+        infoView.set(address: address,
+                     cashback: cashback,
+                     sales: sales,
+                     happyTimesText: happyTimesText,
+                     isHappyTimesHidden: isHappyTimesHidden)
+        infoView.hideSkeleton(transition: .crossDissolve(Constants.skeletonCrossDissolve))
+        
+//        guard infoView.isHidden else { return }
+//        infoView.isHidden = false
+//        infoView.frame.origin = CGPoint(x: 0, y: view.frame.height)
+//        mapView.addGestureRecognizer(tapGesture)
+//        move(up: true)
     }
     
     
@@ -292,22 +308,39 @@ extension MapViewController: MKMapViewDelegate  {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation as? CustomPointAnnotation {
+            
+            if infoView.isHidden {
+                infoView.isHidden = false
+                infoView.layoutIfNeeded()
+                mapView.addGestureRecognizer(tapGesture)
+                move(up: true)
+            }
+            infoView.initViews()
+
+            updateInfoViewLayout(height: infoView.frame.height)
+            showAnimatedSkeleton(view: infoView, color: .clouds)
+
             annotation.action?()
             view.image = UIImage(named: selectedPinImageName)
             if let label = view.viewWithTag(MapViewConstants.pinLabelTag) as? UILabel {
-                label.font = label.font.withSize(15)
+                label.font = label.font.withSize(14)
+                label.textColor = Constants.blue
 //                label.frame.origin = CGPoint(x: MapViewConstants.selectedPinXOrigin,
 //                                             y: MapViewConstants.selectedPinYOrigin)
                 label.sizeToFit()
                 let x =  (view.frame.width - label.frame.width) / 2
                 let y = MapViewConstants.selectedPinYOrigin
-                label.frame.origin = CGPoint(x: x,
-                                             y: y)
+                label.frame.origin = CGPoint(x: x, y: y)
                 
             }
-            
-            
+        
         }
+    }
+    
+    
+    private func showAnimatedSkeleton(view: UIView, color: UIColor) {
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight, duration:  MainSceneConstants.sceletonAnimationDuration) // !!!
+        view.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: color), animation: animation)
     }
     
     
@@ -315,6 +348,7 @@ extension MapViewController: MKMapViewDelegate  {
         view.image = UIImage(named: pinImageName)
         if let label = view.viewWithTag(MapViewConstants.pinLabelTag) as? UILabel {
             label.font = label.font.withSize(12)
+            label.textColor = .white
             label.sizeToFit()
             let x =  (view.frame.width - label.frame.width) / 2
             let y = MapViewConstants.pinYOrigin

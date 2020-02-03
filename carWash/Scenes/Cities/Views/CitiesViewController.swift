@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SkeletonView
+
 
 class CitiesViewController: UIViewController {
     
@@ -17,11 +19,7 @@ class CitiesViewController: UIViewController {
     var cities: [String] = []
     var currentCity: String = ""
     var citiesSectionsTitles: [String] = [] // !
-    
-    lazy var activityView: UIView = {
-        configureActivityView()
-    }()
-    
+        
     
     // MARK: - Outlets
     
@@ -41,7 +39,6 @@ class CitiesViewController: UIViewController {
     // MARK: - Private
     
     private func configureTableView() {
-        tableView.isHidden = true // !
         tableView.delegate = self
         tableView.dataSource = self
         let cellNib = UINib(nibName: CitiesTableViewCell.nibName, bundle: nil)
@@ -67,6 +64,12 @@ class CitiesViewController: UIViewController {
         activityIndicator.color = .black
         return activityView
     }
+    
+    private func showAnimatedSkeleton(view: UIView, color: UIColor) {
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight, duration:  MainSceneConstants.sceletonAnimationDuration) // !!!
+        view.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: color), animation: animation)
+    }
+    
 }
 
 
@@ -80,16 +83,49 @@ extension CitiesViewController: CitiesViewProtocol {
         self.currentCity = currentCity
         self.cities = cities
         self.citiesSectionsTitles = titles
+        view.hideSkeleton(transition: .crossDissolve(Constants.skeletonCrossDissolve))
         tableView.reloadData()
-        tableView.isHidden = false // !
+    }
+    
+    func requestDidSend() {
+        showAnimatedSkeleton(view: view, color: .clouds)
+    }
+    
+    
+    func responseDidRecieve() {
     }
     
 }
 
 
+// MARK: - SkeletonTableViewDataSource
+
+extension CitiesViewController: SkeletonTableViewDataSource {
+
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        CitiesTableViewCell.nibName
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return 15
+        default:
+            return 0
+        }
+    }
+    
+    func numSections(in collectionSkeletonView: UITableView) -> Int {
+        2
+    }
+}
+
+
 // MARK: - UITableViewDataSource
 
-extension CitiesViewController: UITableViewDataSource {
+extension CitiesViewController {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -170,14 +206,6 @@ extension CitiesViewController: NavigationBarConfigurationProtocol {
     func backButtonPressed() {
         presenter.popView()
     }
-    
-    func requestDidSend() {
-        view.addSubview(activityView)
-    }
-    
-    func responseDidRecieve() {
-        activityView.removeFromSuperview()
-    }
-    
+
 }
 

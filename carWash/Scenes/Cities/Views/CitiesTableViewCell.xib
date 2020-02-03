@@ -16,20 +16,36 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLy-eH-3f3">
-                        <rect key="frame" x="15" y="22" width="0.0" height="0.0"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLy-eH-3f3">
+                        <rect key="frame" x="15" y="13" width="327" height="18"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
+                                <integer key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="isCurrentCIty" translatesAutoresizingMaskIntoConstraints="NO" id="so4-ar-c32">
                         <rect key="frame" x="374" y="10" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="so4-ar-c32" secondAttribute="height" multiplier="1:1" id="Xkb-WW-Wdo"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="so4-ar-c32" firstAttribute="leading" secondItem="eLy-eH-3f3" secondAttribute="trailing" constant="32" id="FiH-qw-lLX"/>
                     <constraint firstItem="eLy-eH-3f3" firstAttribute="centerY" secondItem="Q7G-rO-o2v" secondAttribute="centerY" id="ILW-GS-wzv"/>
                     <constraint firstAttribute="trailing" secondItem="so4-ar-c32" secondAttribute="trailing" constant="16" id="QLZ-BP-i8Y"/>
                     <constraint firstAttribute="bottom" secondItem="so4-ar-c32" secondAttribute="bottom" constant="10" id="exk-Gl-4uD"/>
@@ -38,6 +54,9 @@
                 </constraints>
             </tableViewCellContentView>
             <accessibility key="accessibilityConfiguration" identifier="CitiesTableViewCell"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="isCurrentCityImage" destination="so4-ar-c32" id="Jq0-2f-dR0"/>
                 <outlet property="nameTitle" destination="eLy-eH-3f3" id="ahD-Gy-OPY"/>

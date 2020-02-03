@@ -29,8 +29,8 @@ class OperationsFilterConfigurator: OperationsFilterConfiguratorProtocol {
         view.presenter = presenter
         let interactor = OperationsFilterInteractor(presenter: presenter)
         presenter.interactor = interactor
-//        presenter.operations = types
-        presenter.operation = types?.first ?? .all // !
+        presenter.operations = types
+//        presenter.operation = types?.first ?? .all // !
         presenter.periodFrom = periodFrom
         presenter.periodTo = periodTo
         presenter.completion = completion

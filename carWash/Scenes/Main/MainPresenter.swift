@@ -30,13 +30,7 @@ class MainPresenter {
     var reviewRating: [Int: Double] = [:]
     var reviewOperationId: [Int: Int] = [:]
     
-    
     // MARK: - Private
-    
-    
-    private func reloadOperations() {
-        view.reloadData()
-    }
     
     
     private func toRub(value: Int?) -> String {
@@ -85,45 +79,36 @@ class MainPresenter {
     
     
     private func getUserInfo() { // !
+        view.userInfoRequestDidSend()
         interactor.getUserInfo(onSuccess: { [weak self] (response) in
             guard let self = self else { return }
             let data = response.data
             KeychainWrapper.standard.set(data.id, forKey: "userId")
             self.name = data.name ?? data.phone
-            if let _ = data.name {
-                self.view.configureTextFieldForName()
-            } else {
-                self.view.configureTextFieldForPhone()
-            }
+
             let balance = self.toRub(value: data.balance)
-            self.view.set(name: self.name, balance: balance)
             if !response.data.city.isEmpty {
                 KeychainWrapper.standard.set(response.data.city, forKey: "city")
             }
             self.setCityIfNeeded()
             
-            let firstPercent = self.toPercent(value: response.month_cash_back[0].percent)
-            let firstValue = self.toRub(value: response.month_cash_back[0].value)
-            let secondPercent = self.toPercent(value: response.month_cash_back[1].percent)
-            let secondValue =  self.toRub(value: response.month_cash_back[1].value)
-            let thirdPercent = self.toPercent(value: response.month_cash_back[2].percent)
-            let thirdValue =  self.toRub(value: response.month_cash_back[2].value)
-            let fourthPercent = self.toPercent(value: response.month_cash_back[3].percent)
-            let fourthValue =  self.toRub(value: response.month_cash_back[3].value)
-            let fifthPercent = self.toPercent(value: response.month_cash_back[4].percent)
-            let fifthValue =  self.toRub(value: response.month_cash_back[4].value)
+            let firstPercent = self.toPercent(value: response.monthCashBack[0].percent)
+            let firstValue = self.toRub(value: response.monthCashBack[0].value)
+            let secondPercent = self.toPercent(value: response.monthCashBack[1].percent)
+            let secondValue =  self.toRub(value: response.monthCashBack[1].value)
+            let thirdPercent = self.toPercent(value: response.monthCashBack[2].percent)
+            let thirdValue =  self.toRub(value: response.monthCashBack[2].value)
+            let fourthPercent = self.toPercent(value: response.monthCashBack[3].percent)
+            let fourthValue =  self.toRub(value: response.monthCashBack[3].value)
+            let fifthPercent = self.toPercent(value: response.monthCashBack[4].percent)
+            let fifthValue =  self.toRub(value: response.monthCashBack[4].value)
             
-            self.view.setCahbackInfo(firstPercent: firstPercent, firstValue: firstValue,
-                                     secondPercent: secondPercent, secondValue: secondValue,
-                                     thirdPercent: thirdPercent, thirdValue: thirdValue,
-                                     fourthPercent: fourthPercent, fourthValue: fourthValue,
-                                     fifthPercent: fifthPercent, fifthValue: fifthValue)
             
-            let distance: Float = 1 / Float(response.month_cash_back.count - 1)
+            let distance: Float = 1 / Float(response.monthCashBack.count - 1)
             
             var nextCashbackIndex = 0
             while (nextCashbackIndex <= 4)
-                && (response.month_cash_back[nextCashbackIndex].value < response.data.month_spent) {
+                && (response.monthCashBack[nextCashbackIndex].value <= response.data.monthSpent) {
                     nextCashbackIndex += 1
             }
             
@@ -134,7 +119,7 @@ class MainPresenter {
             
             var description = ""
             if nextCashbackIndex >= 0 && nextCashbackIndex <= 4 { // ! other messages
-                let value = response.month_cash_back[nextCashbackIndex].value - response.data.month_spent
+                let value = response.monthCashBack[nextCashbackIndex].value - response.data.monthSpent
                 description = "До следующего уровня осталось потратить \(value) ₽"
             } else if nextCashbackIndex == 5 {
                 description = "Вы достигли максимально допустимого процента по кэшбеку"
@@ -142,25 +127,41 @@ class MainPresenter {
             
             var currentCashback = 0
             if currentCashbackIndex > 0 {
-                currentCashback = response.month_cash_back[currentCashbackIndex].value
+                currentCashback = response.monthCashBack[currentCashbackIndex].value
             }
-            let difference = response.data.month_spent - currentCashback
+            let difference = response.data.monthSpent - currentCashback
             
             let nextCashback: Int?
             var sectionProgress: Float = 1
             
             if nextCashbackIndex <= 4 {
-                nextCashback = response.month_cash_back[nextCashbackIndex].value
+                nextCashback = response.monthCashBack[nextCashbackIndex].value
                 sectionProgress = Float(difference) / Float(nextCashback! - currentCashback)
             }
             
             let progress = sectionProgress * distance + currentCashbackProgress
             
-            self.view.updateCashbacks(progress: progress,
-                                      currentCashbackProgress: currentCashbackProgress.isLess(than: 0) ? nil : currentCashbackProgress,
-                                      nextCashbackProgress: !nextCashbackProgress.isLess(than: 1) ? nil : nextCashbackProgress,
-                                      currentCashbackIndex: currentCashbackIndex < 0 ? nil : currentCashbackIndex,
-                                      description: description)
+            self.view.userInfoResponseDidRecieve() {
+                self.view.updateCashbacks(progress: progress,
+                                          currentCashbackProgress: currentCashbackProgress.isLess(than: 0) ? nil : currentCashbackProgress,
+                                          nextCashbackProgress: !nextCashbackProgress.isLess(than: 1) ? nil : nextCashbackProgress,
+                                          currentCashbackIndex: currentCashbackIndex < 0 ? nil : currentCashbackIndex,
+                                          description: description)
+            }
+            
+            if let _ = data.name {
+                self.view.configureTextFieldForName()
+            } else {
+                self.view.configureTextFieldForPhone()
+            }
+            self.view.set(name: self.name, balance: balance)
+
+            self.view.setCahbackInfo(firstPercent: firstPercent, firstValue: firstValue,
+                                     secondPercent: secondPercent, secondValue: secondValue,
+                                     thirdPercent: thirdPercent, thirdValue: thirdValue,
+                                     fourthPercent: fourthPercent, fourthValue: fourthValue,
+                                     fifthPercent: fifthPercent, fifthValue: fifthValue)
+           
         }) {
             () // ! alert
         }
@@ -175,7 +176,9 @@ extension MainPresenter: MainPresenterProtocol {
     
     func refreshData() {
         initLoadingInfo()
+        view.clearUserInfo()
         getOperations(isRefreshing: true)
+        getUserInfo()
     }
     
     func allOperationsButtonPressed() {
@@ -306,6 +309,8 @@ extension MainPresenter: MainPresenterProtocol {
     }
 
     func getOperations(isRefreshing: Bool = false) {
+        
+        view.operationsRequestDidSend()
         let onSuccess: (UserOperationsResponse) -> () = { [weak self] (model) in
             guard let self = self else {
                 return
@@ -313,7 +318,7 @@ extension MainPresenter: MainPresenterProtocol {
             
             let operations = model.data.map { [weak self] (model) -> OperationInfo in
                 guard let self = self,
-                    let type = OperationType.init(rawValue: model.type) else {
+                    let type = OperationType(rawValue: model.type) else {
                         return OperationInfo()
                 }
                 let typeDescription = type.description()
@@ -337,7 +342,10 @@ extension MainPresenter: MainPresenterProtocol {
                 return info
             }
             self.operationsInfo = operations
-            self.reloadOperations()
+            self.view.operationsResponseDidRecieve() {
+                self.view.reloadData()
+            }
+            
             if isRefreshing {
                 self.view.dataRefreshed()
             }

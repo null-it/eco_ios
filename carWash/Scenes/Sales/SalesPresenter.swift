@@ -61,9 +61,9 @@ class SalesPresenter {
         }
         
         if page == 1 {
-            if !isRefreshing {
+//            if !isRefreshing {
                 view.requestDidSend()
-            }
+//            }
         }
         
         pagesTriedToLoad.append(page)
@@ -82,12 +82,12 @@ class SalesPresenter {
             if page == 1 {
                 self.sales = Array(repeating: nil, count: response.total)
                 self.salesCount = response.total
-                self.lastPage = response.last_page
+                self.lastPage = response.lastPage
                 if isRefreshing {
                     self.view.refreshDidEnd()
-                } else {
+                } // else {
                     self.view.responseDidRecieve()
-                }
+//                }
             }
             
             self.add(sales: response.data, page: page)
@@ -173,6 +173,7 @@ extension SalesPresenter: SalesPresenterProtocol {
     func refreshData() {
         initLoadingInfo()
         load(page: 1, isRefreshing: true)
+        print("refreeeesh")
     }
     
     

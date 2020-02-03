@@ -20,6 +20,10 @@ class MainSceneConstants {
     static let pageControlDotSize: CGFloat = 8
     static let pageControlDotPadding: CGFloat = 6
     static let emptyTableViewHeight: CGFloat = 351
+    static let minDelay: Double = 0.5
+    static let sceletonAnimationDuration: Double = 0.75
+    static let cashBackAnimationDuration: Double = 2
 }
+
 
 

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SkeletonView
 
 class MainViewController: UIViewController {
 
@@ -15,8 +15,6 @@ class MainViewController: UIViewController {
     
     var presenter: MainPresenterProtocol!
     var configurator: MainConfiguratorProtocol!
-    var cashBackViewHeight: CGFloat!
-    var nameViewHeight: CGFloat!
 
     lazy var isSE: Bool = {
         let modelName = UIDevice.modelName
@@ -42,7 +40,7 @@ class MainViewController: UIViewController {
         fifthCashbackValueLabel
     ]
      
-    private let refreshControl = UIRefreshControl()
+    private var refreshControl: UIRefreshControl!
 
     private lazy var reviewsBackgroundView: UIView = {
         let currentWindow: UIWindow = UIApplication.shared.keyWindow!
@@ -61,6 +59,7 @@ class MainViewController: UIViewController {
     
     private lazy  var reviewTextViews: [ReviewTextView] = []
     
+    private var userInfoRequestStartDate: Date!
     
     // MARK: - Outlets
     
@@ -71,7 +70,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var fifthCashbackValueLabel: UILabel!
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var topView: UIView!
     @IBOutlet weak var helloView: UIView!
     @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var cashBackView: UIView!
@@ -79,7 +77,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var operationsTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var firstCashbackLabel: UILabel!
     @IBOutlet weak var secondCashbackLabel: UILabel!
@@ -97,15 +94,16 @@ class MainViewController: UIViewController {
     @IBOutlet weak var cashbackDescription: UILabel!
     @IBOutlet weak var cardAspectRatio: NSLayoutConstraint!
     @IBOutlet weak var cardView: UIImageView!
-    @IBOutlet weak var paymentButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var paymentButton: UIButton!
-
+    @IBOutlet weak var operationsWrapper: UIView!
+    @IBOutlet weak var balanceLabelWrapper: UIView!
+    @IBOutlet weak var paymentButtonWrapper: UIView!
+        
     // MARK: - Lifecicle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isTranslucent = false
-        scrollView.delegate = self
         nameTextField.delegate = self
         _ = hideKeyboardWhenTapped()
         addObservers()
@@ -121,23 +119,21 @@ class MainViewController: UIViewController {
         appDelegate.didRecieveReviewNotificationResponse = { [weak self] in
             self?.presenter.didRecieveNotification(appDelegate.reviewNotificationResponse)
         }
-       
+
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        configureRefreshControl()
+        scrollView.setContentOffset(.zero, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
-        if #available(iOS 11.0, *) {
-            cashBackViewHeight = cashBackView.frame.height
-            nameViewHeight = isSE ? nameView.frame.height : helloView.frame.height + nameView.frame.height
-        }
-        
-        DispatchQueue.once(token: onceToken) {
-            if #available(iOS 11.0, *) {} else { // !
-                cashBackViewHeight = cashBackView.frame.height
-                nameViewHeight = isSE ? nameView.frame.height : helloView.frame.height + nameView.frame.height
-            }
-            configureOperationsView()
-            createTopViewShadow()
-        }
+        view.layoutSkeletonIfNeeded()
+                
+//        DispatchQueue.once(token: onceToken) {
+//            configureOperationsView()
+//        }
     }
     
 
@@ -169,10 +165,14 @@ class MainViewController: UIViewController {
         let cellNib = UINib(nibName: MainViewActionCell.nibName, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: MainViewActionCell.nibName)
         tableView.addObserver(self, forKeyPath: "contentSize", options: .old, context: nil)
+    }
+    
+    
+    private func configureRefreshControl() {
+        refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshOperationsData(_:)), for: .valueChanged)
         scrollView.refreshControl = refreshControl
-        refreshControl.setValue(30, forKey: "_snappingHeight")
-
+        refreshControl.setValue(Constants.refreshControlValue, forKey: "_snappingHeight")
     }
     
     
@@ -186,77 +186,12 @@ class MainViewController: UIViewController {
             cardAspectRatio.isActive = false
 //            cardView.layoutIfNeeded()
             cardView.heightAnchor.constraint(equalToConstant: 110).isActive = true
-            paymentButtonBottomConstraint.constant = 33
             cardView.image = UIImage(named: "cardBackgroundSE")
             cardView.layoutIfNeeded()
             paymentButton.cornerRadius = 6
             helloView.isHidden = true
         }
     }
-    
-    private func createTopViewShadow() {
-        topView.layer.masksToBounds = false
-        topView.layer.shadowColor = UIColor.black.cgColor
-        topView.layer.shadowPath = UIBezierPath(roundedRect: topView.bounds,
-                                                cornerRadius: MainSceneConstants.cornerRadius).cgPath
-        topView.layer.shadowOffset = CGSize(width: MainSceneConstants.shadowOffsetX,
-                                            height: MainSceneConstants.shadowOffsetY)
-        topView.layer.shadowOpacity = MainSceneConstants.shadowOpacity
-        topView.layer.shadowRadius = MainSceneConstants.shadowRadius
-        topViewCornerRadius()
-    }
-     
-    private func topViewCornerRadius() {
-        topView.layer.cornerRadius = MainSceneConstants.cornerRadius
-        if #available(iOS 11, *) {
-            topView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        }
-    }
-    
-    private func set(view: UIView, hidden: Bool) {
-
-//        var difference = view.frame.height
-        var difference = view == nameView
-            ? nameViewHeight!
-            : cashBackViewHeight!
-        
-        if hidden {
-            // difference.negate()
-            difference = -difference
-        }
-        let newHeight = topView.frame.height + difference
-        var newBounds = self.topView.bounds
-        newBounds.size.height = newHeight
-                
-        UIView.animate(withDuration: MainSceneConstants.animationDuration,
-                       animations: { [weak self] in
-                        guard let self = self else { return }
-                        
-                        if view == self.nameView && !self.isSE {
-                            self.helloView.isHidden = hidden
-                            self.helloView.alpha = hidden ? 0 : 1
-                        }
-                        view.isHidden = hidden
-                        view.alpha = hidden ? 0 : 1
-                        
-                        if hidden {
-                            self.updateShadow(bounds: newBounds,
-                                              cornerRadius: MainSceneConstants.cornerRadius)
-                        }
-        }) { [weak self] (_) in
-            if !hidden {
-                self?.updateShadow(bounds: newBounds,
-                                   cornerRadius: MainSceneConstants.cornerRadius)
-            }
-        }
-        
-    }
-    
-    private func updateShadow(bounds: CGRect, cornerRadius: CGFloat) {
-        topViewCornerRadius()
-        topView.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-    }
-    
     
     private func configureProgressView() {
         currentCashbackIndicator.isHidden = true
@@ -265,14 +200,11 @@ class MainViewController: UIViewController {
     }
     
     
-    private func configureOperationsView() {
-//        operationsTopConstraint.constant = topView.frame.height + 24 // !
-//        scrollView.scrollIndicatorInsets = UIEdgeInsets(top: topView.frame.height + 14, left: 0, bottom: 0, right: 0)
-        scrollView.contentInset = UIEdgeInsets(top: topView.frame.height + 14, left: 0, bottom: 0, right: 0)
-
-        operationsViewTitle.isHidden = false
-        tableView.isHidden = false
-    }
+//    private func configureOperationsView() {
+//        scrollView.contentInset = UIEdgeInsets(top: topView.frame.height + 14, left: 0, bottom: 0, right: 0)
+//        operationsViewTitle.isHidden = false
+//        tableView.isHidden = false
+//    }
     
     
     private func addObservers() {
@@ -291,10 +223,10 @@ class MainViewController: UIViewController {
         if isEmpty {
             let backgroundView: EmptyTransactionsView = .fromNib()!
             tableView.backgroundView = backgroundView
-            operationsViewTitle.isHidden = true
+//            operationsViewTitle.isHidden = true
         } else {
             tableView.backgroundView = nil
-            operationsViewTitle.isHidden = false
+//            operationsViewTitle.isHidden = false
         }
     }
     
@@ -348,6 +280,17 @@ class MainViewController: UIViewController {
         return reviewTextView
     }
     
+    
+    private func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
+//        guard seconds > 0 else {
+//            completion()
+//            return
+//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            completion()
+        }
+    }
+    
         
     @objc private func hideInfoViewIfNeeded() {
         showAlert(message: "Уверены, что хотите закрыть окно?",
@@ -377,6 +320,53 @@ class MainViewController: UIViewController {
 //MARK: - MainViewProtocol
 
 extension MainViewController: MainViewProtocol {
+    
+    func clearUserInfo() {
+        configureProgressView()
+        cashbackLabels.forEach { (label) in
+            label?.textColor = UIColor(hex: "BDBDBD")
+            label?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+            label?.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }
+        cashbackDescription.text = ""
+    }
+
+    
+    func userInfoRequestDidSend() { // !!!
+        userInfoRequestStartDate = Date()
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight, duration:  MainSceneConstants.sceletonAnimationDuration) // !!!
+        cardView.isSkeletonable = false
+        paymentButtonWrapper.isSkeletonable = false
+        balanceLabelWrapper.isSkeletonable = false
+        stackView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: .clouds), animation: animation)
+        cardView.isSkeletonable = true
+        cardView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.green!), animation: animation)
+        paymentButtonWrapper.isSkeletonable = true
+        balanceLabelWrapper.isSkeletonable = true
+        balanceLabelWrapper.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.lightGreen!), animation: animation)
+        paymentButtonWrapper.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.lightGreen!), animation: animation)
+    }
+    
+    
+    func userInfoResponseDidRecieve(completion: (() -> ())?) {
+        delayWithSeconds(MainSceneConstants.minDelay * 2) { [weak self] in
+            self?.stackView.hideSkeleton()
+            completion?()
+        }
+    }
+    
+    func operationsRequestDidSend() {
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight, duration: MainSceneConstants.sceletonAnimationDuration) // !!!
+        operationsWrapper.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: .clouds), animation: animation)
+    }
+    
+    func operationsResponseDidRecieve(completion: (() -> ())?) {
+        delayWithSeconds(MainSceneConstants.minDelay) { [weak self] in
+            self?.operationsWrapper.hideSkeleton()
+            completion?()
+        }
+    }
+    
     
     func dataRefreshed() {
         refreshControl.endRefreshing() 
@@ -411,7 +401,6 @@ extension MainViewController: MainViewProtocol {
         reviewView.reviewButtonPressed = { [weak self] in
             self?.reviewsBackgroundView.addSubview(reviewTextView)
             reviewTextView.configure()
-
         }
         
         reviewView.doneButtonPressed = { [weak self] in
@@ -428,11 +417,11 @@ extension MainViewController: MainViewProtocol {
     }
 
     
-    func hideInfoView() { // ! MOVE
+    func hideInfoView() { // ! MOVE (info?)
     //        guard !infoView.isHidden else { return }
     //        move(up: false) { [weak self] in
     //            self?.infoView.isHidden = true
-    //        }
+    //        }x
     //        mapView.removeGestureRecognizer(tapGesture)
         
         sendReviewViews.last?.removeFromSuperview()
@@ -446,8 +435,6 @@ extension MainViewController: MainViewProtocol {
         reviewTextViews[index].removeFromSuperview()
     }
     
-    
-
     
     func selectCity(cities: [CityResponse]) {
         let cityView: CityView = .fromNib()!
@@ -501,15 +488,16 @@ extension MainViewController: MainViewProtocol {
         if let nextCashbackProgress = nextCashbackProgress {
             nextCashbackXConstraint.constant = cashbackProgressView.frame.width * CGFloat(nextCashbackProgress)
         }
-        
-        UIView.animate(withDuration: 1, animations: { [weak self] in
+        currentCashbackIndicator.isHidden = true
+        nextCashbackIndicator.isHidden = true
+        UIView.animate(withDuration: MainSceneConstants.cashBackAnimationDuration, animations: { [weak self] in
             guard let self = self else { return }
             self.cashbackProgressView.setProgress(progress, animated: true)
             if let currentCashbackIndex = currentCashbackIndex,
                 let label = self.cashbackLabels[currentCashbackIndex] {
                 label.textColor = .black
                 label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-                label.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
+                label.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
             }
         }) { [weak self] (_) in
             self?.currentCashbackIndicator.isHidden = currentCashbackProgress == nil
@@ -560,10 +548,30 @@ extension MainViewController: UITableViewDelegate {
 }
 
 
-//MARK: - UITableViewDataSource
+//MARK: - SkeletonTableViewDataSource
 
-extension MainViewController: UITableViewDataSource {
-   
+extension MainViewController: SkeletonTableViewDataSource {
+        
+    func numSections(in collectionSkeletonView: UITableView) -> Int {
+        1
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        3
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        MainViewActionCell.nibName
+    }
+    
+}
+
+
+
+// MARK: - UITableViewDataSiurce
+
+extension MainViewController {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = presenter.operationsInfo.count
         configureTableView(isEmpty: count == 0)
@@ -572,7 +580,7 @@ extension MainViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewActionCell", for: indexPath)
+        if let cell = tableView.dequeueReusableCell(withIdentifier: MainViewActionCell.nibName, for: indexPath)
             as? MainViewActionCell {
             if let info = presenter.operationsInfo[indexPath.row] {
                 let image = UIImage(named: info.imageName)
@@ -586,42 +594,11 @@ extension MainViewController: UITableViewDataSource {
         return UITableViewCell()
     }
     
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 67
     }
-    
-    
-}
 
-
-//MARK: - UIScrollViewDelegate
-
-extension MainViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let nameViewHeight = nameViewHeight,
-            let cashBackViewHeight = cashBackViewHeight else {
-                return
-        }
-        
-        let spacing = scrollView.contentInset.top + scrollView.contentOffset.y
-        let hideHelloView = spacing >= nameViewHeight
-        let hideCashBackView =  spacing >= cashBackViewHeight + nameViewHeight
-        
-        if hideHelloView && !nameView.isHidden {
-            set(view: nameView, hidden: true)
-        } else if !hideHelloView && nameView.isHidden {
-            set(view: nameView, hidden: false)
-        }
-        
-        if hideCashBackView && !cashBackView.isHidden {
-            set(view: cashBackView, hidden: true)
-        } else if !hideCashBackView && cashBackView.isHidden {
-            set(view: cashBackView, hidden: false)
-        }
-    }
-    
 }
 
 

@@ -16,6 +16,15 @@ class CityViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var isSelectedCheckBox: BEMCheckBox!
     
+    
+    // MARK: - Lifecycle
+    
+    override func awakeFromNib() {
+        isSelectedCheckBox.onAnimationType = .oneStroke
+        isSelectedCheckBox.offAnimationType = .oneStroke
+    }
+    
+    
     // MARK: - Properties
     
     var valueChanged: ((Bool) -> ())?

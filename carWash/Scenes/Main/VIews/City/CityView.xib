@@ -70,7 +70,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <accessibility key="accessibilityConfiguration" identifier="CityView"/>
             <constraints>
                 <constraint firstItem="NFH-5v-K8g" firstAttribute="height" secondItem="bYo-vA-Asq" secondAttribute="height" multiplier="0.455915" priority="999" id="2uq-aO-iaH"/>

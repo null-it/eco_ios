@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BEMCheckBox
 
 
 class OperationsFilterViewController: UIViewController {
@@ -16,7 +17,7 @@ class OperationsFilterViewController: UIViewController {
     var presenter: OperationsFilterPresenterProtocol!
     var configurator: OperationsFilterConfiguratorProtocol!
     
-    lazy var markers: [OperationFilter: UIView] = [
+    lazy var markers: [OperationFilter: BEMCheckBox] = [
         .waste: wasteMarker,
         .replenishOnline: replenishOnlineMarker,
         .replenishOffline: replenishOfflineMarker,
@@ -36,11 +37,11 @@ class OperationsFilterViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var wasteMarker: UIView!
-    @IBOutlet weak var replenishOnlineMarker: UIView!
-    @IBOutlet weak var replenishOfflineMarker: UIView!
-    @IBOutlet weak var cashbackMarker: UIView!
-    @IBOutlet weak var allMarker: UIView!
+    @IBOutlet weak var wasteMarker: BEMCheckBox!
+    @IBOutlet weak var replenishOnlineMarker: BEMCheckBox!
+    @IBOutlet weak var replenishOfflineMarker: BEMCheckBox!
+    @IBOutlet weak var cashbackMarker: BEMCheckBox!
+    @IBOutlet weak var allMarker: BEMCheckBox!
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
 
@@ -52,6 +53,7 @@ class OperationsFilterViewController: UIViewController {
         createCloseButton()
         createClearButton()
         configureTextFields()
+        configureCheckBoxes()
         _ = hideKeyboardWhenTapped()
         toTextField.tintColor = .clear
         fromTextField.tintColor = .clear
@@ -64,8 +66,9 @@ class OperationsFilterViewController: UIViewController {
     
     // MARK: Actions
     
-    @IBAction func operationTypeDidChange(_ sender: UITapGestureRecognizer) {
-        if let view = sender.view,
+    
+    @IBAction func operationTypeDidChange(_ sender: Any) {
+        if let view = sender as? BEMCheckBox,
             let operation = OperationFilter(rawValue: view.tag) {
             presenter.operationTypeDidChange(operation: operation)
         }
@@ -138,7 +141,7 @@ class OperationsFilterViewController: UIViewController {
         let toolBarTitle = UIBarButtonItem(customView: label)
         
         
-        let toolBar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: currentWindow.frame.width, height: 68))
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: currentWindow.frame.width, height: 68))
         toolBar.setItems([toolBarTitle,
                           UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                           doneButton], animated: true)
@@ -149,6 +152,13 @@ class OperationsFilterViewController: UIViewController {
 
         textField.inputAccessoryView = toolBar
         return datePicker
+    }
+    
+    private func configureCheckBoxes() {
+        markers.forEach { (args) in
+            args.value.onAnimationType = .oneStroke
+            args.value.offAnimationType = .oneStroke
+        }
     }
     
     
@@ -195,9 +205,10 @@ extension OperationsFilterViewController: OperationsFilterViewProtocol {
     func setMarker(operations: [OperationFilter]) {
         markers.forEach { (args) in
             let (operationType, markerView) = args
-            markerView.backgroundColor = operations.contains(operationType)
-                ? Constants.green
-                : Constants.grey
+            let isOn = operations.contains(operationType)
+            if markerView.on != isOn {
+                markerView.setOn(isOn, animated: true)
+            }
         }
     }
 }

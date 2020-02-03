@@ -13,7 +13,7 @@ protocol OperationsViewProtocol: class {
     func reload(rows: [Int])
     func reloadData()
     func requestDidSend()
-    func responseDidRecieve()
+    func responseDidRecieve(completion: (() -> ())?)
     func dataRefreshed() 
 }
 

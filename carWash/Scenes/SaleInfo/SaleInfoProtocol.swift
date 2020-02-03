@@ -10,6 +10,7 @@ import Foundation
 
 // MARK: - View
 protocol SaleInfoViewProtocol: class {
+    func requestDidSend()
     func updateInfo(sale: SaleResponse)
 }
 

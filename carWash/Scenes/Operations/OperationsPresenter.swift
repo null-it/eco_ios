@@ -16,7 +16,6 @@ class OperationsPresenter {
     var interactor: OperationsInteractorProtocol!
     let router: OperationsRouterProtocol
     
-    
     var qty = 15
     var pagesTriedToLoad: [Int] = []
     var lastPage: Int?
@@ -27,6 +26,7 @@ class OperationsPresenter {
     var periodFrom: Date?
     var periodTo: Date?
     
+    
     init(view: OperationsViewProtocol,
          router: OperationsRouterProtocol) {
         self.view = view
@@ -36,9 +36,9 @@ class OperationsPresenter {
 
     // MARK: - Private
     
-    private func getOperations() {
+    private func getOperations(isRefreshing: Bool) {
         initLoadingInfo()
-        load(page: 1)
+        load(page: 1, isRefreshing: isRefreshing)
         view.requestDidSend()
     }
     
@@ -75,8 +75,7 @@ class OperationsPresenter {
             if page == 1 {
                 self.operationsInfo = Array(repeating: nil, count: model.total)
                 self.operationsCount = model.total
-                self.lastPage = model.last_page
-                self.view.responseDidRecieve()
+                self.lastPage = model.lastPage
                 if isRefreshing {
                     self.view.dataRefreshed()
                 }
@@ -105,11 +104,18 @@ class OperationsPresenter {
                                          title: title,
                                          sum: sum,
                                          time: model.created_at)
-
+                
                 return info
             }
+            
             self.add(operations: operations, page: page)
-            self.reloadRows(for: page)
+            if page != 1 {
+                self.reloadRows(for: page)
+            } else {
+                self.view.responseDidRecieve() {
+                    self.reloadRows(for: page)
+                }
+            }
             
         }
         
@@ -218,12 +224,11 @@ extension OperationsPresenter: OperationsPresenterProtocol {
     
     
     func viewDidLoad() {
-        getOperations()
+        getOperations(isRefreshing: false)
     }
     
     func refreshData() {
-        initLoadingInfo()
-        load(page: 1, isRefreshing: true)
+        getOperations(isRefreshing: true)
     }
     
     func popView() {
@@ -239,7 +244,7 @@ extension OperationsPresenter: OperationsPresenterProtocol {
                                     self.types = operations
                                     self.periodFrom = dateFrom
                                     self.periodTo = dateTo
-                                    self.getOperations()
+                                    self.getOperations(isRefreshing: false)
         })
     }
     

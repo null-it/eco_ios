@@ -26,7 +26,7 @@ extension NavigationBarConfigurationProtocol where Self: UIViewController {
     func createBackButton() {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 22))
         
-        let backButton = UIButton(frame: CGRect(x: 0, y: 1, width: 12, height: 20))
+        let backButton = UIButton(frame: CGRect(x: 0, y: 1, width: 24, height: 24))
         backButton.setImage(UIImage(named: "greenArrowBack"), for: .normal)
         backButton.tag = 13
         view.addSubview(backButton)
@@ -55,7 +55,7 @@ extension NavigationBarConfigurationProtocol where Self: UIViewController {
         backButton.setTitle("Закрыть", for: .normal)
         backButton.setTitleColor(Constants.green, for: .normal)
         backButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        backButton.frame = CGRect(x: 0, y: 0, width: 70, height: 20)
+        backButton.frame = CGRect(x: 0, y: 0, width: 70, height: 24)
         backButton.addTarget(self, action: #selector(NavigationBarConfigurationProtocol.closeButtonPressed), for: .touchUpInside)
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: backButton)
@@ -68,7 +68,7 @@ extension NavigationBarConfigurationProtocol where Self: UIViewController {
         skipButton.addTarget(self, action: #selector(NavigationBarConfigurationProtocol.clearButtonPressed), for: UIControl.Event.touchUpInside)
         skipButton.setTitleColor(Constants.green, for: .normal) // !
         skipButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        skipButton.frame = CGRect(x: 0, y: 0, width: 80, height: 20)
+        skipButton.frame = CGRect(x: 0, y: 0, width: 80, height: 24)
         let skipBarButton = UIBarButtonItem(customView: skipButton)
         navigationItem.rightBarButtonItem = skipBarButton
     }
@@ -80,7 +80,7 @@ extension NavigationBarConfigurationProtocol where Self: UIViewController {
         skipButton.addTarget(self, action: #selector(NavigationBarConfigurationProtocol.skipButtonPressed), for: UIControl.Event.touchUpInside)
         skipButton.setTitleColor(Constants.green, for: .normal) // !
         skipButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        skipButton.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
+        skipButton.frame = CGRect(x: 0, y: 0, width: 100, height: 24)
         let skipBarButton = UIBarButtonItem(customView: skipButton)
         navigationItem.rightBarButtonItem = skipBarButton
     }

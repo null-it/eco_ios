@@ -17,9 +17,9 @@ class MapViewConstants {
     static let standardSpacing: CGFloat = 16
     
 //    static let pinXOrigin: CGFloat = 8
-    static let pinYOrigin: CGFloat = 5
+    static let pinYOrigin: CGFloat = 8
 //    static let selectedPinXOrigin: CGFloat = 12
     static let selectedPinYOrigin: CGFloat = 9
     static let pinLabelTag = 13
-
+    static let infoViewBottomInset: CGFloat = 20
 }

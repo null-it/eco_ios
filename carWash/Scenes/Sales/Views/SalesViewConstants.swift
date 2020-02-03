@@ -10,6 +10,7 @@ import UIKit
 
 class SalesViewConstants {
     static let saleCellAspectRatio: CGFloat = 300 / 343
-    static let saleCellHeight: CGFloat = 300 
+    static let saleSECellHeight: CGFloat = 292
+    static let saleSECellWidth: CGFloat = 288
     static let standartSpacing: CGFloat = 16
 }

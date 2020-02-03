@@ -24,6 +24,7 @@ struct LoginResponse: Codable {
     var msg: String?
     var data: LoginResponseData?
     
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.status = try container.decode(String.self, forKey: .status)
@@ -40,6 +41,7 @@ struct LoginResponse: Codable {
         }
         
     }
+    
 }
 
 

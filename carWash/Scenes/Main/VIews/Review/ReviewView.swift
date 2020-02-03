@@ -37,17 +37,21 @@ class ReviewView: UIView {
     func set(text: String) {
         var title = text
         if text.isEmpty {
-           title = "Напишите отзыв"
+            title = "Напишите отзыв"
+            configureEmptyDoneButton()
+        } else {
+            configureDefaultDoneButton()
         }
         
         doneButton.setTitle(title, for: .normal)
-
+        
     }
 
     // MARK: - Lifecycle
 
     override func awakeFromNib() {
         self.roundCorners([.layerMaxXMinYCorner, .layerMinXMinYCorner], radius: 24)
+        doneButton.borderColor = UIColor(hex: "979797")?.withAlphaComponent(0.2)
     }
     
     
@@ -59,6 +63,21 @@ class ReviewView: UIView {
     
     @IBAction func doneButtonPressed(_ sender: Any) {
         doneButtonPressed?()
+    }
+    
+    
+    // MARK: - Private
+    
+    private func configureEmptyDoneButton() {
+        doneButton.backgroundColor = UIColor(hex: "E1E1E4")?.withAlphaComponent(0.2)
+        doneButton.borderWidth = 0
+        doneButton.setTitleColor(UIColor(hex: "828282"), for: .normal)
+    }
+    
+    private func configureDefaultDoneButton() {
+        doneButton.backgroundColor = .white
+        doneButton.borderWidth = 1
+        doneButton.setTitleColor(.black, for: .normal)
     }
     
 }

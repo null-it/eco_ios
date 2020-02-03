@@ -73,10 +73,19 @@ class MapPresenter {
             if response.cashback == 0 {
                 cashback = "Нет кешбека"
             }
-            
+            var happyTimesText = ""
+            var isHappyTimesHidden = true
+            if let happyHours = response.happyHours{
+                happyTimesText = "с \(happyHours.start) до \(happyHours.end)"
+                isHappyTimesHidden = !happyHours.isEnabled
+            }
             let sales = response.stocks
             self?.sales = sales
-            self?.view.showInfo(address: address, cashback: cashback, sales: sales ?? [])
+            self?.view.showInfo(address: address,
+                                cashback: cashback,
+                                sales: sales ?? [],
+                                happyTimesText: happyTimesText,
+                                isHappyTimesHidden: isHappyTimesHidden)
         }) {
             ()
         }

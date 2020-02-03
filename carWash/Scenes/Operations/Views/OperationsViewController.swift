@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 
 class OperationsViewController: UIViewController {
@@ -17,11 +18,8 @@ class OperationsViewController: UIViewController {
     var configurator: OperationsConfiguratorProtocol!
 
     private let refreshControl = UIRefreshControl()
-
-    lazy var activityView: UIView = {
-       configureActivityView()
-    }()
-
+    
+    
     // MARK: - Outlet
     
     @IBOutlet weak var tableView: UITableView!
@@ -33,6 +31,10 @@ class OperationsViewController: UIViewController {
         configureTableView()
         configureNavigationBar()
         presenter.viewDidLoad()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        view.layoutSkeletonIfNeeded()
     }
     
     
@@ -57,6 +59,7 @@ class OperationsViewController: UIViewController {
         //        refreshControl.setValue(30, forKey: "_snappingHeight")
     }
     
+    
     private func configureTableView(isEmpty: Bool) {
         if isEmpty {
             let backgroundView: EmptyTransactionsView = .fromNib()!
@@ -69,27 +72,6 @@ class OperationsViewController: UIViewController {
     
     @objc private func refreshData(_ sender: Any) {
         presenter.refreshData()
-    }
-    
-    
-    private func configureActivityView() -> UIView {
-        let activityView = UIView()
-        let currentWindow = UIApplication.shared.keyWindow!
-        activityView.translatesAutoresizingMaskIntoConstraints = false
-        activityView.widthAnchor.constraint(equalToConstant: currentWindow.frame.width).isActive = true
-        activityView.heightAnchor.constraint(equalToConstant: currentWindow.frame.height).isActive = true
-        
-        activityView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-        let activityIndicator = UIActivityIndicatorView()
-        
-        activityView.addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.centerXAnchor.constraint(equalTo: activityView.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: activityView.centerYAnchor).isActive = true
-        
-        activityIndicator.startAnimating()
-        activityIndicator.color = .black
-        return activityView
     }
     
 }
@@ -114,14 +96,19 @@ extension OperationsViewController: OperationsViewProtocol {
     
     
     func requestDidSend() {
-        view.addSubview(activityView)
-        tableView.isHidden = true
+        showAnimatedSkeleton(view: self.view, color: .clouds)
+    }
+    
+    private func showAnimatedSkeleton(view: UIView, color: UIColor) {
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight, duration:  MainSceneConstants.sceletonAnimationDuration) // !!!
+        view.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: color),
+                                          animation: animation)
     }
     
     
-    func responseDidRecieve() {
-        activityView.removeFromSuperview()
-        tableView.isHidden = false
+    func responseDidRecieve(completion: (() -> ())?) {
+        view.hideSkeleton(transition: .crossDissolve(Constants.skeletonCrossDissolve))
+        completion?()
     }
     
     func dataRefreshed() {
@@ -132,7 +119,7 @@ extension OperationsViewController: OperationsViewProtocol {
 
 //MARK: - UITableViewDataSource
 
-extension OperationsViewController: UITableViewDataSource {
+extension OperationsViewController {
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = presenter.operationsCount
@@ -142,22 +129,42 @@ extension OperationsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewActionCell", for: indexPath)
-            as? MainViewActionCell {
-            if indexPath.row < presenter.operationsCount,
-                let info = presenter.operationsInfo[indexPath.row] {
-                let image = UIImage(named: info.imageName)
-                cell.configure(image: image,
-                               title: info.title,
-                               sum: info.sum,
-                               time: info.time)
+            as? MainViewActionCell,
+            indexPath.row < presenter.operationsCount {
+                if let info = presenter.operationsInfo[indexPath.row] {
+                    cell.hideSkeleton()
+                    let image = UIImage(named: info.imageName)
+                    cell.configure(image: image,
+                                   title: info.title,
+                                   sum: info.sum,
+                                   time: info.time)
+                } else {
+                    showAnimatedSkeleton(view: cell, color: .clouds)
+                }
+                
+                return cell
             }
-            return cell
-        }
+        
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 67
+    }
+    
+}
+
+
+//MARK: - SkeletonTableViewDataSource
+
+extension OperationsViewController: SkeletonTableViewDataSource {
+        
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        15
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        MainViewActionCell.nibName
     }
     
 }

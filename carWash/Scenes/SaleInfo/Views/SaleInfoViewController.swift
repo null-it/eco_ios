@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class SaleInfoViewController: UIViewController {
     
@@ -20,6 +21,11 @@ class SaleInfoViewController: UIViewController {
         }
     }
     
+    lazy var isSE: Bool = {
+        let modelName = UIDevice.modelName
+        return Constants.SE.contains(modelName)
+    }()
+
     
     // MARK: - Outlets
     
@@ -28,6 +34,8 @@ class SaleInfoViewController: UIViewController {
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var imageViewWrapperHeightConstraint: NSLayoutConstraint!
+    
     
     
     // MARK: - Lifecycle
@@ -37,6 +45,9 @@ class SaleInfoViewController: UIViewController {
         title = "Акция"
         createBackButton()
         configureTableView()
+        if isSE {
+            titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -77,12 +88,15 @@ class SaleInfoViewController: UIViewController {
 extension SaleInfoViewController: SaleInfoViewProtocol {
     
     func updateInfo(sale: SaleResponse) {
-        titleLabel?.backgroundColor = .clear
-        textLabel?.backgroundColor = .clear
+        view.hideSkeleton(transition: .crossDissolve(Constants.skeletonCrossDissolve))
         titleLabel?.text = sale.title
         textLabel?.text = sale.text
         washes = sale.washes ?? []
-        guard !sale.logo.isEmpty else { return }
+        guard !sale.logo.isEmpty else {
+            imageViewWrapperHeightConstraint.priority = Constants.constraintVeryHeightPriority
+            return
+        }
+        imageViewWrapperHeightConstraint.priority = Constants.constraintHeightPriority
         let url = URL(string: sale.logo)
         DispatchQueue.global().async {
             if let data = try? Data(contentsOf: url!) {
@@ -93,6 +107,15 @@ extension SaleInfoViewController: SaleInfoViewProtocol {
                 }
             }
         }
+    }
+    
+    func requestDidSend() {
+        showAnimatedSkeleton(view: view, color: .clouds)
+    }
+    
+    private func showAnimatedSkeleton(view: UIView, color: UIColor) {
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight, duration:  MainSceneConstants.sceletonAnimationDuration) // !!!
+        view.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: color), animation: animation)
     }
     
 }

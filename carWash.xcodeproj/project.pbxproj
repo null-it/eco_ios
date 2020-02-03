@@ -35,6 +35,8 @@
 		4941861723913B8F005E61BC /* ReviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4941861623913B8F005E61BC /* ReviewView.xib */; };
 		494186192391490B005E61BC /* ReviewTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494186182391490B005E61BC /* ReviewTextView.swift */; };
 		4941861B23914913005E61BC /* ReviewTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4941861A23914913005E61BC /* ReviewTextView.xib */; };
+		49418DC323E17E8500BBA3E9 /* ReachabilityObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49418DC223E17E8500BBA3E9 /* ReachabilityObserverDelegate.swift */; };
+		49418DC523E1804800BBA3E9 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49418DC423E1804800BBA3E9 /* UIWindow.swift */; };
 		4954940623AE977900BF6B70 /* SetFirebaseTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4954940523AE977900BF6B70 /* SetFirebaseTokenResponse.swift */; };
 		4956FDCD238D42BC006D89C9 /* LoginProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956FDCC238D42BC006D89C9 /* LoginProtocols.swift */; };
 		4956FDCF238D42C8006D89C9 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956FDCE238D42C8006D89C9 /* LoginPresenter.swift */; };
@@ -64,6 +66,7 @@
 		49599B34237EEA9200F24EC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49599B33237EEA9200F24EC4 /* Assets.xcassets */; };
 		49599B37237EEA9200F24EC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49599B35237EEA9200F24EC4 /* LaunchScreen.storyboard */; };
 		495A41AE23ABBAB300649949 /* SalesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495A41AD23ABBAB300649949 /* SalesResponse.swift */; };
+		496ABA1F23DF1445005042E3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496ABA1E23DF1445005042E3 /* Date.swift */; };
 		498011BD23CF5AC400DC1F9C /* OperationsFilterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498011BC23CF5AC400DC1F9C /* OperationsFilterProtocol.swift */; };
 		498011BF23CF5AD100DC1F9C /* OperationsFilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498011BE23CF5AD100DC1F9C /* OperationsFilterInteractor.swift */; };
 		498011C123CF5AD800DC1F9C /* OperationsFilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498011C023CF5AD800DC1F9C /* OperationsFilterPresenter.swift */; };
@@ -102,6 +105,8 @@
 		49811CC6238C11590074FF92 /* SaleInfoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49811CC1238C11590074FF92 /* SaleInfoRouter.swift */; };
 		49811CC9238C1BFE0074FF92 /* NavigationBarConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49811CC8238C1BFE0074FF92 /* NavigationBarConfigurationProtocol.swift */; };
 		498888C823958EBD00F164D6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498888C723958EBD00F164D6 /* String.swift */; };
+		499F086423E2F8630033CFAE /* HappyHoursInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F086323E2F8630033CFAE /* HappyHoursInfoView.swift */; };
+		499F086623E2F86C0033CFAE /* HappyHoursInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499F086523E2F86C0033CFAE /* HappyHoursInfoView.xib */; };
 		49AC4DE123A78918005ABA00 /* CitiesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AC4DE023A78918005ABA00 /* CitiesTableViewCell.xib */; };
 		49AC4DE323A7891F005ABA00 /* CitiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AC4DE223A7891F005ABA00 /* CitiesTableViewCell.swift */; };
 		49B18ABE23AA1FAE0018462B /* EmptyTransactionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B18ABD23AA1FAE0018462B /* EmptyTransactionsView.xib */; };
@@ -123,6 +128,7 @@
 		49DBED4623B214AA003FCD5D /* CityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DBED4523B214AA003FCD5D /* CityView.swift */; };
 		49DBED4923B21B76003FCD5D /* CityViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DBED4823B21B76003FCD5D /* CityViewCell.swift */; };
 		49DBED4B23B21B7C003FCD5D /* CityViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DBED4A23B21B7C003FCD5D /* CityViewCell.xib */; };
+		49DEB19823E42998004FAEF7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DEB19723E42998004FAEF7 /* DateFormatter.swift */; };
 		49E10E3323D98DD10032678F /* UIBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E10E3223D98DD10032678F /* UIBezierPath.swift */; };
 		49E10E3523D9D2A70032678F /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E10E3423D9D2A70032678F /* UIDevice.swift */; };
 		49E462FB239853E900356FF9 /* MapViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E462FA239853E900356FF9 /* MapViewConstants.swift */; };
@@ -192,6 +198,8 @@
 		4941861623913B8F005E61BC /* ReviewView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewView.xib; sourceTree = "<group>"; };
 		494186182391490B005E61BC /* ReviewTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTextView.swift; sourceTree = "<group>"; };
 		4941861A23914913005E61BC /* ReviewTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTextView.xib; sourceTree = "<group>"; };
+		49418DC223E17E8500BBA3E9 /* ReachabilityObserverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserverDelegate.swift; sourceTree = "<group>"; };
+		49418DC423E1804800BBA3E9 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		4954940523AE977900BF6B70 /* SetFirebaseTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFirebaseTokenResponse.swift; sourceTree = "<group>"; };
 		4956FDCC238D42BC006D89C9 /* LoginProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocols.swift; sourceTree = "<group>"; };
 		4956FDCE238D42C8006D89C9 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
@@ -223,6 +231,7 @@
 		49599B36237EEA9200F24EC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49599B38237EEA9200F24EC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		495A41AD23ABBAB300649949 /* SalesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesResponse.swift; sourceTree = "<group>"; };
+		496ABA1E23DF1445005042E3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		498011BC23CF5AC400DC1F9C /* OperationsFilterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsFilterProtocol.swift; sourceTree = "<group>"; };
 		498011BE23CF5AD100DC1F9C /* OperationsFilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsFilterInteractor.swift; sourceTree = "<group>"; };
 		498011C023CF5AD800DC1F9C /* OperationsFilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsFilterPresenter.swift; sourceTree = "<group>"; };
@@ -261,6 +270,8 @@
 		49811CC1238C11590074FF92 /* SaleInfoRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleInfoRouter.swift; sourceTree = "<group>"; };
 		49811CC8238C1BFE0074FF92 /* NavigationBarConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarConfigurationProtocol.swift; sourceTree = "<group>"; };
 		498888C723958EBD00F164D6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		499F086323E2F8630033CFAE /* HappyHoursInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HappyHoursInfoView.swift; sourceTree = "<group>"; };
+		499F086523E2F86C0033CFAE /* HappyHoursInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HappyHoursInfoView.xib; sourceTree = "<group>"; };
 		49AC4DE023A78918005ABA00 /* CitiesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CitiesTableViewCell.xib; sourceTree = "<group>"; };
 		49AC4DE223A7891F005ABA00 /* CitiesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewCell.swift; sourceTree = "<group>"; };
 		49B18ABD23AA1FAE0018462B /* EmptyTransactionsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyTransactionsView.xib; sourceTree = "<group>"; };
@@ -283,6 +294,7 @@
 		49DBED4523B214AA003FCD5D /* CityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityView.swift; sourceTree = "<group>"; };
 		49DBED4823B21B76003FCD5D /* CityViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewCell.swift; sourceTree = "<group>"; };
 		49DBED4A23B21B7C003FCD5D /* CityViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityViewCell.xib; sourceTree = "<group>"; };
+		49DEB19723E42998004FAEF7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		49E10E3223D98DD10032678F /* UIBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPath.swift; sourceTree = "<group>"; };
 		49E10E3423D9D2A70032678F /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		49E462FA239853E900356FF9 /* MapViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewConstants.swift; sourceTree = "<group>"; };
@@ -359,13 +371,13 @@
 			children = (
 				4941861423913B70005E61BC /* Review */,
 				49DBED4723B21B65003FCD5D /* City */,
-				492BE4E72382765B0034FB1B /* MainViewController.swift */,
 				492BE4E92382765F0034FB1B /* MainViewController.xib */,
-				492BE56B2382A8CA0034FB1B /* MainViewActionCell.swift */,
+				492BE4E72382765B0034FB1B /* MainViewController.swift */,
 				492BE56D2382A8D70034FB1B /* MainViewActionCell.xib */,
-				49811C97238BDD280074FF92 /* MainSceneConstants.swift */,
+				492BE56B2382A8CA0034FB1B /* MainViewActionCell.swift */,
 				49B18ABD23AA1FAE0018462B /* EmptyTransactionsView.xib */,
 				49B18ABF23AA22BD0018462B /* EmptyTransactionsView.swift */,
+				49811C97238BDD280074FF92 /* MainSceneConstants.swift */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -373,6 +385,7 @@
 		492BE567238295310034FB1B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				49418DC123E17E6B00BBA3E9 /* Reachability */,
 				49811CC7238C1BED0074FF92 /* NavigationBar */,
 				492BE5682382953F0034FB1B /* Extensions */,
 				49357C3A2383E83A00F1B51B /* MainTabBarController.swift */,
@@ -394,6 +407,9 @@
 				49B2AC2823A3A186002997F7 /* UICollectionView.swift */,
 				49E10E3223D98DD10032678F /* UIBezierPath.swift */,
 				49E10E3423D9D2A70032678F /* UIDevice.swift */,
+				496ABA1E23DF1445005042E3 /* Date.swift */,
+				49418DC423E1804800BBA3E9 /* UIWindow.swift */,
+				49DEB19723E42998004FAEF7 /* DateFormatter.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -414,6 +430,7 @@
 		49357C3F2383ECAA00F1B51B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				499F086223E2F84D0033CFAE /* HappyHoursInfo */,
 				49357C4A2383ECE700F1B51B /* MapViewController.swift */,
 				49357C4C2383ECEC00F1B51B /* MapViewController.xib */,
 				49811C99238BEB160074FF92 /* WashingInfoView.swift */,
@@ -443,6 +460,14 @@
 				4941861A23914913005E61BC /* ReviewTextView.xib */,
 			);
 			path = Review;
+			sourceTree = "<group>";
+		};
+		49418DC123E17E6B00BBA3E9 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				49418DC223E17E8500BBA3E9 /* ReachabilityObserverDelegate.swift */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 		4956FDCA238D42A1006D89C9 /* Login */ = {
@@ -634,6 +659,15 @@
 			path = NavigationBar;
 			sourceTree = "<group>";
 		};
+		499F086223E2F84D0033CFAE /* HappyHoursInfo */ = {
+			isa = PBXGroup;
+			children = (
+				499F086323E2F8630033CFAE /* HappyHoursInfoView.swift */,
+				499F086523E2F86C0033CFAE /* HappyHoursInfoView.xib */,
+			);
+			path = HappyHoursInfo;
+			sourceTree = "<group>";
+		};
 		49B2AC2A23A3C1E8002997F7 /* Cities */ = {
 			isa = PBXGroup;
 			children = (
@@ -781,6 +815,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				499F086623E2F86C0033CFAE /* HappyHoursInfoView.xib in Resources */,
 				4956FDD9238D42FF006D89C9 /* LoginViewController.xib in Resources */,
 				49599B37237EEA9200F24EC4 /* LaunchScreen.storyboard in Resources */,
 				49E4630223991CB600356FF9 /* NoNetworkViewController.xib in Resources */,
@@ -862,6 +897,7 @@
 				49367D47238FF63A00937BE6 /* WashingInfoSaleCell.swift in Sources */,
 				49811C9F238C01AE0074FF92 /* SalesProtocol.swift in Sources */,
 				49811CA1238C01B60074FF92 /* SalesPresenter.swift in Sources */,
+				49418DC523E1804800BBA3E9 /* UIWindow.swift in Sources */,
 				491150A823D04DCE0007CCA8 /* OperationFilterConstants.swift in Sources */,
 				49811CAE238C02800074FF92 /* UIViewController.swift in Sources */,
 				49B2AC3923A77EA2002997F7 /* CitiesPresenter.swift in Sources */,
@@ -893,9 +929,12 @@
 				4941861323913B6A005E61BC /* ReviewView.swift in Sources */,
 				49574F2323B9B92B006E8DC5 /* ReviewNotificationResponse.swift in Sources */,
 				492BE4EC238284190034FB1B /* MainConfigurator.swift in Sources */,
+				499F086423E2F8630033CFAE /* HappyHoursInfoView.swift in Sources */,
+				49DEB19823E42998004FAEF7 /* DateFormatter.swift in Sources */,
 				4956FDE7238E7D80006D89C9 /* PaymentRouter.swift in Sources */,
 				49E462FD2399038700356FF9 /* DispatchQueue.swift in Sources */,
 				49811CC6238C11590074FF92 /* SaleInfoRouter.swift in Sources */,
+				496ABA1F23DF1445005042E3 /* Date.swift in Sources */,
 				49599B2D237EEA9000F24EC4 /* SceneDelegate.swift in Sources */,
 				49E46316239E670900356FF9 /* UserLogoutResponse.swift in Sources */,
 				49357C492383ECDB00F1B51B /* MapPresenter.swift in Sources */,
@@ -944,6 +983,7 @@
 				49357C3B2383E83A00F1B51B /* MainTabBarController.swift in Sources */,
 				4956FDD1238D42D5006D89C9 /* LoginConfigurator.swift in Sources */,
 				498011E323CF5E9300DC1F9C /* OperationsInteractor.swift in Sources */,
+				49418DC323E17E8500BBA3E9 /* ReachabilityObserverDelegate.swift in Sources */,
 				498011E423CF5E9300DC1F9C /* OperationsPresenter.swift in Sources */,
 				49574F2123B37B0F006E8DC5 /* SaleInfoCell.swift in Sources */,
 				49F12BFC23CDF940007A1A87 /* OperationInfo.swift in Sources */,

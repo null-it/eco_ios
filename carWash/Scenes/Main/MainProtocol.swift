@@ -39,6 +39,11 @@ protocol MainViewProtocol: class {
     func hideInfoView()
     func showAlert(message: String, title: String)
     func dataRefreshed()
+    func userInfoRequestDidSend()
+    func userInfoResponseDidRecieve(completion: (() -> ())?)
+    func operationsRequestDidSend()
+    func operationsResponseDidRecieve(completion: (() -> ())?)
+    func clearUserInfo()
 }
 
 // MARK: - Presenter

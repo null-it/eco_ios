@@ -74,7 +74,6 @@ extension CitiesPresenter: CitiesPresenterProtocol {
             self.view.update(currentCity: self.currentCity,
                              cities: self.cities,
                              titles: self.titles) // !
-            
         }) {
             // alert
             self.view.responseDidRecieve()

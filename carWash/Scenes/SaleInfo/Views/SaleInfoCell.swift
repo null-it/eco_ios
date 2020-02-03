@@ -21,7 +21,6 @@ class SaleInfoCell: UITableViewCell {
     
     @IBAction func buttonPressed(_ sender: Any) {
         buttonPressed?()
-        
     }
 
 }
