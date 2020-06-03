@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="EmptySalesView" customModule="ECO" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1O-Nz-GAI">
+                    <rect key="frame" x="87" y="371" width="240" height="154"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptySales" translatesAutoresizingMaskIntoConstraints="NO" id="IbU-CU-4XO">
+                            <rect key="frame" x="36.5" y="0.0" width="167" height="78"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="78" id="Q71-1y-20L"/>
+                                <constraint firstAttribute="width" constant="167" id="aPY-9B-gZz"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="В Вашем городе нет акций" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cO-Ba-YWB">
+                            <rect key="frame" x="14.5" y="110" width="211.5" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="yad-Tx-dl8"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="IbU-CU-4XO" firstAttribute="top" secondItem="w1O-Nz-GAI" secondAttribute="top" id="PMk-1p-Xjm"/>
+                        <constraint firstItem="6cO-Ba-YWB" firstAttribute="centerX" secondItem="w1O-Nz-GAI" secondAttribute="centerX" id="aOu-Yx-hxg"/>
+                        <constraint firstAttribute="bottom" secondItem="6cO-Ba-YWB" secondAttribute="bottom" id="an5-gB-QAc"/>
+                        <constraint firstItem="6cO-Ba-YWB" firstAttribute="top" secondItem="IbU-CU-4XO" secondAttribute="bottom" constant="32" id="hjf-ki-px2"/>
+                        <constraint firstItem="IbU-CU-4XO" firstAttribute="centerX" secondItem="w1O-Nz-GAI" secondAttribute="centerX" id="xno-QF-uxN"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="w1O-Nz-GAI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="21E-Gy-tbH"/>
+                <constraint firstItem="w1O-Nz-GAI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ebh-K0-55T"/>
+                <constraint firstItem="w1O-Nz-GAI" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.57971" id="yxn-7V-Wb5"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="139" y="148"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="emptySales" width="167" height="89.5"/>
+    </resources>
+</document>
