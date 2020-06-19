@@ -20,7 +20,6 @@ class PaymentPresenter {
     
     var paymentTypes = [
         PaymentTypeInfo(title: "Картой в приложении", isEnabled: false),
-        PaymentTypeInfo(title: "Apple Pay", isEnabled: false)
     ]
     
     init(view: PaymentViewProtocol,

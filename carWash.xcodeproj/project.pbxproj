@@ -273,7 +273,7 @@
 		49574F2023B37B0F006E8DC5 /* SaleInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleInfoCell.swift; sourceTree = "<group>"; };
 		49574F2223B9B92B006E8DC5 /* ReviewNotificationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNotificationResponse.swift; sourceTree = "<group>"; };
 		49574F2423BA1D6D006E8DC5 /* SaleNotificationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleNotificationResponse.swift; sourceTree = "<group>"; };
-		49599B27237EEA9000F24EC4 /* ECO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49599B27237EEA9000F24EC4 /* EcoCarWash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EcoCarWash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49599B2A237EEA9000F24EC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49599B2C237EEA9000F24EC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		49599B33237EEA9200F24EC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -642,7 +642,7 @@
 		49599B28237EEA9000F24EC4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				49599B27237EEA9000F24EC4 /* ECO.app */,
+				49599B27237EEA9000F24EC4 /* EcoCarWash.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -879,7 +879,7 @@
 			);
 			name = carWash;
 			productName = carWash;
-			productReference = 49599B27237EEA9000F24EC4 /* ECO.app */;
+			productReference = 49599B27237EEA9000F24EC4 /* EcoCarWash.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1293,7 +1293,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
-				PRODUCT_NAME = ECO;
+				PRODUCT_NAME = EcoCarWash;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1319,7 +1319,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
-				PRODUCT_NAME = ECO;
+				PRODUCT_NAME = EcoCarWash;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

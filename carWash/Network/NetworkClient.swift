@@ -13,7 +13,7 @@ class NetworkClient {
     let serverURL: String
 
     static let shared : NetworkClient =  {
-        let instance = NetworkClient(serverURL: "http://eco.voodoolab.io/api/")
+        let instance = NetworkClient(serverURL: "http://loyalty.myeco24.ru/api/")
         return instance
     }()
 
