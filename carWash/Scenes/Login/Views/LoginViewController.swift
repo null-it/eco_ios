@@ -125,9 +125,10 @@ class LoginViewController: UIViewController {
     @objc private func keyboardWillChangeFrame(notification: NSNotification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue.height {
-            print(keyboardHeight)
             let value = loginButton.frame.maxY + keyboardHeight - view.frame.height + LoginViewConstants.loginButtonMinBottomSpace
-            let constant = loginButtonBottomConstraint.constant + value
+            let constant = value > LoginViewConstants.loginButtonMinBottomSpace
+            ? loginButtonBottomConstraint.constant + value
+            : LoginViewConstants.loginButtonDefaultBottomConstant
             animateLoginButtonConstraint(constant: constant)
         }
     }
