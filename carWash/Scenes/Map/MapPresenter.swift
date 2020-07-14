@@ -95,8 +95,7 @@ class MapPresenter {
             self.sales = sales
             
             if self.isWashingStart {
-                self.view.showWashingStartInfo(address: address,
-                                               terminalsCount: 10) // !
+                self.view.showWashingStartInfo(address: address, terminalsCount: response.seats)
             } else {
                 self.view.showWashInfo(address: address,
                                        cashback: cashback,
@@ -104,8 +103,6 @@ class MapPresenter {
                                        happyTimesText: happyTimesText,
                                        isHappyTimesHidden: isHappyTimesHidden)
             }
-            
-
         }) {
             ()
         }
@@ -123,7 +120,7 @@ extension MapPresenter: MapPresenterProtocol {
         view.showConfirmationView(address: "\(address), терминал №\(index + 1)") { [weak self] in
             guard let self = self else { return }
             let systemId = self.selectedWash?.systemId ?? ""
-            let code = systemId + "-" + String(index) // !!!!!!!!!!!!!!
+            let code = systemId + "-" + String(index + 1)
             
             let onSuccess: (WashStartResponse) -> () = { [weak self] (wash) in
                 switch wash.status {

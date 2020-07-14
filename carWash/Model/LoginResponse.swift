@@ -39,9 +39,7 @@ struct LoginResponse: Codable {
         default:
             ()
         }
-        
     }
-    
 }
 
 

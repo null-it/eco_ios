@@ -80,7 +80,6 @@ class LoginViewController: UIViewController {
     
     @IBAction func alreadyHasPasswordButtomPressed(_ sender: Any) {
         presenter.alreadyHasPasswordButtonPressed()
-
     }
     
     
@@ -126,6 +125,7 @@ class LoginViewController: UIViewController {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue.height {
             let value = loginButton.frame.maxY + keyboardHeight - view.frame.height + LoginViewConstants.loginButtonMinBottomSpace
+            guard value > 0 else { return }
             let constant = value > LoginViewConstants.loginButtonMinBottomSpace
             ? loginButtonBottomConstraint.constant + value
             : LoginViewConstants.loginButtonDefaultBottomConstant

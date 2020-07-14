@@ -16,7 +16,6 @@ class AlertView: UIView {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var separatorView: UIView!
     
@@ -53,11 +52,9 @@ class AlertView: UIView {
         
         titleLabel.text = title
         textView.text = text
-        textView.scrollRangeToVisible(NSRange(location:0, length:0))
         okButton.setTitle(okButtonTitle, for: .normal)
         cancelButton.setTitle(cancelButtonTitle, for: .normal)
-        textView.sizeToFit()
-        textViewHeightConstraint.constant = textView.contentSize.height
+        textView.isScrollEnabled = false
         self.okAction = okAction
         self.cancelAction = cancelAction
     }
