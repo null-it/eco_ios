@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="108" id="ZCS-ot-a4v" customClass="SaleInfoCell" customModule="ECO" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="407" height="95"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZCS-ot-a4v" id="FQ3-jb-nGm">
+                <rect key="frame" x="0.0" y="0.0" width="407" height="95"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1n-ue-LeN" customClass="LeftAlignedIconButton" customModule="ECO" customModuleProvider="target">
+                        <rect key="frame" x="16" y="10" width="375" height="75"/>
+                        <color key="backgroundColor" red="0.90588235294117647" green="0.95294117647058818" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="75" id="l2v-E4-eHn"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                        <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="г. Воронеж, ул Бурденко 25" image="auto">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="14"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="buttonPressed:" destination="ZCS-ot-a4v" eventType="touchUpInside" id="3km-VD-PoQ"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="e1n-ue-LeN" secondAttribute="bottom" constant="10" id="ItK-Y0-rmV"/>
+                    <constraint firstItem="e1n-ue-LeN" firstAttribute="leading" secondItem="FQ3-jb-nGm" secondAttribute="leading" constant="16" id="h2v-fx-GH7"/>
+                    <constraint firstAttribute="trailing" secondItem="e1n-ue-LeN" secondAttribute="trailing" constant="16" id="qKu-9E-IDH"/>
+                    <constraint firstItem="e1n-ue-LeN" firstAttribute="top" secondItem="FQ3-jb-nGm" secondAttribute="top" constant="10" id="xuD-kk-puo"/>
+                </constraints>
+            </tableViewCellContentView>
+            <accessibility key="accessibilityConfiguration" identifier="SaleInfoCell"/>
+            <connections>
+                <outlet property="button" destination="e1n-ue-LeN" id="QAM-tI-IyT"/>
+            </connections>
+            <point key="canvasLocation" x="132.60869565217394" y="-141.62946428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="auto" width="47" height="47"/>
+    </resources>
+</document>

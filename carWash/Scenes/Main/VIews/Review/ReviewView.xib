@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ReviewView" customModule="ECO" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="486"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reviewTopIcon" translatesAutoresizingMaskIntoConstraints="NO" id="GwQ-2I-Ec8">
+                    <rect key="frame" x="179.5" y="7" width="55" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="qdV-IT-WuP"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200 ₽" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bkd-gi-XJS">
+                    <rect key="frame" x="16" y="123" width="382" height="46"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="46" id="At6-yH-Thq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="38"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Понедельник, 15 ноября" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lwm-g1-GCb">
+                    <rect key="frame" x="16" y="181" width="382" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="lBC-Qf-fXX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.30980392156862746" green="0.30980392156862746" blue="0.30980392156862746" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ул. Свободы, 87" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNm-oK-Xfq">
+                    <rect key="frame" x="16" y="209" width="382" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="huT-Kq-9JH"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оцените мойку" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MPq-ja-Bhf">
+                    <rect key="frame" x="16" y="255" width="382" height="21.5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21.5" id="Kae-uP-vdg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S1q-a7-Ojb" customClass="CosmosView" customModule="Cosmos">
+                    <rect key="frame" x="139" y="292.5" width="136" height="25"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="DLu-Be-XSY"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                            <real key="value" value="24"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                            <color key="value" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="emptyColor">
+                            <color key="value" red="0.88235294119999996" green="0.88235294119999996" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                            <color key="value" red="0.88235294119999996" green="0.88235294119999996" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
+                            <color key="value" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="updateOnTouch" value="YES"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="filledImage" value="selectedStar"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="star"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4O-1g-div">
+                    <rect key="frame" x="32" y="417.5" width="350" height="45"/>
+                    <color key="backgroundColor" red="0.57647058819999997" green="0.75686274509999996" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="zng-Gw-eSZ"/>
+                    </constraints>
+                    <state key="normal" title="Готово">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="doneButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="R4V-aP-iQP"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I4c-L2-Ste" customClass="LeftAlignedIconButton" customModule="ECO" customModuleProvider="target">
+                    <rect key="frame" x="32" y="349.5" width="350" height="48"/>
+                    <color key="backgroundColor" red="0.88235294117647056" green="0.88235294117647056" blue="0.89411764705882346" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="rel-ns-bnG"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Написать отзыв">
+                        <color key="titleColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="reviewButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Sap-Zc-zJF"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <accessibility key="accessibilityConfiguration" identifier="ReviewView"/>
+            <constraints>
+                <constraint firstItem="HNm-oK-Xfq" firstAttribute="top" secondItem="Lwm-g1-GCb" secondAttribute="bottom" constant="10" id="3Uc-As-33k"/>
+                <constraint firstItem="S1q-a7-Ojb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="946-1P-I4h"/>
+                <constraint firstItem="Lwm-g1-GCb" firstAttribute="top" secondItem="Bkd-gi-XJS" secondAttribute="bottom" constant="12" id="BEH-BL-BEA"/>
+                <constraint firstItem="GwQ-2I-Ec8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="D5Y-V0-Cti"/>
+                <constraint firstItem="G4O-1g-div" firstAttribute="top" secondItem="I4c-L2-Ste" secondAttribute="bottom" constant="20" id="Hbf-eG-05G"/>
+                <constraint firstItem="MPq-ja-Bhf" firstAttribute="top" secondItem="HNm-oK-Xfq" secondAttribute="bottom" constant="32" id="IhX-Xv-5ex"/>
+                <constraint firstItem="Lwm-g1-GCb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="K4G-Eb-0TV"/>
+                <constraint firstItem="G4O-1g-div" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="MBP-0W-cTQ"/>
+                <constraint firstItem="Bkd-gi-XJS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="OZB-4O-pQW"/>
+                <constraint firstItem="I4c-L2-Ste" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="Qb7-MO-ECy"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="G4O-1g-div" secondAttribute="trailing" constant="32" id="UBh-UO-tRM"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Lwm-g1-GCb" secondAttribute="trailing" constant="16" id="VPe-cF-LaK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MPq-ja-Bhf" secondAttribute="trailing" constant="16" id="ZTZ-mW-7bk"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="G4O-1g-div" secondAttribute="bottom" constant="23.5" id="Zcb-yi-SK7"/>
+                <constraint firstItem="MPq-ja-Bhf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="aio-AA-eTQ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Bkd-gi-XJS" secondAttribute="trailing" constant="16" id="cOP-m0-PUd"/>
+                <constraint firstItem="S1q-a7-Ojb" firstAttribute="top" secondItem="MPq-ja-Bhf" secondAttribute="bottom" constant="16" id="erv-Y5-FVo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="I4c-L2-Ste" secondAttribute="trailing" constant="32" id="lqo-xN-ddi"/>
+                <constraint firstItem="I4c-L2-Ste" firstAttribute="top" secondItem="S1q-a7-Ojb" secondAttribute="bottom" constant="32" id="mPM-Lf-iz4"/>
+                <constraint firstItem="GwQ-2I-Ec8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="7" id="nX7-bh-fan"/>
+                <constraint firstItem="Bkd-gi-XJS" firstAttribute="top" secondItem="GwQ-2I-Ec8" secondAttribute="bottom" constant="16" id="qjz-3h-fUg"/>
+                <constraint firstItem="HNm-oK-Xfq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="t1o-Zn-1wV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HNm-oK-Xfq" secondAttribute="trailing" constant="16" id="v5y-UF-qef"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="addressLabel" destination="HNm-oK-Xfq" id="wHz-2x-gm4"/>
+                <outlet property="dateLabel" destination="Lwm-g1-GCb" id="0Yg-F8-8gS"/>
+                <outlet property="doneButton" destination="I4c-L2-Ste" id="DLB-Va-fFV"/>
+                <outlet property="priceLabel" destination="Bkd-gi-XJS" id="Sax-z5-1NO"/>
+                <outlet property="ratingView" destination="S1q-a7-Ojb" id="4Dv-yZ-ToA"/>
+            </connections>
+            <point key="canvasLocation" x="128.98550724637681" y="142.63392857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="reviewTopIcon" width="55" height="84.5"/>
+        <image name="selectedStar" width="24" height="22.5"/>
+        <image name="star" width="24" height="22.5"/>
+    </resources>
+</document>

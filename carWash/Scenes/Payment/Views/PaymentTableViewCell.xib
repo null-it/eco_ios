@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="uFd-Oq-6ma" customClass="PaymentTableViewCell" customModule="ECO" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uFd-Oq-6ma" id="7YR-f7-Raw">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackArrowForward" translatesAutoresizingMaskIntoConstraints="NO" id="r2Z-N0-Urg">
+                        <rect key="frame" x="380" y="13" width="18" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="AA7-pV-wRa"/>
+                            <constraint firstAttribute="height" constant="18" id="bR9-gn-dZc"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Картой в приложении" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8US-Yl-274">
+                        <rect key="frame" x="16" y="12.5" width="166" height="19"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="r2Z-N0-Urg" secondAttribute="trailing" constant="16" id="c4d-Yw-wXH"/>
+                    <constraint firstItem="r2Z-N0-Urg" firstAttribute="centerY" secondItem="7YR-f7-Raw" secondAttribute="centerY" id="cyO-wN-H6r"/>
+                    <constraint firstItem="8US-Yl-274" firstAttribute="leading" secondItem="7YR-f7-Raw" secondAttribute="leading" constant="16" id="fPl-nB-ifU"/>
+                    <constraint firstItem="8US-Yl-274" firstAttribute="centerY" secondItem="7YR-f7-Raw" secondAttribute="centerY" id="svB-Iu-qQi"/>
+                </constraints>
+            </tableViewCellContentView>
+            <accessibility key="accessibilityConfiguration" identifier="PaymentTableViewCell"/>
+            <connections>
+                <outlet property="titleTextField" destination="8US-Yl-274" id="xXC-g3-Ren"/>
+            </connections>
+            <point key="canvasLocation" x="92.753623188405811" y="-41.517857142857139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="blackArrowForward" width="18" height="18"/>
+    </resources>
+</document>

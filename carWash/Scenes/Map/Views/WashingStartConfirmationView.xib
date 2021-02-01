@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WashingStartConfirmationView" customModule="ECO" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="203"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eah-Hr-EwX">
+                    <rect key="frame" x="24" y="137.5" width="366" height="45"/>
+                    <color key="backgroundColor" red="0.57647058819999997" green="0.75686274509999996" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="kbh-4m-KVr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                    <state key="normal" title="Начать">
+                        <color key="titleColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="startButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="TLf-lk-rOi"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Начать мойку?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vov-s9-WDE">
+                    <rect key="frame" x="24" y="32" width="163" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="27" id="uCe-gh-4Dk"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCJ-yw-o87">
+                    <rect key="frame" x="24" y="75" width="366" height="38.5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="38.5" id="2HI-ju-aoe"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <accessibility key="accessibilityConfiguration" identifier="WashingStartConfirmationView"/>
+            <constraints>
+                <constraint firstItem="Vov-s9-WDE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="1DO-Nv-16c"/>
+                <constraint firstItem="cCJ-yw-o87" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="5Oh-SK-7Vq"/>
+                <constraint firstItem="cCJ-yw-o87" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Vov-s9-WDE" secondAttribute="bottom" constant="12" id="AIj-mF-j2d"/>
+                <constraint firstItem="Vov-s9-WDE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="999" constant="32" id="ExV-iz-prW"/>
+                <constraint firstItem="eah-Hr-EwX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="aCX-sW-BUA"/>
+                <constraint firstItem="Vov-s9-WDE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="fL0-KT-P5y"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eah-Hr-EwX" secondAttribute="trailing" constant="24" id="n2F-0O-EMe"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eah-Hr-EwX" secondAttribute="bottom" constant="20.5" id="pdf-XH-APl"/>
+                <constraint firstItem="cCJ-yw-o87" firstAttribute="top" secondItem="Vov-s9-WDE" secondAttribute="bottom" priority="990" constant="16" id="rLI-dY-6Ke"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cCJ-yw-o87" secondAttribute="trailing" constant="24" id="uTV-9C-erR"/>
+                <constraint firstItem="eah-Hr-EwX" firstAttribute="top" secondItem="cCJ-yw-o87" secondAttribute="bottom" priority="998" constant="24" id="vVG-yh-tsB"/>
+                <constraint firstItem="eah-Hr-EwX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="cCJ-yw-o87" secondAttribute="bottom" constant="12" id="ywx-3u-bIV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="addressLabel" destination="cCJ-yw-o87" id="yfX-oi-7JS"/>
+            </connections>
+            <point key="canvasLocation" x="118.84057971014494" y="-102.12053571428571"/>
+        </view>
+    </objects>
+</document>
