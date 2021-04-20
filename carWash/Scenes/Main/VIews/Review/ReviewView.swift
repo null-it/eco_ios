@@ -16,6 +16,7 @@ class ReviewView: UIView {
     var reviewButtonPressed: (() -> ())?
     var doneButtonPressed: (() -> ())?
     var ratingDidChanged: ((Double) -> ())?
+    var closeButtonTapped: (() -> ())?
 
     // MARK: - Outlets
 
@@ -65,6 +66,9 @@ class ReviewView: UIView {
         doneButtonPressed?()
     }
     
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        closeButtonTapped?()
+    }
     
     // MARK: - Private
     

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ReviewView" customModule="ECO" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ReviewView" customModule="EcoCarWash" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="486"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -58,7 +59,7 @@
                 </label>
                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S1q-a7-Ojb" customClass="CosmosView" customModule="Cosmos">
                     <rect key="frame" x="139" y="292.5" width="136" height="25"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="DLu-Be-XSY"/>
                     </constraints>
@@ -73,7 +74,7 @@
                             <real key="value" value="24"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
-                            <color key="value" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" systemColor="systemYellowColor"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="emptyColor">
                             <color key="value" red="0.88235294119999996" green="0.88235294119999996" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -82,7 +83,7 @@
                             <color key="value" red="0.88235294119999996" green="0.88235294119999996" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
-                            <color key="value" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" systemColor="systemYellowColor"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="rating">
                             <real key="value" value="0.0"/>
@@ -95,7 +96,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4O-1g-div">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4O-1g-div">
                     <rect key="frame" x="32" y="417.5" width="350" height="45"/>
                     <color key="backgroundColor" red="0.57647058819999997" green="0.75686274509999996" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -113,7 +114,7 @@
                         <action selector="doneButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="R4V-aP-iQP"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I4c-L2-Ste" customClass="LeftAlignedIconButton" customModule="ECO" customModuleProvider="target">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I4c-L2-Ste" customClass="LeftAlignedIconButton" customModule="EcoCarWash" customModuleProvider="target">
                     <rect key="frame" x="32" y="349.5" width="350" height="48"/>
                     <color key="backgroundColor" red="0.88235294117647056" green="0.88235294117647056" blue="0.89411764705882346" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
@@ -132,10 +133,23 @@
                         <action selector="reviewButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Sap-Zc-zJF"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02V-ml-UA1">
+                    <rect key="frame" x="368" y="16" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="29M-U7-aX3"/>
+                        <constraint firstAttribute="width" constant="30" id="e5D-KB-bQp"/>
+                    </constraints>
+                    <state key="normal" image="close-button"/>
+                    <connections>
+                        <action selector="closeButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="ULa-YK-v8L"/>
+                    </connections>
+                </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <accessibility key="accessibilityConfiguration" identifier="ReviewView"/>
             <constraints>
+                <constraint firstItem="02V-ml-UA1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="2p2-Gb-J4g"/>
                 <constraint firstItem="HNm-oK-Xfq" firstAttribute="top" secondItem="Lwm-g1-GCb" secondAttribute="bottom" constant="10" id="3Uc-As-33k"/>
                 <constraint firstItem="S1q-a7-Ojb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="946-1P-I4h"/>
                 <constraint firstItem="Lwm-g1-GCb" firstAttribute="top" secondItem="Bkd-gi-XJS" secondAttribute="bottom" constant="12" id="BEH-BL-BEA"/>
@@ -148,6 +162,7 @@
                 <constraint firstItem="I4c-L2-Ste" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="Qb7-MO-ECy"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="G4O-1g-div" secondAttribute="trailing" constant="32" id="UBh-UO-tRM"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Lwm-g1-GCb" secondAttribute="trailing" constant="16" id="VPe-cF-LaK"/>
+                <constraint firstAttribute="trailing" secondItem="02V-ml-UA1" secondAttribute="trailing" constant="16" id="WGL-oE-fMR"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MPq-ja-Bhf" secondAttribute="trailing" constant="16" id="ZTZ-mW-7bk"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="G4O-1g-div" secondAttribute="bottom" constant="23.5" id="Zcb-yi-SK7"/>
                 <constraint firstItem="MPq-ja-Bhf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="aio-AA-eTQ"/>
@@ -161,7 +176,6 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HNm-oK-Xfq" secondAttribute="trailing" constant="16" id="v5y-UF-qef"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="addressLabel" destination="HNm-oK-Xfq" id="wHz-2x-gm4"/>
                 <outlet property="dateLabel" destination="Lwm-g1-GCb" id="0Yg-F8-8gS"/>
@@ -172,9 +186,21 @@
             <point key="canvasLocation" x="128.98550724637681" y="142.63392857142856"/>
         </view>
     </objects>
+    <designables>
+        <designable name="I4c-L2-Ste">
+            <size key="intrinsicContentSize" width="130" height="18"/>
+        </designable>
+    </designables>
     <resources>
+        <image name="close-button" width="512" height="512"/>
         <image name="reviewTopIcon" width="55" height="84.5"/>
         <image name="selectedStar" width="24" height="22.5"/>
         <image name="star" width="24" height="22.5"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

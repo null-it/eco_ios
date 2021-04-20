@@ -96,6 +96,7 @@ PODS:
   - SwiftEntryKit (1.2.3):
     - QuickLayout (= 3.0.0)
   - SwiftKeychainWrapper (3.4.0)
+  - SwiftPhoneNumberFormatter (1.5)
 
 DEPENDENCIES:
   - BEMCheckBox (~> 1.4.1)
@@ -109,6 +110,7 @@ DEPENDENCIES:
   - SkeletonView (~> 1.8.5)
   - SwiftEntryKit (= 1.2.3)
   - SwiftKeychainWrapper (~> 3.4)
+  - SwiftPhoneNumberFormatter
 
 SPEC REPOS:
   trunk:
@@ -137,6 +139,7 @@ SPEC REPOS:
     - SkeletonView
     - SwiftEntryKit
     - SwiftKeychainWrapper
+    - SwiftPhoneNumberFormatter
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -164,7 +167,8 @@ SPEC CHECKSUMS:
   SkeletonView: ba5370f41280b2f0a76918bb143c1294232bb4f4
   SwiftEntryKit: 340713c2e4a6662c5149629990bf1088bf5f0389
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
+  SwiftPhoneNumberFormatter: 0cc91f4daa06dd606a9defb21048a75c36a771a2
 
-PODFILE CHECKSUM: a453100725b8ae056877afaeef9c9b4a804994b3
+PODFILE CHECKSUM: 1b8683b535a7babc1394988243da35416b215a50
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

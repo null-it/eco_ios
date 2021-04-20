@@ -1,5 +1,11 @@
 platform :ios, '10.0'
 
+post_install do |installer|
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+  end
+end
+
 target 'carWash' do
   use_frameworks!
 
@@ -17,4 +23,5 @@ target 'carWash' do
   pod "ReachabilitySwift"
   pod 'SwiftEntryKit', '1.2.3'
   pod "Panels", '2.1.0'
+  pod "SwiftPhoneNumberFormatter"
 end

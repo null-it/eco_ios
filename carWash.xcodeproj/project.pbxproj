@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -179,6 +179,7 @@
 		49F12BFA23CDF916007A1A87 /* OperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F12BF923CDF916007A1A87 /* OperationType.swift */; };
 		49F12BFC23CDF940007A1A87 /* OperationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F12BFB23CDF940007A1A87 /* OperationInfo.swift */; };
 		4D436E25F5F10A1A4153B167 /* Pods_carWash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF31C689214847541284B53 /* Pods_carWash.framework */; };
+		608EBAE0262E0B1000CF37AD /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 608EBADF262E0B1000CF37AD /* PhoneNumberKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -380,6 +381,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				608EBAE0262E0B1000CF37AD /* PhoneNumberKit in Frameworks */,
 				49357C552383FEBA00F1B51B /* MapKit.framework in Frameworks */,
 				4D436E25F5F10A1A4153B167 /* Pods_carWash.framework in Frameworks */,
 			);
@@ -878,6 +880,9 @@
 			dependencies = (
 			);
 			name = carWash;
+			packageProductDependencies = (
+				608EBADF262E0B1000CF37AD /* PhoneNumberKit */,
+			);
 			productName = carWash;
 			productReference = 49599B27237EEA9000F24EC4 /* EcoCarWash.app */;
 			productType = "com.apple.product-type.application";
@@ -906,6 +911,9 @@
 				Base,
 			);
 			mainGroup = 49599B1E237EEA9000F24EC4;
+			packageReferences = (
+				608EBADE262E0B1000CF37AD /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
+			);
 			productRefGroup = 49599B28237EEA9000F24EC4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1282,6 +1290,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W89PGV58R6;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/FirebaseAnalytics",
@@ -1293,11 +1302,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = EcoCarWash;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1310,6 +1319,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W89PGV58R6;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/FirebaseAnalytics",
@@ -1321,11 +1331,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = EcoCarWash;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1351,6 +1361,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		608EBADE262E0B1000CF37AD /* XCRemoteSwiftPackageReference "PhoneNumberKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/PhoneNumberKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.3.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		608EBADF262E0B1000CF37AD /* PhoneNumberKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 608EBADE262E0B1000CF37AD /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			productName = PhoneNumberKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 49599B1F237EEA9000F24EC4 /* Project object */;
 }

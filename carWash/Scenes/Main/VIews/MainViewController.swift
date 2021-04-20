@@ -421,6 +421,13 @@ extension MainViewController: MainViewProtocol {
             self.presenter.ratingDidChanged(index: self.sendReviewViews.count - 1, rating: rating)
         }
         
+        reviewView.closeButtonTapped = { [weak self] in
+            guard let self = self else { return }
+            self.sendReviewViews.forEach({$0.removeFromSuperview()})
+            self.sendReviewViews.removeAll()
+            self.reviewTextViews.removeAll()
+        }
+        
         return self.sendReviewViews.count - 1
     }
 
