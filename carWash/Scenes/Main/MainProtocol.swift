@@ -13,18 +13,8 @@ protocol MainViewProtocol: class {
 //   func updateFor(info: [CashbackTypeInfo])
     func set(name: String,
              balance: String)
-    func updateCashbacks(progress: Float,
-                         currentCashbackProgress: Float?,
-                         nextCashbackProgress: Float?,
-                         currentCashbackIndex: Int?,
-                         description: String)
     func reload(rows: [Int]) 
     func reloadData()
-    func setCahbackInfo(firstPercent: String, firstValue: String,
-                        secondPercent: String, secondValue: String,
-                        thirdPercent: String, thirdValue: String,
-                        fourthPercent: String, fourthValue: String,
-                        fifthPercent: String, fifthValue: String)
     func showAlert(message: String,
                    title: String,
                    okButtonTitle: String,
@@ -44,7 +34,6 @@ protocol MainViewProtocol: class {
     func userInfoResponseDidRecieve(completion: (() -> ())?)
     func operationsRequestDidSend()
     func operationsResponseDidRecieve(completion: (() -> ())?)
-    func clearUserInfo()
     func showNetworkErrorMessage() 
 }
 

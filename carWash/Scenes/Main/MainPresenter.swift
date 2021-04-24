@@ -92,61 +92,8 @@ class MainPresenter {
             }
             self.setCityIfNeeded()
             
-            let firstPercent = self.toPercent(value: response.monthCashBack[0].percent)
-            let firstValue = self.toRub(value: response.monthCashBack[0].value)
-            let secondPercent = self.toPercent(value: response.monthCashBack[1].percent)
-            let secondValue =  self.toRub(value: response.monthCashBack[1].value)
-            let thirdPercent = self.toPercent(value: response.monthCashBack[2].percent)
-            let thirdValue =  self.toRub(value: response.monthCashBack[2].value)
-            let fourthPercent = self.toPercent(value: response.monthCashBack[3].percent)
-            let fourthValue =  self.toRub(value: response.monthCashBack[3].value)
-            let fifthPercent = self.toPercent(value: response.monthCashBack[4].percent)
-            let fifthValue =  self.toRub(value: response.monthCashBack[4].value)
-            
-            
-            let distance: Float = 1 / Float(response.monthCashBack.count - 1)
-            
-            var nextCashbackIndex = 0
-            while (nextCashbackIndex <= 4)
-                && (response.monthCashBack[nextCashbackIndex].value <= response.data.monthSpent) {
-                    nextCashbackIndex += 1
-            }
-            
-            let nextCashbackProgress = Float(nextCashbackIndex) * distance
-            
-            let currentCashbackProgress = nextCashbackProgress - distance
-            let currentCashbackIndex = nextCashbackIndex - 1
-            
-            var description = ""
-            if nextCashbackIndex >= 0 && nextCashbackIndex <= 4 { // ! other messages
-                let value = response.monthCashBack[nextCashbackIndex].value - response.data.monthSpent
-                description = "До следующего уровня осталось потратить \(value) ₽"
-            } else if nextCashbackIndex == 5 {
-                description = "Вы достигли максимально допустимого процента по кэшбеку"
-            }
-            
-            var currentCashback = 0
-            if currentCashbackIndex > 0 {
-                currentCashback = response.monthCashBack[currentCashbackIndex].value
-            }
-            let difference = response.data.monthSpent - currentCashback
-            
-            let nextCashback: Int?
-            var sectionProgress: Float = 1
-            
-            if nextCashbackIndex <= 4 {
-                nextCashback = response.monthCashBack[nextCashbackIndex].value
-                sectionProgress = Float(difference) / Float(nextCashback! - currentCashback)
-            }
-            
-            let progress = sectionProgress * distance + currentCashbackProgress
-            
             self.view.userInfoResponseDidRecieve() {
-                self.view.updateCashbacks(progress: progress,
-                                          currentCashbackProgress: currentCashbackProgress.isLess(than: 0) ? nil : currentCashbackProgress,
-                                          nextCashbackProgress: !nextCashbackProgress.isLess(than: 1) ? nil : nextCashbackProgress,
-                                          currentCashbackIndex: currentCashbackIndex < 0 ? nil : currentCashbackIndex,
-                                          description: description)
+                
             }
             
             if let _ = data.name {
@@ -155,12 +102,6 @@ class MainPresenter {
                 self.view.configureTextFieldForPhone()
             }
             self.view.set(name: self.name, balance: balance)
-
-            self.view.setCahbackInfo(firstPercent: firstPercent, firstValue: firstValue,
-                                     secondPercent: secondPercent, secondValue: secondValue,
-                                     thirdPercent: thirdPercent, thirdValue: thirdValue,
-                                     fourthPercent: fourthPercent, fourthValue: fourthValue,
-                                     fifthPercent: fifthPercent, fifthValue: fifthValue)
            
         }) {
             () // ! alert
@@ -176,7 +117,6 @@ extension MainPresenter: MainPresenterProtocol {
     
     func refreshData() {
         initLoadingInfo()
-        view.clearUserInfo()
         getOperations(isRefreshing: true)
         getUserInfo()
     }

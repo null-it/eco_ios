@@ -23,22 +23,6 @@ class MainViewController: UIViewController {
     
     let onceToken = "mainViewConfiguration"
     var textFieldText: String?
-    
-    lazy var cashbackLabels = [
-         firstCashbackLabel,
-         secondCashbackLabel,
-         thirdCashbackLabel,
-         fourthCashbackLabel,
-         fifthCashbackLabel
-     ]
-    
-    lazy var cashbackValueLabels = [
-        firstCashbackValueLabel,
-        secondCashbackValueLabel,
-        thirdCashbackValueLabel,
-        fourthCashbackValueLabel,
-        fifthCashbackValueLabel
-    ]
      
     private var refreshControl: UIRefreshControl!
 
@@ -63,11 +47,6 @@ class MainViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var firstCashbackValueLabel: UILabel!
-    @IBOutlet weak var secondCashbackValueLabel: UILabel!
-    @IBOutlet weak var thirdCashbackValueLabel: UILabel!
-    @IBOutlet weak var fourthCashbackValueLabel: UILabel!
-    @IBOutlet weak var fifthCashbackValueLabel: UILabel!
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var helloView: UIView!
@@ -78,20 +57,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @IBOutlet weak var firstCashbackLabel: UILabel!
-    @IBOutlet weak var secondCashbackLabel: UILabel!
-    @IBOutlet weak var thirdCashbackLabel: UILabel!
-    @IBOutlet weak var fourthCashbackLabel: UILabel!
-    @IBOutlet weak var fifthCashbackLabel: UILabel!
-    
-    @IBOutlet weak var cashbackProgressView: UIProgressView!
-    @IBOutlet weak var currentCashbackIndicator: UIView!
-    @IBOutlet weak var nextCashbackIndicator: UIView!
-    @IBOutlet weak var currentCashbackXConstraint: NSLayoutConstraint!
-    @IBOutlet weak var nextCashbackXConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var operationsViewTitle: UILabel!
-    @IBOutlet weak var cashbackDescription: UILabel!
     @IBOutlet weak var cardAspectRatio: NSLayoutConstraint!
     @IBOutlet weak var cardView: UIImageView!
     @IBOutlet weak var paymentButton: UIButton!
@@ -111,7 +77,6 @@ class MainViewController: UIViewController {
         configureTableView()
         createExitButton()
         createLocationButton()
-        configureProgressView()
         configureCard()
        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -192,13 +157,6 @@ class MainViewController: UIViewController {
             helloView.isHidden = true
         }
     }
-    
-    private func configureProgressView() {
-        currentCashbackIndicator.isHidden = true
-        nextCashbackIndicator.isHidden = true
-        cashbackProgressView.progress = 0
-    }
-    
     
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -305,23 +263,16 @@ class MainViewController: UIViewController {
         presenter.allOperationsButtonPressed()
     }
     
+    @IBAction func startWashPressed(_ sender: Any) {
+        self.tabBarController?.selectedIndex = 3
+    }
+    
 }
 
 
 //MARK: - MainViewProtocol
 
 extension MainViewController: MainViewProtocol {
-    
-    func clearUserInfo() {
-        configureProgressView()
-        cashbackLabels.forEach { (label) in
-            label?.textColor = UIColor(hex: "BDBDBD")
-            label?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-            label?.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }
-        cashbackDescription.text = ""
-    }
-
     
     func userInfoRequestDidSend() { // !!!
         nameView.clipsToBounds = true
@@ -484,45 +435,6 @@ extension MainViewController: MainViewProtocol {
         balanceLabel.text = balance
     }
     
-    
-    func updateCashbacks(progress: Float,
-                         currentCashbackProgress: Float?,
-                         nextCashbackProgress: Float?,
-                         currentCashbackIndex: Int?,
-                         description: String) {
-        
-        cashbackLabels.forEach { (label) in
-            label?.sizeToFit()
-        }
-        if let currentCashbackProgress = currentCashbackProgress {
-            currentCashbackXConstraint.constant = cashbackProgressView.frame.width * CGFloat(currentCashbackProgress)
-        }
-        
-        
-        if let nextCashbackProgress = nextCashbackProgress {
-            nextCashbackXConstraint.constant = cashbackProgressView.frame.width * CGFloat(nextCashbackProgress)
-        }
-        currentCashbackIndicator.isHidden = true
-        nextCashbackIndicator.isHidden = true
-        UIView.animate(withDuration: MainSceneConstants.cashBackAnimationDuration, animations: { [weak self] in
-            guard let self = self else { return }
-            self.cashbackProgressView.setProgress(progress, animated: true)
-            if let currentCashbackIndex = currentCashbackIndex,
-                let label = self.cashbackLabels[currentCashbackIndex] {
-                label.textColor = .black
-                label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-                let scale: CGFloat = self.isSE ? 1.15 : 1.3
-                label.transform = CGAffineTransform(scaleX: scale, y: scale)
-
-            }
-        }) { [weak self] (_) in
-            self?.currentCashbackIndicator.isHidden = currentCashbackProgress == nil
-            self?.nextCashbackIndicator.isHidden = nextCashbackProgress == nil
-        }
-        cashbackDescription.text = description
-    }
-    
-    
     func reload(rows: [Int]) {
         let indexPaths = rows.map { (row) -> IndexPath in
             IndexPath(row: row, section: 0)
@@ -534,23 +446,6 @@ extension MainViewController: MainViewProtocol {
     
     func reloadData() {
         tableView.reloadData()
-    }
-    
-    func setCahbackInfo(firstPercent: String, firstValue: String,
-                        secondPercent: String, secondValue: String,
-                        thirdPercent: String, thirdValue: String,
-                        fourthPercent: String, fourthValue: String,
-                        fifthPercent: String, fifthValue: String) {
-        cashbackLabels[0]?.text = firstPercent
-        cashbackLabels[1]?.text = secondPercent
-        cashbackLabels[2]?.text = thirdPercent
-        cashbackLabels[3]?.text = fourthPercent
-        cashbackLabels[4]?.text = fifthPercent
-        cashbackValueLabels[0]?.text = firstValue
-        cashbackValueLabels[1]?.text = secondValue
-        cashbackValueLabels[2]?.text = thirdValue
-        cashbackValueLabels[3]?.text = fourthValue
-        cashbackValueLabels[4]?.text = fifthValue
     }
     
 }
