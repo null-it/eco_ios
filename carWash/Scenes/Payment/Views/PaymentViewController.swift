@@ -22,19 +22,24 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var paymentTypeTitle: UILabel!
-    
+    @IBOutlet weak var minDepositAmountLabel: UILabel!
+    @IBOutlet weak var emailFieldDescriptionLabel: UILabel!
+    @IBOutlet weak var emailTextField: UITextField!
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         title = "Оплата"
+        minDepositAmountLabel.text = "Минимальная сумма пополнения: \(presenter.minDeposit.toString()) ₽"
         createBackButton()
         configureTableView()
         presenter.viewDidLoad()
         textField.setLeftPadding(16)
+        emailTextField.setLeftPadding(16)
+        emailTextField.text = presenter.lastEmail
         _ = hideKeyboardWhenTapped()
         textField.delegate = self
+        emailTextField.delegate = self
     }
     
     
@@ -70,6 +75,19 @@ class PaymentViewController: UIViewController {
 
 extension PaymentViewController: PaymentViewProtocol {
     
+    func emailIsCorrect(_ value: Bool) {
+        emailFieldDescriptionLabel.text = value
+            ? "На данную почту вы получите чек об оплате"
+            : "Неправильный формат email"
+        emailFieldDescriptionLabel.textColor = value ? .systemGray : .red
+    }
+    
+    
+    func needMoreMoney(_ value: Bool) {
+        minDepositAmountLabel.textColor = value ? .red : .systemGray
+    }
+    
+    
     func updateFor(info: [PaymentTypeInfo]) {
         paymentTypesInfo = info
     }
@@ -84,7 +102,6 @@ extension PaymentViewController: PaymentViewProtocol {
         tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.set(enable: enabled)
         tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.set(enable: enabled)
         tableView.isUserInteractionEnabled = enabled
-        paymentTypeTitle.isEnabled = enabled
     }
     
 }
@@ -163,7 +180,11 @@ extension PaymentViewController: UITableViewDataSource {
 extension PaymentViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return presenter.shouldChangeSumCharacters(in: range, replacementString: string)
+        if textField == self.textField {
+            return presenter.shouldChangeSumCharacters(in: range, replacementString: string)
+        } else {
+            return presenter.shouldChangeEmailCharacters(in: range, replacementString: string)
+        }
     }
     
     

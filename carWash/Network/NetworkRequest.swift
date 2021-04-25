@@ -40,10 +40,11 @@ class Request
                 self.headers?["Authorization"] = Request.authorization
             }
             
-            convenience init(amount: Int, networkClient: NetworkClientProtocol = NetworkClient.shared) {
+            convenience init(amount: Int, email: String, networkClient: NetworkClientProtocol = NetworkClient.shared) {
                 self.init(networkClient)
                 self.parameters = Parameters()
                 self.parameters?["amount"] = amount
+                self.parameters?["email"] = email
             }
             
             func send() -> Promise<String> {

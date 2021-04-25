@@ -47,3 +47,16 @@ extension String {
     }
     
 }
+
+extension String {
+    
+    func toInt() -> Int? {
+        let int = Int(self)
+        guard let unwrappedInt = int else {
+            return nil
+        }
+        let str = "\(unwrappedInt)"
+        return Int(str)
+    }
+    
+}

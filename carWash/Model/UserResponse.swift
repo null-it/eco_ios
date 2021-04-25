@@ -14,10 +14,11 @@ struct UserResponse: Codable {
     var status: String?
     var message: String?
     var data: UserResponseData
-    var monthCashBack: [Cashback]
+    var minReplenish: Int
+    var email: String?
 
     private enum CodingKeys : String, CodingKey {
-        case status, message, data, monthCashBack = "month_cash_back"
+        case status, message, data, email, minReplenish = "min_replenish"
     }
     
     init(from decoder: Decoder) throws {
@@ -25,7 +26,8 @@ struct UserResponse: Codable {
         self.status = try? container.decode(String.self, forKey: .status)
         self.message = try? container.decode(String.self, forKey: .message)
         self.data = try container.decode(UserResponseData.self, forKey: .data)
-        self.monthCashBack = try container.decode([Cashback].self, forKey: .monthCashBack)
+        self.minReplenish = try container.decode(Int.self, forKey: .minReplenish)
+        self.email = try? container.decode(String.self, forKey: .email)
     }
     
 }

@@ -31,7 +31,7 @@ class MainPresenter {
     var reviewOperationId: [Int: Int] = [:]
     
     // MARK: - Private
-    
+    private let userDefaultsStandart = UserDefaults.standard
     
     private func toRub(value: Int?) -> String {
         var balance = String(value ?? 0)
@@ -85,7 +85,8 @@ class MainPresenter {
             let data = response.data
             KeychainWrapper.standard.set(data.id, forKey: "userId")
             self.name = data.name ?? data.phone
-
+            self.userDefaultsStandart.setValue(response.minReplenish, forKey: UserDefaultsKeys.minReplenish.rawValue)
+            self.userDefaultsStandart.setValue(response.email, forKey: UserDefaultsKeys.email.rawValue)
             let balance = self.toRub(value: data.balance)
             if !response.data.city.isEmpty {
                 KeychainWrapper.standard.set(response.data.city, forKey: "city")

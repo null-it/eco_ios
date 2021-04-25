@@ -180,6 +180,7 @@
 		49F12BFC23CDF940007A1A87 /* OperationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F12BFB23CDF940007A1A87 /* OperationInfo.swift */; };
 		4D436E25F5F10A1A4153B167 /* Pods_carWash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF31C689214847541284B53 /* Pods_carWash.framework */; };
 		608EBAE0262E0B1000CF37AD /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 608EBADF262E0B1000CF37AD /* PhoneNumberKit */; };
+		60F185D72635D7A300F50C55 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F185D62635D7A300F50C55 /* Int.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -372,6 +373,7 @@
 		49F12BF723CDE9C3007A1A87 /* SaleInfoConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleInfoConstants.swift; sourceTree = "<group>"; };
 		49F12BF923CDF916007A1A87 /* OperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationType.swift; sourceTree = "<group>"; };
 		49F12BFB23CDF940007A1A87 /* OperationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfo.swift; sourceTree = "<group>"; };
+		60F185D62635D7A300F50C55 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		9252CA2FFB411EFE7EBB0947 /* Pods-carWash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carWash.release.xcconfig"; path = "Target Support Files/Pods-carWash/Pods-carWash.release.xcconfig"; sourceTree = "<group>"; };
 		AEF31C689214847541284B53 /* Pods_carWash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_carWash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -516,6 +518,7 @@
 				496ABA1E23DF1445005042E3 /* Date.swift */,
 				49418DC423E1804800BBA3E9 /* UIWindow.swift */,
 				49DEB19723E42998004FAEF7 /* DateFormatter.swift */,
+				60F185D62635D7A300F50C55 /* Int.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1101,6 +1104,7 @@
 				498011E523CF5E9300DC1F9C /* OperationsProtocol.swift in Sources */,
 				490B9AD023EC5AE20027A576 /* WashingStartRouter.swift in Sources */,
 				49357C432383ECC000F1B51B /* MapInteractor.swift in Sources */,
+				60F185D72635D7A300F50C55 /* Int.swift in Sources */,
 				49B2AC3823A77EA2002997F7 /* CitiesConfigurator.swift in Sources */,
 				490B9AB523E813F10027A576 /* QRRouter.swift in Sources */,
 				495E9D7123F6E6FC004AF590 /* CornersRect.swift in Sources */,

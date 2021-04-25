@@ -30,4 +30,7 @@ class Constants {
 
 }
 
-
+enum UserDefaultsKeys: String {
+    case minReplenish = "min_replenish"
+    case email = "email"
+}
