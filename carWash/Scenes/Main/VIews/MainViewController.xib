@@ -39,10 +39,10 @@
                     <rect key="frame" x="0.0" y="44" width="375" height="1154"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3lH-gY-bId">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="911.33333333333337"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="809"/>
                             <subviews>
                                 <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xlN-n8-3Tt">
-                                    <rect key="frame" x="8" y="16" width="359" height="420.33333333333331"/>
+                                    <rect key="frame" x="8" y="16" width="359" height="318"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ErZ-o5-rOR">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="29"/>
@@ -231,16 +231,16 @@
                                             </variation>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55g-l1-zy0">
-                                            <rect key="frame" x="0.0" y="253" width="359" height="167.33333333333337"/>
+                                            <rect key="frame" x="0.0" y="253" width="359" height="65"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u7x-O5-m6g">
-                                                    <rect key="frame" x="32" y="61.333333333333314" width="295" height="45"/>
+                                                    <rect key="frame" x="32" y="10" width="295" height="45"/>
                                                     <color key="backgroundColor" red="0.57647058823529407" green="0.75686274509803919" blue="0.23921568627450979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="hX4-Si-8Io"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <state key="normal" title="Начать мойкку">
+                                                    <state key="normal" title="💧Начать мойкку">
                                                         <color key="titleColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
@@ -256,6 +256,7 @@
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstItem="u7x-O5-m6g" firstAttribute="centerY" secondItem="55g-l1-zy0" secondAttribute="centerY" id="3aD-Eg-rvn"/>
+                                                <constraint firstAttribute="height" constant="65" id="NKB-YX-q9w"/>
                                                 <constraint firstAttribute="trailing" secondItem="u7x-O5-m6g" secondAttribute="trailing" constant="32" id="X1d-j0-pat"/>
                                                 <constraint firstItem="u7x-O5-m6g" firstAttribute="centerX" secondItem="55g-l1-zy0" secondAttribute="centerX" id="afk-6j-JgQ"/>
                                                 <constraint firstItem="u7x-O5-m6g" firstAttribute="leading" secondItem="55g-l1-zy0" secondAttribute="leading" constant="32" id="zQW-u3-Nti"/>
@@ -278,7 +279,7 @@
                                     </variation>
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhf-et-Z1d">
-                                    <rect key="frame" x="16" y="458.33333333333326" width="343" height="421"/>
+                                    <rect key="frame" x="16" y="356" width="343" height="421"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Операции по карте" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phT-FJ-A1x">
                                             <rect key="frame" x="0.0" y="0.0" width="151.66666666666666" height="30"/>
@@ -293,7 +294,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IDG-gc-KXf">
-                                            <rect key="frame" x="0.0" y="44.000000000000057" width="343" height="300"/>
+                                            <rect key="frame" x="0.0" y="44" width="343" height="300"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="300" id="nAw-Ol-p4c"/>
@@ -303,7 +304,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </tableView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="egn-u9-ylN">
-                                            <rect key="frame" x="0.0" y="376.00000000000006" width="327" height="45"/>
+                                            <rect key="frame" x="0.0" y="376" width="327" height="45"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QmM-cy-6Gp">
                                                     <rect key="frame" x="0.0" y="0.0" width="327" height="45"/>

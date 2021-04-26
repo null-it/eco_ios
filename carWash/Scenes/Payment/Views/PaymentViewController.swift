@@ -56,6 +56,9 @@ class PaymentViewController: UIViewController {
         tableView.removeObserver(self, forKeyPath: "contentSize")
     }
     
+    @IBAction func promocodePressed(_ sender: Any) {
+        
+    }
     
     // MARK: - Private
     

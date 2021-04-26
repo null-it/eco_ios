@@ -45,31 +45,31 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woV-9x-ZSh">
-                    <rect key="frame" x="0.0" y="431" width="414" height="135"/>
+                    <rect key="frame" x="0.0" y="431" width="414" height="92"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Платеж безопасен" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oa5-PC-v9R">
-                            <rect key="frame" x="152" y="94" width="110.5" height="14"/>
+                            <rect key="frame" x="152" y="55" width="110.5" height="10"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZk-nJ-xZu">
-                            <rect key="frame" x="113" y="32" width="188" height="39"/>
+                            <rect key="frame" x="113" y="32" width="188" height="0.0"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mastercard" translatesAutoresizingMaskIntoConstraints="NO" id="rAc-Aa-aWh">
-                                    <rect key="frame" x="0.0" y="1" width="44" height="37"/>
+                                    <rect key="frame" x="0.0" y="-18.5" width="44" height="37"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="SH1-kx-QQZ"/>
                                     </constraints>
                                 </imageView>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="visa" translatesAutoresizingMaskIntoConstraints="NO" id="hfG-Re-HJw">
-                                    <rect key="frame" x="64" y="11.5" width="48" height="16"/>
+                                    <rect key="frame" x="64" y="-8" width="48" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="48" id="hIG-5T-UQG"/>
                                     </constraints>
                                 </imageView>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mir" translatesAutoresizingMaskIntoConstraints="NO" id="NzO-oy-cwI">
-                                    <rect key="frame" x="132" y="11.5" width="56" height="16"/>
+                                    <rect key="frame" x="132" y="-8" width="56" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="56" id="ggc-1Z-56f"/>
                                     </constraints>
@@ -89,7 +89,7 @@
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="135" id="5CS-sQ-LH3"/>
+                        <constraint firstAttribute="height" constant="92" id="5CS-sQ-LH3"/>
                         <constraint firstItem="uZk-nJ-xZu" firstAttribute="top" secondItem="woV-9x-ZSh" secondAttribute="top" constant="32" id="D49-Fi-3hR"/>
                         <constraint firstAttribute="bottom" secondItem="oa5-PC-v9R" secondAttribute="bottom" constant="27" id="hvq-nU-yd2"/>
                         <constraint firstItem="uZk-nJ-xZu" firstAttribute="centerX" secondItem="woV-9x-ZSh" secondAttribute="centerX" id="pWL-Ne-vV5"/>
@@ -106,14 +106,14 @@
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQz-Xj-dk4">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQz-Xj-dk4">
                     <rect key="frame" x="20" y="259.5" width="374" height="19.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" systemColor="systemGrayColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="На данную почту вы получите чек об оплате" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNw-Rd-3EC">
-                    <rect key="frame" x="20" y="172" width="338.5" height="19.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="На данную почту вы получите чек об оплате" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNw-Rd-3EC">
+                    <rect key="frame" x="20" y="172" width="374" height="19.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" systemColor="systemGrayColor"/>
                     <nil key="highlightedColor"/>
@@ -127,12 +127,24 @@
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                     <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                 </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMF-Zu-Nfn">
+                    <rect key="frame" x="20" y="814" width="374" height="32"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                    <state key="normal" title="Промокод">
+                        <color key="titleColor" red="0.57647058823529407" green="0.75686274509803919" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="promocodePressed:" destination="-1" eventType="touchUpInside" id="Ajd-xA-ZP7"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="RNw-Rd-3EC" firstAttribute="top" secondItem="Cvn-4j-5R9" secondAttribute="bottom" constant="8" id="3EK-4d-I2l"/>
                 <constraint firstItem="Cvn-4j-5R9" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="32" id="5Ls-PE-tul"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RNw-Rd-3EC" secondAttribute="trailing" constant="20" id="Aff-SB-J7c"/>
+                <constraint firstItem="RMF-Zu-Nfn" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-16" id="CfR-Gl-Rci"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SkA-VJ-S02" secondAttribute="trailing" id="Dvf-vs-1Q4"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="e9n-PU-e6l" secondAttribute="trailing" id="EUR-Je-6iv"/>
                 <constraint firstItem="woV-9x-ZSh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="F9S-sk-qrh"/>
@@ -140,7 +152,9 @@
                 <constraint firstItem="e9n-PU-e6l" firstAttribute="top" secondItem="RNw-Rd-3EC" secondAttribute="bottom" constant="16" id="Kla-Oe-L1O"/>
                 <constraint firstItem="RNw-Rd-3EC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Q3e-yS-9af"/>
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="top" secondItem="aQz-Xj-dk4" secondAttribute="bottom" constant="32" id="Vyf-vn-5jU"/>
+                <constraint firstItem="RMF-Zu-Nfn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="YA6-FQ-SkX"/>
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ZIH-FC-HBk"/>
+                <constraint firstItem="RMF-Zu-Nfn" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="ZIt-oQ-SW1"/>
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ZQa-Xg-RWp"/>
                 <constraint firstItem="aQz-Xj-dk4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="ZUn-vA-tLq"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="aQz-Xj-dk4" secondAttribute="trailing" constant="20" id="bWV-69-d6c"/>
@@ -148,6 +162,7 @@
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="leading" secondItem="woV-9x-ZSh" secondAttribute="trailing" constant="-414" id="haB-Jm-UU7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="woV-9x-ZSh" secondAttribute="trailing" id="j1J-xe-Lqp"/>
                 <constraint firstItem="Cvn-4j-5R9" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="lbO-bd-56W"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RMF-Zu-Nfn" secondAttribute="trailing" constant="20" id="lp9-tZ-k8Y"/>
                 <constraint firstItem="e9n-PU-e6l" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="pbP-cx-SLk"/>
                 <constraint firstItem="aQz-Xj-dk4" firstAttribute="top" secondItem="e9n-PU-e6l" secondAttribute="bottom" constant="8" id="yxX-0b-Tar"/>
             </constraints>
@@ -158,7 +173,7 @@
                     <exclude reference="haB-Jm-UU7"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="137.68115942028987" y="140.625"/>
+            <point key="canvasLocation" x="4" y="120"/>
         </view>
     </objects>
     <resources>
