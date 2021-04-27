@@ -73,7 +73,7 @@ class PaymentViewController: UIViewController {
                      },
                      okButtonTitle: "Применить",
                      cancelButtonTitle: "Отмена",
-                     isForPromocode: false)
+                     isForPromocode: true)
         
         let window = UIApplication.shared.keyWindow!
         alertView.frame.size = window.frame.size
