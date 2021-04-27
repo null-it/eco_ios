@@ -48,6 +48,14 @@ class PaymentPresenter {
 
 extension PaymentPresenter: PaymentPresenterProtocol {
     
+    func promocodeEntered(_ promocode: String) {
+        interactor.applyPromocode(promocode: promocode) { (message, status) in
+            self.view.promocodeMessageReceived(message, status: status)
+        } onFailure: {
+            print("an error occured")
+        }
+    }
+    
     func shouldChangeEmailCharacters(in range: NSRange, replacementString string: String) -> Bool {
         guard let textRange = Range(range, in: email) else {
             return false

@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import IQKeyboardManagerSwift
 
 class PaymentViewController: UIViewController {
 
@@ -25,6 +26,8 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var minDepositAmountLabel: UILabel!
     @IBOutlet weak var emailFieldDescriptionLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
+    
+    lazy var alertView: AlertView = .fromNib()!
     
     // MARK: - Lifecycle
     
@@ -57,7 +60,24 @@ class PaymentViewController: UIViewController {
     }
     
     @IBAction func promocodePressed(_ sender: Any) {
+        alertView.set(title: "Введите промокод",
+                     text: "",
+                     okAction: { [self] in
+                        guard let text = alertView.promocodeField.text else {
+                            return
+                        }
+                        self.presenter.promocodeEntered(text)
+                     },
+                     cancelAction: {
+                        print("CANCEL")
+                     },
+                     okButtonTitle: "Применить",
+                     cancelButtonTitle: "Отмена",
+                     isForPromocode: false)
         
+        let window = UIApplication.shared.keyWindow!
+        alertView.frame.size = window.frame.size
+        window.addSubview(alertView)
     }
     
     // MARK: - Private
@@ -77,6 +97,17 @@ class PaymentViewController: UIViewController {
 // MARK: - PaymentViewProtocol
 
 extension PaymentViewController: PaymentViewProtocol {
+    
+    func promocodeMessageReceived(_ message: String, status: PromocodeStatus) {
+        alertView.promocodeMessageLabel.text = message
+        switch status {
+        case .ok:
+            alertView.promocodeMessageLabel.textColor = .green
+            alertView.okButton.setTitle("Закрыть", for: .normal)
+        case .error:
+            alertView.promocodeMessageLabel.textColor = .red
+        }
+    }
     
     func emailIsCorrect(_ value: Bool) {
         emailFieldDescriptionLabel.text = value

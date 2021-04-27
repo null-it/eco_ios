@@ -24,4 +24,5 @@ target 'carWash' do
   pod 'SwiftEntryKit', '1.2.3'
   pod "Panels", '2.1.0'
   pod "SwiftPhoneNumberFormatter"
+  pod 'IQKeyboardManagerSwift'
 end

@@ -20,6 +20,39 @@ class Request
         return token ?? ""
     }
     
+    class Promocode {
+        
+        class Post: NetworkRequestProtocol {
+            
+            var url: String = "v1/users/set-promocode"
+            var method: HTTPMethod = .post
+            var parameters: Parameters?
+            var headers: HTTPHeaders?
+            var succeedCodes: [Int] = [200]
+            var encoding: ParameterEncoding = JSONEncoding.default
+            private let networkClient: NetworkClientProtocol
+            
+            required init(_ networkClient: NetworkClientProtocol) {
+                self.networkClient = networkClient
+                self.headers = HTTPHeaders()
+                self.headers?["Content-Type"] = Request.contentType
+                self.headers?["Accept"] = Request.accept
+                self.headers?["Authorization"] = Request.authorization
+            }
+            
+            convenience init(promocode: String, networkClient: NetworkClientProtocol = NetworkClient.shared) {
+                self.init(networkClient)
+                self.parameters = Parameters()
+                self.parameters?["code"] = promocode
+            }
+            
+            func send() -> Promise<PromocodeResponse> {
+                return self.networkClient.send(request: self)
+            }
+            
+        }
+    }
+    
     class Pay {
         
         class Post: NetworkRequestProtocol {

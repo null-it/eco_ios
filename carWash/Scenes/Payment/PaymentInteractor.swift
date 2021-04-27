@@ -35,5 +35,15 @@ extension PaymentInteractor: PaymentInteractorProtocol {
         }
     }
     
+    func applyPromocode(promocode: String, onSuccess: @escaping (String, PromocodeStatus) -> (), onFailure: (() -> ())?) {
+        let request = Request.Promocode.Post(promocode: promocode)
+        request.send().done { (response) in
+            onSuccess(response.message, response.status)
+        }.catch { (error) in
+            print(error.localizedDescription)
+            onFailure?()
+        }
+    }
+    
 }
 

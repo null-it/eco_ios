@@ -180,6 +180,7 @@
 		49F12BFC23CDF940007A1A87 /* OperationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F12BFB23CDF940007A1A87 /* OperationInfo.swift */; };
 		4D436E25F5F10A1A4153B167 /* Pods_carWash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF31C689214847541284B53 /* Pods_carWash.framework */; };
 		608EBAE0262E0B1000CF37AD /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 608EBADF262E0B1000CF37AD /* PhoneNumberKit */; };
+		60C98B5D263851B80037663A /* PromocodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C98B5C263851B80037663A /* PromocodeResponse.swift */; };
 		60F185D72635D7A300F50C55 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F185D62635D7A300F50C55 /* Int.swift */; };
 /* End PBXBuildFile section */
 
@@ -373,6 +374,7 @@
 		49F12BF723CDE9C3007A1A87 /* SaleInfoConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleInfoConstants.swift; sourceTree = "<group>"; };
 		49F12BF923CDF916007A1A87 /* OperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationType.swift; sourceTree = "<group>"; };
 		49F12BFB23CDF940007A1A87 /* OperationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfo.swift; sourceTree = "<group>"; };
+		60C98B5C263851B80037663A /* PromocodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromocodeResponse.swift; sourceTree = "<group>"; };
 		60F185D62635D7A300F50C55 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		9252CA2FFB411EFE7EBB0947 /* Pods-carWash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carWash.release.xcconfig"; path = "Target Support Files/Pods-carWash/Pods-carWash.release.xcconfig"; sourceTree = "<group>"; };
 		AEF31C689214847541284B53 /* Pods_carWash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_carWash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -851,6 +853,7 @@
 				49F12BF323C7630A007A1A87 /* ReviewResponse.swift */,
 				49F12BF523CDA0D2007A1A87 /* SetStockViewedResponse.swift */,
 				49A6D47C2405625500A9D41B /* WashStartResponse.swift */,
+				60C98B5C263851B80037663A /* PromocodeResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1032,6 +1035,7 @@
 				493BE2AB23F1480900A5E345 /* TerminalCell.swift in Sources */,
 				49DA83F223AD00790024CCAB /* EmptySalesView.swift in Sources */,
 				49811CC5238C11590074FF92 /* SaleInfoProtocol.swift in Sources */,
+				60C98B5D263851B80037663A /* PromocodeResponse.swift in Sources */,
 				4956FDD3238D42E4006D89C9 /* LoginInteractor.swift in Sources */,
 				49B2AC2923A3A186002997F7 /* UICollectionView.swift in Sources */,
 				498888C823958EBD00F164D6 /* String.swift in Sources */,

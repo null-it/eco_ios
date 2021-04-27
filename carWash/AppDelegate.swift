@@ -9,6 +9,7 @@
 import UIKit
 import SwiftKeychainWrapper
 import Firebase
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -70,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
 
-        
+        IQKeyboardManager.shared.enable = true
         
         return true
     }

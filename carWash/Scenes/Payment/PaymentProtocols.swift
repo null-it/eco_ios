@@ -15,6 +15,7 @@ protocol PaymentViewProtocol: class {
     func setTableView(enabled: Bool)
     func needMoreMoney(_ value: Bool)
     func emailIsCorrect(_ value: Bool)
+    func promocodeMessageReceived(_ message: String, status: PromocodeStatus)
 }
 
 // MARK: - Presenter
@@ -30,6 +31,7 @@ protocol PaymentPresenterProtocol: class {
     func shouldChangeEmailCharacters(in range: NSRange,
                                    replacementString string: String) -> Bool
     func pay(onSuccess: @escaping (String) -> (), onFailure: (() -> ())?)
+    func promocodeEntered(_ promocode: String)
 }
 
 // MARK: - Router
@@ -43,6 +45,9 @@ protocol PaymentInteractorProtocol: class {
              email: String,
              onSuccess: @escaping (String) -> (),
              onFailure: (() -> ())?)
+    func applyPromocode(promocode: String,
+                        onSuccess: @escaping (String, PromocodeStatus) -> (),
+                        onFailure: (() -> ())?)
 }
 
 // MARK: - Configurator
