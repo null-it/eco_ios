@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,6 +23,8 @@
                 <outlet property="operationsWrapper" destination="jhf-et-Z1d" id="id5-KJ-ozL"/>
                 <outlet property="paymentButton" destination="yfy-f0-EqE" id="1Cd-Id-n5S"/>
                 <outlet property="paymentButtonWrapper" destination="zSz-Mn-ac8" id="iAs-WI-hvH"/>
+                <outlet property="promocodeButton" destination="dIQ-S3-rQV" id="Dym-J2-UkB"/>
+                <outlet property="promocodeTextField" destination="w79-7P-hdr" id="Fhi-ux-Lon"/>
                 <outlet property="scrollView" destination="rew-hb-wmw" id="NBM-sw-nFf"/>
                 <outlet property="stackView" destination="xlN-n8-3Tt" id="js6-IU-mxu"/>
                 <outlet property="tableView" destination="IDG-gc-KXf" id="fws-88-IoZ"/>
@@ -39,10 +41,10 @@
                     <rect key="frame" x="0.0" y="44" width="375" height="1154"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3lH-gY-bId">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="809"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="918"/>
                             <subviews>
                                 <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xlN-n8-3Tt">
-                                    <rect key="frame" x="8" y="16" width="359" height="318"/>
+                                    <rect key="frame" x="8" y="16" width="359" height="427"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ErZ-o5-rOR">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="29"/>
@@ -230,8 +232,84 @@
                                                 </mask>
                                             </variation>
                                         </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAg-Zt-6Q1">
+                                            <rect key="frame" x="0.0" y="253" width="359" height="109"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DxT-9s-8BH">
+                                                    <rect key="frame" x="16" y="23" width="327" height="76"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIQ-S3-rQV">
+                                                            <rect key="frame" x="206" y="16" width="105" height="44"/>
+                                                            <color key="backgroundColor" red="0.57647058819999997" green="0.75686274509999996" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="44" id="9cn-ud-FFy"/>
+                                                                <constraint firstAttribute="width" constant="105" id="jhQ-Jg-Uif"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                            <state key="normal" title="Применить">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="8"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="promocodeButtonPressed:" destination="-1" eventType="touchUpInside" id="je2-vl-wHl"/>
+                                                            </connections>
+                                                        </button>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Промокод" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w79-7P-hdr">
+                                                            <rect key="frame" x="16" y="16" width="182" height="44"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="44" id="YrL-U2-Gf6"/>
+                                                            </constraints>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="6"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" red="0.51764705882352935" green="0.52549019607843139" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </textField>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="dIQ-S3-rQV" firstAttribute="leading" secondItem="w79-7P-hdr" secondAttribute="trailing" constant="8" id="5Ok-MX-f9o"/>
+                                                        <constraint firstItem="dIQ-S3-rQV" firstAttribute="centerY" secondItem="DxT-9s-8BH" secondAttribute="centerY" id="Ae8-2U-Jv4"/>
+                                                        <constraint firstItem="w79-7P-hdr" firstAttribute="centerY" secondItem="DxT-9s-8BH" secondAttribute="centerY" id="L2p-iD-Eoo"/>
+                                                        <constraint firstAttribute="trailing" secondItem="dIQ-S3-rQV" secondAttribute="trailing" constant="16" id="bTT-BE-fbT"/>
+                                                        <constraint firstAttribute="height" constant="76" id="qgH-so-Syx"/>
+                                                        <constraint firstItem="w79-7P-hdr" firstAttribute="leading" secondItem="DxT-9s-8BH" secondAttribute="leading" constant="16" id="ru2-gV-zxc"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="11"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="109" id="06q-vp-ZGl"/>
+                                                <constraint firstAttribute="bottom" secondItem="DxT-9s-8BH" secondAttribute="bottom" constant="10" id="JPx-ed-nOH"/>
+                                                <constraint firstItem="DxT-9s-8BH" firstAttribute="leading" secondItem="LAg-Zt-6Q1" secondAttribute="leading" constant="16" id="Mq5-7V-ShD"/>
+                                                <constraint firstItem="DxT-9s-8BH" firstAttribute="centerX" secondItem="LAg-Zt-6Q1" secondAttribute="centerX" id="S3d-eZ-bt7"/>
+                                                <constraint firstAttribute="trailing" secondItem="DxT-9s-8BH" secondAttribute="trailing" constant="16" id="Z4k-HV-0vd"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55g-l1-zy0">
-                                            <rect key="frame" x="0.0" y="253" width="359" height="65"/>
+                                            <rect key="frame" x="0.0" y="362" width="359" height="65"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u7x-O5-m6g">
                                                     <rect key="frame" x="32" y="10" width="295" height="45"/>
@@ -279,7 +357,7 @@
                                     </variation>
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhf-et-Z1d">
-                                    <rect key="frame" x="16" y="356" width="343" height="421"/>
+                                    <rect key="frame" x="16" y="465" width="343" height="421"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Операции по карте" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phT-FJ-A1x">
                                             <rect key="frame" x="0.0" y="0.0" width="151.66666666666666" height="30"/>
@@ -444,7 +522,7 @@
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-1372" y="303"/>
+            <point key="canvasLocation" x="-1373.1884057971015" y="302.00892857142856"/>
         </view>
     </objects>
     <resources>

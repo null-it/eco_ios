@@ -25,6 +25,7 @@ class MainPresenter {
     var qty = 15
     var operationsInfo: [OperationInfo?] = []
     var name = ""
+    var promocode = ""
     var cities: [CityResponse] = []
     var reviewText: [Int: String] = [:]
     var reviewRating: [Int: Double] = [:]
@@ -115,6 +116,32 @@ class MainPresenter {
 // MARK: - MainPresenterProtocol
 
 extension MainPresenter: MainPresenterProtocol {
+    
+    func shouldChangePromocodeCharacters(in range: NSRange, replacementString string: String) -> Bool {
+        guard let textRange = Range(range, in: promocode) else {
+            return false
+        }
+        promocode = promocode.replacingCharacters(in: textRange, with: string)
+        promocode.count > 0 ? view.promocodeTyping() : view.promocodeFieldIsEmpty()
+        return true
+    }
+    
+    func sendPromocodeTapped() {
+        view.requestSended()
+        interactor.applyPromocode(promocode: promocode) { message, status in
+            self.view.responseReceived()
+            switch status {
+            case .ok:
+                self.view.showAlert(message: message, title: "Предупреждение")
+            case .error:
+                self.view.showAlert(message: message, title: "Ошибка")
+            }
+        } onFailure: {
+            self.view.responseReceived()
+            self.view.showAlert(message: "Ошибка", title: "")
+        }
+    }
+    
     
     func refreshData() {
         initLoadingInfo()

@@ -25,16 +25,6 @@ class WashingStartViewController: UIViewController {
 
     
     // MARK: - Outlets
-
-    @IBOutlet weak var mapInfoButton: UIButton!
-    @IBOutlet weak var qrInfoButton: UIButton!
-    
-    @IBOutlet weak var qrInfoView: UIView!
-    @IBOutlet weak var mapInfoView: UIView!
-    
-    @IBOutlet weak var mapInfoLabel: UILabel!
-    @IBOutlet weak var qrInfoLabel: UILabel!
-    
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var qrView: UIView!
     
@@ -43,13 +33,8 @@ class WashingStartViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
-        mapInfoLabel.sizeToFit()
-        qrInfoLabel.sizeToFit()
-//        mapInfoLabel.layoutIfNeeded()
-//        qrInfoLabel.layoutIfNeeded()
-//        qrInfoView.layoutIfNeeded()
-//        mapInfoView.layoutIfNeeded()
-//        view.layoutIfNeeded()
+//        mapInfoLabel.sizeToFit()
+//        qrInfoLabel.sizeToFit()
     }
 
     override func viewDidLoad() {
@@ -86,28 +71,12 @@ class WashingStartViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func mapInfoButtonPressed(_ sender: Any) {
-//        UIView.animate(withDuration: 0.5,
-//                       animations: {  [weak self] in
-//                        guard let self = self else { return }
-                        self.mapInfoView.isHidden = !self.mapInfoView.isHidden
-                        let image = self.mapInfoView.isHidden
-                            ? WashingStartConstants.openButtonImage
-                            : WashingStartConstants.closeButtonImage
-                        self.mapInfoButton.setImage(image, for: .normal)
-//        })
+    @IBAction func typeTerminalPressed(_ sender: Any) {
+        mapViewTapped()
     }
     
-    @IBAction func WashingStartInfoButtonPressed(_ sender: Any) {
-//        UIView.animate(withDuration: 0.5,
-//                       animations: { [weak self] in
-//                        guard let self = self else { return }
-                        self.qrInfoView.isHidden = !self.qrInfoView.isHidden
-                        let image = self.qrInfoView.isHidden
-                            ? WashingStartConstants.openButtonImage
-                            : WashingStartConstants.closeButtonImage
-                        self.qrInfoButton.setImage(image, for: .normal)
-//        })
+    @IBAction func scanQRPressed(_ sender: Any) {
+        qrViewTapped()
     }
     
     

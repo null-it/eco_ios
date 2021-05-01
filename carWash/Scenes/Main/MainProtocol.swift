@@ -34,11 +34,18 @@ protocol MainViewProtocol: class {
     func userInfoResponseDidRecieve(completion: (() -> ())?)
     func operationsRequestDidSend()
     func operationsResponseDidRecieve(completion: (() -> ())?)
-    func showNetworkErrorMessage() 
+    func showNetworkErrorMessage()
+    func requestSended()
+    func responseReceived()
+    func promocodeTyping()
+    func promocodeFieldIsEmpty()
 }
 
 // MARK: - Presenter
 protocol MainPresenterProtocol: class {
+    func shouldChangePromocodeCharacters(in range: NSRange,
+                                   replacementString string: String) -> Bool
+    func sendPromocodeTapped()
     func presentPaymentView()
     func viewDidLoad(notificationResponse: ReviewNotificationResponse?)
     func didRecieveNotification(_ notificationResponse: ReviewNotificationResponse?)
@@ -88,6 +95,9 @@ protocol MainInteractorProtocol: class {
                     stars: Double,
                     onSuccess: @escaping (ReviewResponse) -> (),
                     onFailure: @escaping () -> ()?)
+    func applyPromocode(promocode: String,
+                        onSuccess: @escaping (String, PromocodeStatus) -> (),
+                        onFailure: (() -> ())?)
 }
 
 // MARK: - Configurator

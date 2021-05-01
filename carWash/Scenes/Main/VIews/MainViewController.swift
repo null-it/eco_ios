@@ -65,7 +65,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var balanceLabelWrapper: UIView!
     @IBOutlet weak var paymentButtonWrapper: UIView!
         
-    
+    @IBOutlet weak var promocodeTextField: UITextField!
+    @IBOutlet weak var promocodeButton: UIButton!
     // MARK: - Lifecicle
     
     override func viewDidLoad() {
@@ -78,7 +79,8 @@ class MainViewController: UIViewController {
         createExitButton()
         createLocationButton()
         configureCard()
-       
+        promocodeTextField.setLeftPadding(8)
+        promocodeTextField.delegate = self
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         presenter.viewDidLoad(notificationResponse: appDelegate.reviewNotificationResponse)
         appDelegate.didRecieveReviewNotificationResponse = { [weak self] in
@@ -267,12 +269,35 @@ class MainViewController: UIViewController {
         self.tabBarController?.selectedIndex = 3
     }
     
+    @IBAction func promocodeButtonPressed(_ sender: Any) {
+        presenter.sendPromocodeTapped()
+    }
+    
 }
 
 
 //MARK: - MainViewProtocol
 
 extension MainViewController: MainViewProtocol {
+    
+    func promocodeTyping() {
+        promocodeTextField.borderColor = UIColor(hex: "009EFE")
+        promocodeButton.backgroundColor = UIColor(hex: "009EFE")
+    }
+    
+    func promocodeFieldIsEmpty() {
+        promocodeTextField.borderColor = UIColor(hex: "848688")
+        promocodeButton.backgroundColor = UIColor(hex: "93C13D")
+    }
+    
+    func requestSended() {
+        view.activityStartAnimating(activityColor: .gray, backgroundColor: UIColor.lightGray.withAlphaComponent(0.5))
+    }
+    
+    func responseReceived() {
+        view.activityStopAnimating()
+        presenter.refreshData()
+    }
     
     func userInfoRequestDidSend() { // !!!
         nameView.clipsToBounds = true
@@ -535,4 +560,22 @@ extension MainViewController: UITextFieldDelegate {
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == promocodeTextField {
+            return presenter.shouldChangePromocodeCharacters(in: range, replacementString: string)
+        }
+        return false
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == promocodeTextField {
+            
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == promocodeTextField {
+            promocodeFieldIsEmpty()
+        }
+    }
 }
