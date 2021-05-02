@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import FlagPhoneNumber
 
 class LoginViewController: UIViewController {
     
@@ -25,7 +26,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var phoneNumberTextField: FPNTextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var loginButton: UIButton!
@@ -36,6 +37,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var timeoutLabel: UILabel!
     @IBOutlet weak var alreadyHasPasswordButton: UIButton!
     
+    var listController: FPNCountryListViewController = FPNCountryListViewController(style: .grouped)
     
     // MARK: - Lifecycle
     
@@ -43,10 +45,10 @@ class LoginViewController: UIViewController {
         addObservers()
         let gesture = hideKeyboardWhenTapped()
         gesture.delegate = self
-        phoneNumberTextField.setLeftPadding(LoginViewConstants.textFieldLeftPadding)
+//        phoneNumberTextField.setLeftPadding(LoginViewConstants.textFieldLeftPadding)
         passwordTextField.setLeftPadding(LoginViewConstants.textFieldLeftPadding)
-        phoneNumberTextField.delegate = self
         passwordTextField.delegate = self
+        configurePhoneNumberTextField()
         configureNavigationBar()
         presenter.viewDidLoad()
         refreshView()
@@ -84,6 +86,21 @@ class LoginViewController: UIViewController {
     
     
     // MARK: - Private
+    
+    private func configurePhoneNumberTextField() {
+        phoneNumberTextField.delegate = self
+        
+        
+        phoneNumberTextField.flagButtonSize = CGSize(width: 35, height: 35)
+        phoneNumberTextField.setFlag(countryCode: .RU)
+        phoneNumberTextField.hasPhoneNumberExample = true
+        
+        listController.setup(repository: phoneNumberTextField.countryRepository)
+
+        listController.didSelect = { [weak self] country in
+            self?.phoneNumberTextField.setFlag(countryCode: country.code)
+        }
+    }
     
     private func configureActivityView() -> UIView {
         let activityView = UIView()
@@ -266,11 +283,8 @@ extension LoginViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         switch textField {
         case phoneNumberTextField:
-            let newString = presenter.shouldChangePhoneNumberCharacters(in: range, replacementString: string)
-            if let newString = newString  {
-                phoneNumberTextField.text = newString
-            }
-            return false
+            return true
+//            return presenter.shouldChangePhoneNumberCharacters(in: range, replacementString: string)
         case passwordTextField:
             let changeCharacter = presenter.shouldChangePasswordCharacters(in: range, replacementString: string, isFirstChange: isFirstPasswordChange)
             isFirstPasswordChange = false
@@ -288,4 +302,37 @@ extension LoginViewController: UITextFieldDelegate {
         }
     }
     
+}
+
+extension LoginViewController: FPNTextFieldDelegate {
+    func fpnDidSelectCountry(name: String, dialCode: String, code: String) {
+        print(name, dialCode, code)
+    }
+    
+    func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
+        setAlreadyHasPasswordButton(title: "Уже есть пароль", hidden: !isValid)
+        setLoginButton(title: nil, enabled: isValid)
+        phoneNumberDidEnter(isValid)
+        if presenter.isPasswordSendedForUser {
+            presenter.backButtonPressed()
+            setLoginButton(title: nil, enabled: false)
+        }
+        if isValid {
+            if let number = textField.getFormattedPhoneNumber(format: .E164) {
+                presenter.setNumber(number)
+            }
+        }
+    }
+    
+    func fpnDisplayCountryList() {
+        let navigationViewController = UINavigationController(rootViewController: listController)
+        listController.title = "Страны"
+        listController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(dismissCountries))
+        
+        present(navigationViewController, animated: true, completion: nil)
+    }
+    
+    @objc func dismissCountries() {
+        listController.dismiss(animated: true, completion: nil)
+    }
 }

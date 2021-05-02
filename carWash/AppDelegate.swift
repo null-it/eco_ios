@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 13.0, *) {
             // In iOS 13 setup is done in SceneDelegate
         } else {
+            
             window = UIWindow(frame: UIScreen.main.bounds)
             try? window?.addReachabilityObserver()
             let configurator = LoginConfigurator()

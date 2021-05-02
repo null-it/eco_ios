@@ -25,4 +25,5 @@ target 'carWash' do
   pod "Panels", '2.1.0'
   pod "SwiftPhoneNumberFormatter"
   pod 'IQKeyboardManagerSwift'
+  pod "FlagPhoneNumber"
 end

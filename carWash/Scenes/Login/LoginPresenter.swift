@@ -18,7 +18,7 @@ class LoginPresenter {
     var passwordText = ""
 
     let phoneNumberTextPattern = "+# (###) ### ## ##"
-    var isPasswordSended: Bool! {
+    var isPasswordSended: Bool = false {
         didSet {
             if isPasswordSended {
                 view.configurePasswordInput()
@@ -166,6 +166,14 @@ class LoginPresenter {
 
 extension LoginPresenter: LoginPresenterProtocol {
     
+    func setNumber(_ stringNumber: String) {
+        phoneNumberText = stringNumber
+    }
+    
+    var isPasswordSendedForUser: Bool {
+        return self.isPasswordSended
+    }
+    
     func viewDidLoad() {
         phoneNumberText = ""
         passwordText = ""
@@ -246,8 +254,14 @@ extension LoginPresenter: LoginPresenterProtocol {
     }
     
     func shouldChangePasswordCharacters(in range: NSRange, replacementString string: String, isFirstChange: Bool) -> Bool {
+//        if string.contains(UIPasteboard.general.string ?? "") {
+//
+//                return false
+//        }
         guard !isFirstChange else {
             passwordText = string
+            let entered = passwordText.count >= passwordMinLength
+            view.setLoginButton(title: nil, enabled: entered)
             return true
         }
         
@@ -265,31 +279,32 @@ extension LoginPresenter: LoginPresenterProtocol {
     }
     
     
-    func shouldChangePhoneNumberCharacters(in range: NSRange, replacementString string: String) -> String? {
+    func shouldChangePhoneNumberCharacters(in range: NSRange, replacementString string: String) -> Bool {
         
         guard let textRange = Range(range, in: phoneNumberText) else {
-                return nil
+                return false
         }
-        var newText = phoneNumberText.replacingCharacters(in: textRange, with: string)
-        
-        newText = newText.applyPatternOnNumbers(pattern: phoneNumberTextPattern, replacmentCharacter: "#")
-        if newText.count > phoneNumberTextPattern.count {
-            return nil
-        }
-         
+        let newText = phoneNumberText.replacingCharacters(in: textRange, with: string)
         phoneNumberText = newText
+        return true
+//        newText = newText.applyPatternOnNumbers(pattern: phoneNumberTextPattern, replacmentCharacter: "#")
+//        if newText.count > phoneNumberTextPattern.count {
+//            return nil
+//        }
+//
+//        phoneNumberText = newText
+//
+//        let entered = newText.count == phoneNumberTextPattern.count
+//        view.setAlreadyHasPasswordButton(title: "Уже есть пароль", hidden: !entered)
+//        view.setLoginButton(title: nil, enabled: entered)
+//        view.phoneNumberDidEnter(entered)
+//
+//        if isPasswordSended {
+//            backButtonPressed()
+//            view.setLoginButton(title: nil, enabled: false)
+//        }
         
-        let entered = newText.count == phoneNumberTextPattern.count
-        view.setAlreadyHasPasswordButton(title: "Уже есть пароль", hidden: !entered)
-        view.setLoginButton(title: nil, enabled: entered)
-        view.phoneNumberDidEnter(entered)
-        
-        if isPasswordSended {
-            backButtonPressed()
-            view.setLoginButton(title: nil, enabled: false)
-        }
-        
-        return newText
+//        return newText
     }
     
     

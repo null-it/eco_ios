@@ -46,17 +46,17 @@ class MainViewController: UIViewController {
     private var userInfoRequestStartDate: Date!
     
     // MARK: - Outlets
+    @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var balanceLabel: UILabel!
-    @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var helloView: UIView!
-    @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var cashBackView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var operationsViewTitle: UILabel!
     @IBOutlet weak var cardAspectRatio: NSLayoutConstraint!
     @IBOutlet weak var cardView: UIImageView!
@@ -563,6 +563,8 @@ extension MainViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == promocodeTextField {
             return presenter.shouldChangePromocodeCharacters(in: range, replacementString: string)
+        } else if textField == nameTextField {
+            return true
         }
         return false
     }

@@ -27,12 +27,12 @@ protocol LoginViewProtocol: class {
 }
 
 // MARK: - Presenter
-protocol LoginPresenterProtocol: class {
+protocol LoginPresenterProtocol: AnyObject {
     func popView()
     func loginButtonPressed() 
     func presentMapView()
     func shouldChangePhoneNumberCharacters(in range: NSRange,
-                                            replacementString string: String) -> String?
+                                            replacementString string: String) -> Bool
     func shouldChangePasswordCharacters(in range: NSRange,
                                         replacementString string: String,
                                         isFirstChange: Bool) -> Bool
@@ -40,6 +40,8 @@ protocol LoginPresenterProtocol: class {
     func sendPasswordAgain()
     func backButtonPressed()
     func alreadyHasPasswordButtonPressed()
+    var isPasswordSendedForUser: Bool { get }
+    func setNumber(_ stringNumber: String)
 }
 
 // MARK: - Router
