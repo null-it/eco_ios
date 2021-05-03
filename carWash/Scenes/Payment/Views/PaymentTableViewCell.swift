@@ -10,11 +10,16 @@ import UIKit
 
 class PaymentTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var titleTextField: UILabel!
+    @IBOutlet weak var payButton: UIButton!
+    
+    var onPayButtonPressed: (() -> Void)?
     
     func update(for info: PaymentTypeInfo) {
-        titleTextField.text = info.title
+        payButton.setTitle(info.title, for: .normal)
         self.set(enable: info.isEnabled)
     }
     
+    @IBAction func payButtonPressed(_ sender: Any) {
+        onPayButtonPressed?()
+    }
 }

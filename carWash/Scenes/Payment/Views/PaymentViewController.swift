@@ -59,26 +59,26 @@ class PaymentViewController: UIViewController {
         tableView.removeObserver(self, forKeyPath: "contentSize")
     }
     
-    @IBAction func promocodePressed(_ sender: Any) {
-        alertView.set(title: "Введите промокод",
-                     text: "",
-                     okAction: { [self] in
-                        guard let text = alertView.promocodeField.text else {
-                            return
-                        }
-                        self.presenter.promocodeEntered(text)
-                     },
-                     cancelAction: {
-                        print("CANCEL")
-                     },
-                     okButtonTitle: "Применить",
-                     cancelButtonTitle: "Отмена",
-                     isForPromocode: true)
-        
-        let window = UIApplication.shared.keyWindow!
-        alertView.frame.size = window.frame.size
-        window.addSubview(alertView)
-    }
+//    @IBAction func promocodePressed(_ sender: Any) {
+//        alertView.set(title: "Введите промокод",
+//                     text: "",
+//                     okAction: { [self] in
+//                        guard let text = alertView.promocodeField.text else {
+//                            return
+//                        }
+//                        self.presenter.promocodeEntered(text)
+//                     },
+//                     cancelAction: {
+//                        print("CANCEL")
+//                     },
+//                     okButtonTitle: "Применить",
+//                     cancelButtonTitle: "Отмена",
+//                     isForPromocode: true)
+//
+//        let window = UIApplication.shared.keyWindow!
+//        alertView.frame.size = window.frame.size
+//        window.addSubview(alertView)
+//    }
     
     // MARK: - Private
     
@@ -91,6 +91,16 @@ class PaymentViewController: UIViewController {
         tableView.isScrollEnabled = false
     }
 
+    private func proceedToPayment() {
+        let onSuccess: (String) -> () = { [weak self] (html) in
+            let vc = WebViewController(html: html)
+            self?.presentWithNavBar(vc: vc)
+        }
+        
+        presenter.pay(onSuccess: onSuccess) {
+            // do smth
+        }
+    }
 }
 
 
@@ -159,15 +169,7 @@ extension PaymentViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let onSuccess: (String) -> () = { [weak self] (html) in
-                let vc = WebViewController(html: html)
-                self?.presentWithNavBar(vc: vc)
-            }
-            
-            presenter.pay(onSuccess: onSuccess) {
-                // do smth
-            }
-
+            proceedToPayment()
         case 1:
             ()
         default:
@@ -203,6 +205,9 @@ extension PaymentViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: PaymentTableViewCell.nibName, for: indexPath) as? PaymentTableViewCell {
             let info = paymentTypesInfo[indexPath.row]
             cell.update(for: info)
+            cell.onPayButtonPressed = {
+                self.proceedToPayment()
+            }
             return cell
         }
         return UITableViewCell()

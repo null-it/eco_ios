@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SkA-VJ-S02">
-                    <rect key="frame" x="0.0" y="311" width="414" height="104"/>
+                    <rect key="frame" x="0.0" y="303.5" width="414" height="104"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v9M-US-kNL">
                             <rect key="frame" x="0.0" y="16" width="414" height="88"/>
@@ -45,7 +45,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woV-9x-ZSh">
-                    <rect key="frame" x="0.0" y="431" width="414" height="92"/>
+                    <rect key="frame" x="0.0" y="423.5" width="414" height="92"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Платеж безопасен" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oa5-PC-v9R">
                             <rect key="frame" x="152" y="55" width="110.5" height="10"/>
@@ -98,7 +98,7 @@
                     </constraints>
                 </view>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите сумму" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e9n-PU-e6l">
-                    <rect key="frame" x="0.0" y="207.5" width="414" height="44"/>
+                    <rect key="frame" x="0.0" y="202.5" width="414" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="KGj-v4-Yni"/>
@@ -107,14 +107,14 @@
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQz-Xj-dk4">
-                    <rect key="frame" x="20" y="259.5" width="374" height="19.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <rect key="frame" x="20" y="254.5" width="374" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" systemColor="systemGrayColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="На данную почту вы получите чек об оплате" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNw-Rd-3EC">
-                    <rect key="frame" x="20" y="172" width="374" height="19.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <rect key="frame" x="20" y="172" width="374" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" systemColor="systemGrayColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -127,16 +127,6 @@
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                     <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMF-Zu-Nfn">
-                    <rect key="frame" x="20" y="814" width="374" height="32"/>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                    <state key="normal" title="Промокод">
-                        <color key="titleColor" red="0.57647058823529407" green="0.75686274509803919" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="promocodePressed:" destination="-1" eventType="touchUpInside" id="Ajd-xA-ZP7"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -144,7 +134,6 @@
                 <constraint firstItem="RNw-Rd-3EC" firstAttribute="top" secondItem="Cvn-4j-5R9" secondAttribute="bottom" constant="8" id="3EK-4d-I2l"/>
                 <constraint firstItem="Cvn-4j-5R9" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="32" id="5Ls-PE-tul"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RNw-Rd-3EC" secondAttribute="trailing" constant="20" id="Aff-SB-J7c"/>
-                <constraint firstItem="RMF-Zu-Nfn" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-16" id="CfR-Gl-Rci"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SkA-VJ-S02" secondAttribute="trailing" id="Dvf-vs-1Q4"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="e9n-PU-e6l" secondAttribute="trailing" id="EUR-Je-6iv"/>
                 <constraint firstItem="woV-9x-ZSh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="F9S-sk-qrh"/>
@@ -152,9 +141,7 @@
                 <constraint firstItem="e9n-PU-e6l" firstAttribute="top" secondItem="RNw-Rd-3EC" secondAttribute="bottom" constant="16" id="Kla-Oe-L1O"/>
                 <constraint firstItem="RNw-Rd-3EC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Q3e-yS-9af"/>
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="top" secondItem="aQz-Xj-dk4" secondAttribute="bottom" constant="32" id="Vyf-vn-5jU"/>
-                <constraint firstItem="RMF-Zu-Nfn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="YA6-FQ-SkX"/>
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ZIH-FC-HBk"/>
-                <constraint firstItem="RMF-Zu-Nfn" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="ZIt-oQ-SW1"/>
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ZQa-Xg-RWp"/>
                 <constraint firstItem="aQz-Xj-dk4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="ZUn-vA-tLq"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="aQz-Xj-dk4" secondAttribute="trailing" constant="20" id="bWV-69-d6c"/>
@@ -162,7 +149,6 @@
                 <constraint firstItem="SkA-VJ-S02" firstAttribute="leading" secondItem="woV-9x-ZSh" secondAttribute="trailing" constant="-414" id="haB-Jm-UU7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="woV-9x-ZSh" secondAttribute="trailing" id="j1J-xe-Lqp"/>
                 <constraint firstItem="Cvn-4j-5R9" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="lbO-bd-56W"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RMF-Zu-Nfn" secondAttribute="trailing" constant="20" id="lp9-tZ-k8Y"/>
                 <constraint firstItem="e9n-PU-e6l" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="pbP-cx-SLk"/>
                 <constraint firstItem="aQz-Xj-dk4" firstAttribute="top" secondItem="e9n-PU-e6l" secondAttribute="bottom" constant="8" id="yxX-0b-Tar"/>
             </constraints>
