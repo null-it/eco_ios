@@ -87,7 +87,7 @@ class MainPresenter {
             KeychainWrapper.standard.set(data.id, forKey: "userId")
             self.name = data.name ?? data.phone
             self.userDefaultsStandart.setValue(response.minReplenish, forKey: UserDefaultsKeys.minReplenish.rawValue)
-            self.userDefaultsStandart.setValue(response.email, forKey: UserDefaultsKeys.email.rawValue)
+            self.userDefaultsStandart.setValue(response.data.email, forKey: UserDefaultsKeys.email.rawValue)
             let balance = self.toRub(value: data.balance)
             if !response.data.city.isEmpty {
                 KeychainWrapper.standard.set(response.data.city, forKey: "city")
