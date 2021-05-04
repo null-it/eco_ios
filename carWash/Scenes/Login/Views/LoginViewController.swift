@@ -26,6 +26,9 @@ class LoginViewController: UIViewController {
     
     // MARK: - Outlets
     
+    @IBOutlet weak var filedsStackViewBottomLightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var fieldsStackViewTopLightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var phoneNumberTextField: FPNTextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButtonBottomConstraint: NSLayoutConstraint!
@@ -37,11 +40,16 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var timeoutLabel: UILabel!
     @IBOutlet weak var alreadyHasPasswordButton: UIButton!
     
+    @IBOutlet weak var backgroundBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var backgroundTopConstraint: NSLayoutConstraint!
+    
     var listController: FPNCountryListViewController = FPNCountryListViewController(style: .grouped)
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
+        configureNavBar()
+        visualEffectView.effect = nil
         addObservers()
         let gesture = hideKeyboardWhenTapped()
         gesture.delegate = self
@@ -49,7 +57,7 @@ class LoginViewController: UIViewController {
         passwordTextField.setLeftPadding(LoginViewConstants.textFieldLeftPadding)
         passwordTextField.delegate = self
         configurePhoneNumberTextField()
-        configureNavigationBar()
+//        configureNavigationBar()
         presenter.viewDidLoad()
         refreshView()
     }
@@ -86,6 +94,12 @@ class LoginViewController: UIViewController {
     
     
     // MARK: - Private
+    private func configureNavBar() {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+    }
     
     private func configurePhoneNumberTextField() {
         phoneNumberTextField.delegate = self
@@ -146,13 +160,25 @@ class LoginViewController: UIViewController {
             let constant = value > LoginViewConstants.loginButtonMinBottomSpace
             ? loginButtonBottomConstraint.constant + value
             : LoginViewConstants.loginButtonDefaultBottomConstant
+//            backgroundTopConstraint.constant = -constant
+//            backgroundBottomConstraint.constant = constant
             animateLoginButtonConstraint(constant: constant)
+            self.visualEffectView.effect = UIBlurEffect(style: .light)
+            self.visualEffectView.alpha = 0.5
+            self.fieldsStackViewTopLightConstraint.priority = UILayoutPriority(rawValue: 930)
+            self.filedsStackViewBottomLightConstraint.priority = UILayoutPriority(rawValue: 900)
+            
         }
     }
     
     
     @objc private func keyboardWillHide(notification: NSNotification) {
+//        backgroundTopConstraint.constant = 0
+//        backgroundBottomConstraint.constant = 0
         animateLoginButtonConstraint(constant: LoginViewConstants.loginButtonDefaultBottomConstant)
+        self.visualEffectView.effect = nil
+        self.fieldsStackViewTopLightConstraint.priority = UILayoutPriority(rawValue: 900)
+        self.filedsStackViewBottomLightConstraint.priority = UILayoutPriority(rawValue: 930)
     }
     
     
@@ -165,7 +191,7 @@ class LoginViewController: UIViewController {
     
     
     private func configureNavigationBar() {
-        title = "Авторизация"
+//        title = "Авторизация"
         navigationController?.navigationBar.titleTextAttributes =
             [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .semibold)] 
         navigationItem.setHidesBackButton(true, animated:true)

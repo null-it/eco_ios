@@ -12,6 +12,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="EcoCarWash" customModuleProvider="target">
             <connections>
                 <outlet property="alreadyHasPasswordButton" destination="W4N-3T-Nm7" id="vlx-Fz-Jwu"/>
+                <outlet property="backgroundBottomConstraint" destination="DnE-qz-Quo" id="QLX-Mu-0t6"/>
+                <outlet property="backgroundTopConstraint" destination="1kj-d5-yWj" id="wW5-3g-dl0"/>
+                <outlet property="fieldsStackViewTopLightConstraint" destination="uym-qW-CGN" id="FgN-wm-RdR"/>
+                <outlet property="filedsStackViewBottomLightConstraint" destination="L8B-6J-ceA" id="f2G-vt-iLx"/>
                 <outlet property="loginButton" destination="LCP-wE-bEZ" id="fEY-fA-qBv"/>
                 <outlet property="loginButtonBottomConstraint" destination="jZ4-NU-bak" id="yGh-SB-fNg"/>
                 <outlet property="passwordTextField" destination="X6r-yI-kzq" id="J4K-if-rp9"/>
@@ -22,6 +26,7 @@
                 <outlet property="sendPasswordAgainView" destination="Hjn-28-Yof" id="xbD-az-IiA"/>
                 <outlet property="timeoutLabel" destination="dBy-pQ-S7f" id="Fhh-ha-UKO"/>
                 <outlet property="view" destination="iN0-l3-epB" id="rhV-az-5d0"/>
+                <outlet property="visualEffectView" destination="8Ph-Jq-kf1" id="9BD-sI-orG"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -29,6 +34,17 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Login" translatesAutoresizingMaskIntoConstraints="NO" id="5cQ-T2-eP1">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                </imageView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ph-Jq-kf1">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="COu-d1-rfM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Найдите ближайшую точку продажи бонусных карт." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q5K-jQ-MWL">
                     <rect key="frame" x="60" y="800" width="294" height="40"/>
                     <constraints>
@@ -58,14 +74,14 @@
                     </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rog-AA-Skz">
-                    <rect key="frame" x="32" y="191" width="350" height="192"/>
+                    <rect key="frame" x="32" y="416" width="350" height="192"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Maj-A8-Qlh">
                             <rect key="frame" x="0.0" y="0.0" width="350" height="60"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите номер телефона" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oq1-cY-LZf" customClass="FPNTextField" customModule="FlagPhoneNumber">
                                     <rect key="frame" x="0.0" y="0.0" width="350" height="48"/>
-                                    <color key="backgroundColor" red="0.88235294117647056" green="0.88235294117647056" blue="0.89411764705882346" alpha="0.2089041095890411" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="backgroundColor" red="0.81568627450980391" green="0.81568627450980391" blue="0.81568627450980391" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="xod-uD-xpL"/>
                                     </constraints>
@@ -85,7 +101,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="Oq1-cY-LZf" secondAttribute="bottom" constant="12" id="Lua-Ex-8Dk"/>
                                 <constraint firstItem="Oq1-cY-LZf" firstAttribute="top" secondItem="Maj-A8-Qlh" secondAttribute="top" id="Wdi-5R-Sqj"/>
@@ -98,7 +114,7 @@
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X6r-yI-kzq">
                                     <rect key="frame" x="0.0" y="12" width="350" height="48"/>
-                                    <color key="backgroundColor" red="0.88235294119999996" green="0.88235294119999996" blue="0.89411764709999997" alpha="0.2089041096" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="backgroundColor" red="0.81568627450980391" green="0.81568627450980391" blue="0.81568627450980391" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="Y5w-Wf-LTP"/>
                                     </constraints>
@@ -118,7 +134,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="X6r-yI-kzq" secondAttribute="trailing" id="956-Db-hcH"/>
                                 <constraint firstAttribute="height" constant="60" id="J9H-2O-Lup"/>
@@ -159,7 +175,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="hIl-7U-Uhy" firstAttribute="centerX" secondItem="Hjn-28-Yof" secondAttribute="centerX" constant="-18" id="4bZ-fk-ROq"/>
                                 <constraint firstItem="Drw-RV-ySR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Hjn-28-Yof" secondAttribute="top" constant="15" id="EPl-Wo-kvH"/>
@@ -181,6 +197,7 @@
                             </variation>
                         </view>
                     </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Maj-A8-Qlh" secondAttribute="trailing" id="0xs-nh-Wkj"/>
                         <constraint firstAttribute="trailing" secondItem="www-qr-VyI" secondAttribute="trailing" id="JwS-Od-GuS"/>
@@ -229,17 +246,25 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="5cQ-T2-eP1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1kj-d5-yWj"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Q5K-jQ-MWL" secondAttribute="trailing" constant="60" id="2ux-O5-vaR"/>
                 <constraint firstItem="LCP-wE-bEZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Rog-AA-Skz" secondAttribute="bottom" constant="16" id="Cfz-6s-pXv"/>
+                <constraint firstAttribute="bottom" secondItem="5cQ-T2-eP1" secondAttribute="bottom" id="DnE-qz-Quo"/>
                 <constraint firstItem="W4N-3T-Nm7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="www-qr-VyI" secondAttribute="bottom" constant="24" id="GGy-yr-XNp"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Rog-AA-Skz" secondAttribute="trailing" constant="32" id="Kuf-qq-wDN"/>
-                <constraint firstItem="LCP-wE-bEZ" firstAttribute="top" secondItem="Rog-AA-Skz" secondAttribute="bottom" priority="900" constant="305" id="L8B-6J-ceA"/>
-                <constraint firstItem="Rog-AA-Skz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="OcR-qQ-74k"/>
+                <constraint firstItem="LCP-wE-bEZ" firstAttribute="top" secondItem="Rog-AA-Skz" secondAttribute="bottom" priority="930" constant="50" id="L8B-6J-ceA"/>
+                <constraint firstAttribute="bottom" secondItem="8Ph-Jq-kf1" secondAttribute="bottom" id="MTb-1q-ztU"/>
+                <constraint firstItem="5cQ-T2-eP1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="OAB-8X-N1x"/>
+                <constraint firstItem="Rog-AA-Skz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="OcR-qQ-74k"/>
                 <constraint firstItem="Q5K-jQ-MWL" firstAttribute="top" secondItem="JVH-2b-GZh" secondAttribute="bottom" constant="12" id="Q1P-HC-NL0"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Q5K-jQ-MWL" secondAttribute="bottom" constant="22" id="T55-GQ-fll"/>
                 <constraint firstItem="LCP-wE-bEZ" firstAttribute="top" secondItem="W4N-3T-Nm7" secondAttribute="bottom" constant="24" id="Txb-RR-WKs"/>
+                <constraint firstItem="8Ph-Jq-kf1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Xtz-AK-80A"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="LCP-wE-bEZ" secondAttribute="trailing" constant="32" id="XxZ-ak-Li9"/>
                 <constraint firstItem="JVH-2b-GZh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="aFT-tc-Olz"/>
+                <constraint firstAttribute="trailing" secondItem="8Ph-Jq-kf1" secondAttribute="trailing" id="e5a-xf-92o"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5cQ-T2-eP1" secondAttribute="trailing" id="exW-uX-ybi"/>
+                <constraint firstItem="8Ph-Jq-kf1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hVf-sZ-4DV"/>
                 <constraint firstItem="Q5K-jQ-MWL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="60" id="iA2-od-gzy"/>
                 <constraint firstItem="JVH-2b-GZh" firstAttribute="top" secondItem="LCP-wE-bEZ" secondAttribute="bottom" constant="40" id="jZ4-NU-bak"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="JVH-2b-GZh" secondAttribute="trailing" constant="32" id="lol-0e-V27"/>
@@ -247,9 +272,9 @@
                 <constraint firstItem="W4N-3T-Nm7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="4.5" id="mKs-YF-7ih"/>
                 <constraint firstItem="Rog-AA-Skz" firstAttribute="trailing" secondItem="Q5K-jQ-MWL" secondAttribute="trailing" id="pMs-4N-V2o"/>
                 <constraint firstItem="LCP-wE-bEZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="thB-2X-Pbe"/>
-                <constraint firstItem="Rog-AA-Skz" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" priority="930" constant="103" id="uym-qW-CGN"/>
+                <constraint firstItem="Rog-AA-Skz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="900" constant="50" id="uym-qW-CGN"/>
             </constraints>
-            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <nil key="simulatedTopBarMetrics"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="pMs-4N-V2o"/>
@@ -260,14 +285,12 @@
     </objects>
     <designables>
         <designable name="Oq1-cY-LZf">
-            <size key="intrinsicContentSize" width="230.5" height="19.5"/>
+            <size key="intrinsicContentSize" width="182.5" height="19.5"/>
         </designable>
     </designables>
     <resources>
+        <image name="Login" width="375" height="812"/>
         <systemColor name="secondarySystemGroupedBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">

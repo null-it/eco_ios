@@ -89,8 +89,8 @@ class MainPresenter {
             self.userDefaultsStandart.setValue(response.minReplenish, forKey: UserDefaultsKeys.minReplenish.rawValue)
             self.userDefaultsStandart.setValue(response.data.email, forKey: UserDefaultsKeys.email.rawValue)
             let balance = self.toRub(value: data.balance)
-            if !response.data.city.isEmpty {
-                KeychainWrapper.standard.set(response.data.city, forKey: "city")
+            if response.data.city != nil {
+                KeychainWrapper.standard.set(response.data.city!, forKey: "city")
             }
             self.setCityIfNeeded()
             

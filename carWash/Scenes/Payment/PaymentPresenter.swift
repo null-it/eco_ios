@@ -83,6 +83,10 @@ extension PaymentPresenter: PaymentPresenterProtocol {
     
     var lastEmail: String {
         get {
+            if savedEmail != nil {
+                email = savedEmail!
+                isEmailEntered = true
+            }
             return savedEmail != nil ? savedEmail! : ""
         }
     }
