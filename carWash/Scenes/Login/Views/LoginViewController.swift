@@ -64,7 +64,13 @@ class LoginViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = false
+        switch UIDevice().type {
+        case .iPhone5, .iPhone5S, .iPhone5C, .iPhoneSE, .iPhone6, .iPhone6S, .iPhoneSE2, .iPhone7, .iPhone8, .iphone12Mini:
+            fieldsStackViewTopLightConstraint.constant = 50
+        default:
+            fieldsStackViewTopLightConstraint.constant = 150
+        }
+
     }
     
     
@@ -108,7 +114,7 @@ class LoginViewController: UIViewController {
         phoneNumberTextField.flagButtonSize = CGSize(width: 35, height: 35)
         phoneNumberTextField.setFlag(countryCode: .RU)
         phoneNumberTextField.hasPhoneNumberExample = true
-        
+        phoneNumberTextField.placeholder = "900 000-00-00"
         listController.setup(repository: phoneNumberTextField.countryRepository)
 
         listController.didSelect = { [weak self] country in
@@ -165,8 +171,10 @@ class LoginViewController: UIViewController {
             animateLoginButtonConstraint(constant: constant)
             self.visualEffectView.effect = UIBlurEffect(style: .light)
             self.visualEffectView.alpha = 0.5
-            self.fieldsStackViewTopLightConstraint.priority = UILayoutPriority(rawValue: 930)
-            self.filedsStackViewBottomLightConstraint.priority = UILayoutPriority(rawValue: 900)
+            UIView.animate(withDuration: 0.5) {
+                self.fieldsStackViewTopLightConstraint.priority = UILayoutPriority(rawValue: 930)
+                self.filedsStackViewBottomLightConstraint.priority = UILayoutPriority(rawValue: 900)
+            }
             
         }
     }
@@ -177,8 +185,10 @@ class LoginViewController: UIViewController {
 //        backgroundBottomConstraint.constant = 0
         animateLoginButtonConstraint(constant: LoginViewConstants.loginButtonDefaultBottomConstant)
         self.visualEffectView.effect = nil
-        self.fieldsStackViewTopLightConstraint.priority = UILayoutPriority(rawValue: 900)
-        self.filedsStackViewBottomLightConstraint.priority = UILayoutPriority(rawValue: 930)
+        UIView.animate(withDuration: 0.5) {
+            self.fieldsStackViewTopLightConstraint.priority = UILayoutPriority(rawValue: 900)
+            self.filedsStackViewBottomLightConstraint.priority = UILayoutPriority(rawValue: 930)
+        }
     }
     
     

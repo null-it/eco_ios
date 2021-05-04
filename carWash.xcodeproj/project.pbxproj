@@ -179,6 +179,7 @@
 		49F12BFA23CDF916007A1A87 /* OperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F12BF923CDF916007A1A87 /* OperationType.swift */; };
 		49F12BFC23CDF940007A1A87 /* OperationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F12BFB23CDF940007A1A87 /* OperationInfo.swift */; };
 		4D436E25F5F10A1A4153B167 /* Pods_carWash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF31C689214847541284B53 /* Pods_carWash.framework */; };
+		605275E92641BD6100301DBA /* UIDevice + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605275E82641BD6100301DBA /* UIDevice + Ext.swift */; };
 		608EBAE0262E0B1000CF37AD /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 608EBADF262E0B1000CF37AD /* PhoneNumberKit */; };
 		60C98B5D263851B80037663A /* PromocodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C98B5C263851B80037663A /* PromocodeResponse.swift */; };
 		60F185D72635D7A300F50C55 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F185D62635D7A300F50C55 /* Int.swift */; };
@@ -374,6 +375,7 @@
 		49F12BF723CDE9C3007A1A87 /* SaleInfoConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleInfoConstants.swift; sourceTree = "<group>"; };
 		49F12BF923CDF916007A1A87 /* OperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationType.swift; sourceTree = "<group>"; };
 		49F12BFB23CDF940007A1A87 /* OperationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfo.swift; sourceTree = "<group>"; };
+		605275E82641BD6100301DBA /* UIDevice + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice + Ext.swift"; sourceTree = "<group>"; };
 		60C98B5C263851B80037663A /* PromocodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromocodeResponse.swift; sourceTree = "<group>"; };
 		60F185D62635D7A300F50C55 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		9252CA2FFB411EFE7EBB0947 /* Pods-carWash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carWash.release.xcconfig"; path = "Target Support Files/Pods-carWash/Pods-carWash.release.xcconfig"; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 				49418DC423E1804800BBA3E9 /* UIWindow.swift */,
 				49DEB19723E42998004FAEF7 /* DateFormatter.swift */,
 				60F185D62635D7A300F50C55 /* Int.swift */,
+				605275E82641BD6100301DBA /* UIDevice + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1024,6 +1027,7 @@
 				49811CA1238C01B60074FF92 /* SalesPresenter.swift in Sources */,
 				49418DC523E1804800BBA3E9 /* UIWindow.swift in Sources */,
 				493BE2A523F13F2300A5E345 /* TerminalView.swift in Sources */,
+				605275E92641BD6100301DBA /* UIDevice + Ext.swift in Sources */,
 				491150A823D04DCE0007CCA8 /* OperationFilterConstants.swift in Sources */,
 				490B9AD223EC5AEB0027A576 /* WashingStartPresenter.swift in Sources */,
 				49811CAE238C02800074FF92 /* UIViewController.swift in Sources */,
@@ -1310,7 +1314,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.5;
+				MARKETING_VERSION = 2.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = EcoCarWash;
 				SWIFT_VERSION = 5.0;
@@ -1339,7 +1343,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.5;
+				MARKETING_VERSION = 2.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = EcoCarWash;
 				SWIFT_VERSION = 5.0;
