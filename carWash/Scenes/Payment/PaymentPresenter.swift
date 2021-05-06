@@ -93,7 +93,11 @@ extension PaymentPresenter: PaymentPresenterProtocol {
     
     func pay(onSuccess: @escaping (String) -> (), onFailure: (() -> ())?) {
         guard let amount = Int(sum) else { return }
-        interactor.pay(amount: amount, email: email, onSuccess: onSuccess, onFailure: onFailure)
+        let onRequestSuccess: ((String) -> ()) = { [weak self] message in
+            onSuccess(message)
+            UserDefaults.standard.set(self?.email, forKey: "email")
+        }
+        interactor.pay(amount: amount, email: email, onSuccess: onRequestSuccess, onFailure: onFailure)
     }
     
     func sumDidBeginEditing() {

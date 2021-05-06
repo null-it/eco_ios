@@ -170,7 +170,6 @@ class LoginViewController: UIViewController {
 //            backgroundBottomConstraint.constant = constant
             animateLoginButtonConstraint(constant: constant)
             self.visualEffectView.effect = UIBlurEffect(style: .light)
-            self.visualEffectView.alpha = 0.5
             UIView.animate(withDuration: 0.5) {
                 self.fieldsStackViewTopLightConstraint.priority = UILayoutPriority(rawValue: 930)
                 self.filedsStackViewBottomLightConstraint.priority = UILayoutPriority(rawValue: 900)
