@@ -42,6 +42,7 @@
                     <constraint firstItem="YJr-FG-hBi" firstAttribute="centerY" secondItem="7YR-f7-Raw" secondAttribute="centerY" id="gj5-dS-l8k"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <accessibility key="accessibilityConfiguration" identifier="PaymentTableViewCell"/>
             <connections>
                 <outlet property="payButton" destination="YJr-FG-hBi" id="cPl-BR-ics"/>

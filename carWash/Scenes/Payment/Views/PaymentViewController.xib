@@ -30,13 +30,13 @@
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v9M-US-kNL">
                             <rect key="frame" x="0.0" y="16" width="414" height="88"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="88" id="wP2-rY-FDX"/>
                             </constraints>
                         </tableView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="v9M-US-kNL" firstAttribute="leading" secondItem="SkA-VJ-S02" secondAttribute="leading" id="Kwl-Ko-5FM"/>
                         <constraint firstAttribute="trailing" secondItem="v9M-US-kNL" secondAttribute="trailing" id="QrS-HQ-C0o"/>
