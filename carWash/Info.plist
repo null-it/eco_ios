@@ -45,6 +45,8 @@
 	<string>Разрешить приложению доступ к Вашей геолокации?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Разрешить приложению доступ к Вашей геолокации?</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Разрешить приложению доступ к Вашей геолокации?</string>
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UIApplicationSceneManifest</key>
