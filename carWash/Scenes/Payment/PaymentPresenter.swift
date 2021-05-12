@@ -65,7 +65,7 @@ extension PaymentPresenter: PaymentPresenterProtocol {
         guard let textRange = Range(range, in: email) else {
             return false
         }
-        email = email.replacingCharacters(in: textRange, with: string)
+        email = email.replacingCharacters(in: textRange, with: string).withoutLineBreakSymbols()
         print("emai is: \(email)")
         if isValidEmail(email) {
             view.emailIsCorrect(true)
@@ -124,7 +124,7 @@ extension PaymentPresenter: PaymentPresenterProtocol {
             
             
         }
-        sum = sum.replacingCharacters(in: textRange, with: string)
+        sum = sum.replacingCharacters(in: textRange, with: string).withoutLineBreakSymbols()
         guard !sum.isEmpty else {
             view.setTableView(enabled: false)
             return true

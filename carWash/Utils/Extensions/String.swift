@@ -60,3 +60,11 @@ extension String {
     }
     
 }
+
+extension String {
+    
+    func withoutLineBreakSymbols() -> String {
+        return String(self.filter { !"\n\t\r".contains($0) })
+    }
+    
+}
