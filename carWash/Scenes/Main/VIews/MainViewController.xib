@@ -318,7 +318,7 @@
                                                         <constraint firstAttribute="height" constant="45" id="hX4-Si-8Io"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <state key="normal" title="💧Начать мойкку">
+                                                    <state key="normal" title="💧Начать мойку">
                                                         <color key="titleColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
