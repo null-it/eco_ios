@@ -65,6 +65,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var balanceLabelWrapper: UIView!
     @IBOutlet weak var paymentButtonWrapper: UIView!
         
+    @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var promocodeTextField: UITextField!
     @IBOutlet weak var promocodeButton: UIButton!
     // MARK: - Lifecicle
@@ -76,6 +77,8 @@ class MainViewController: UIViewController {
         _ = hideKeyboardWhenTapped()
         addObservers()
         configureTableView()
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        versionLabel.text = appVersion ?? "N.N.N"
         createExitButton()
         createLocationButton()
         configureCard()
@@ -86,6 +89,7 @@ class MainViewController: UIViewController {
         appDelegate.didRecieveReviewNotificationResponse = { [weak self] in
             self?.presenter.didRecieveNotification(appDelegate.reviewNotificationResponse)
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
 
     }
     
@@ -93,6 +97,7 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         configureRefreshControl()
         scrollView.setContentOffset(.zero, animated: true)
+        AppUpdater.shared.showUpdate(withConfirmation: false)
     }
     
     override func viewDidLayoutSubviews() {
@@ -147,6 +152,9 @@ class MainViewController: UIViewController {
         presenter.refreshData()
     }
     
+    @objc private func willEnterForeground() {
+        AppUpdater.shared.showUpdate(withConfirmation: false)
+    }
     
     private func configureCard() {
         if isSE {

@@ -179,6 +179,7 @@
 		49F12BFA23CDF916007A1A87 /* OperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F12BF923CDF916007A1A87 /* OperationType.swift */; };
 		49F12BFC23CDF940007A1A87 /* OperationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F12BFB23CDF940007A1A87 /* OperationInfo.swift */; };
 		4D436E25F5F10A1A4153B167 /* Pods_carWash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF31C689214847541284B53 /* Pods_carWash.framework */; };
+		603692BA2697607200CAA8E1 /* AppUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603692B92697607200CAA8E1 /* AppUpdater.swift */; };
 		605275E92641BD6100301DBA /* UIDevice + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605275E82641BD6100301DBA /* UIDevice + Ext.swift */; };
 		608EBAE0262E0B1000CF37AD /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 608EBADF262E0B1000CF37AD /* PhoneNumberKit */; };
 		60C98B5D263851B80037663A /* PromocodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C98B5C263851B80037663A /* PromocodeResponse.swift */; };
@@ -277,7 +278,7 @@
 		49574F2023B37B0F006E8DC5 /* SaleInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleInfoCell.swift; sourceTree = "<group>"; };
 		49574F2223B9B92B006E8DC5 /* ReviewNotificationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNotificationResponse.swift; sourceTree = "<group>"; };
 		49574F2423BA1D6D006E8DC5 /* SaleNotificationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleNotificationResponse.swift; sourceTree = "<group>"; };
-		49599B27237EEA9000F24EC4 /* EcoCarWash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EcoCarWash.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49599B27237EEA9000F24EC4 /* Car Wash Priority.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Car Wash Priority.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		49599B2A237EEA9000F24EC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49599B2C237EEA9000F24EC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		49599B33237EEA9200F24EC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -375,6 +376,7 @@
 		49F12BF723CDE9C3007A1A87 /* SaleInfoConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleInfoConstants.swift; sourceTree = "<group>"; };
 		49F12BF923CDF916007A1A87 /* OperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationType.swift; sourceTree = "<group>"; };
 		49F12BFB23CDF940007A1A87 /* OperationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfo.swift; sourceTree = "<group>"; };
+		603692B92697607200CAA8E1 /* AppUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdater.swift; sourceTree = "<group>"; };
 		605275E82641BD6100301DBA /* UIDevice + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice + Ext.swift"; sourceTree = "<group>"; };
 		60C98B5C263851B80037663A /* PromocodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromocodeResponse.swift; sourceTree = "<group>"; };
 		60F185D62635D7A300F50C55 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 				492BE5682382953F0034FB1B /* Extensions */,
 				49357C3A2383E83A00F1B51B /* MainTabBarController.swift */,
 				49B2AC2623A2DE67002997F7 /* Constants.swift */,
+				603692B92697607200CAA8E1 /* AppUpdater.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -652,7 +655,7 @@
 		49599B28237EEA9000F24EC4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				49599B27237EEA9000F24EC4 /* EcoCarWash.app */,
+				49599B27237EEA9000F24EC4 /* Car Wash Priority.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -893,7 +896,7 @@
 				608EBADF262E0B1000CF37AD /* PhoneNumberKit */,
 			);
 			productName = carWash;
-			productReference = 49599B27237EEA9000F24EC4 /* EcoCarWash.app */;
+			productReference = 49599B27237EEA9000F24EC4 /* Car Wash Priority.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1080,6 +1083,7 @@
 				4956FDF1238EAFF9006D89C9 /* PaymentTableViewCell.swift in Sources */,
 				490B9AC723EC4A740027A576 /* WashingStartViewController.swift in Sources */,
 				49E46314239960EA00356FF9 /* UserResponse.swift in Sources */,
+				603692BA2697607200CAA8E1 /* AppUpdater.swift in Sources */,
 				49E4631023995F0300356FF9 /* GetAuthCodeResponse.swift in Sources */,
 				49811CA7238C02020074FF92 /* SalesConfigurator.swift in Sources */,
 				49DBED4923B21B76003FCD5D /* CityViewCell.swift in Sources */,
@@ -1300,7 +1304,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = carWash/ECO.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W89PGV58R6;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1314,9 +1318,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
-				PRODUCT_NAME = EcoCarWash;
+				PRODUCT_NAME = "Car Wash Priority";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1329,7 +1333,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = carWash/ECO.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W89PGV58R6;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1343,9 +1347,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
-				PRODUCT_NAME = EcoCarWash;
+				PRODUCT_NAME = "Car Wash Priority";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
