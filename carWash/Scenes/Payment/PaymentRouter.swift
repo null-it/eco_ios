@@ -24,6 +24,7 @@ class PaymentRouter {
 extension PaymentRouter: PaymentRouterProtocol {
 
     func popView() {
+        view?.delegate?.popped()
         view?.navigationController?.popViewController(animated: true)
     }
     

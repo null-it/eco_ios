@@ -24,11 +24,12 @@ extension PaymentInteractor: PaymentInteractorProtocol {
     
     func pay(amount: Int,
              email: String,
-             onSuccess: @escaping (String) -> (),
+             token: String,
+             onSuccess: @escaping (String?) -> (),
              onFailure: (() -> ())?) {
-        let request = Request.Pay.Post(amount: amount, email: email)
+        let request = Request.Pay.Post(token: token, amount: amount, email: email)
         request.send().done { response in
-            onSuccess(response)
+            onSuccess(response.data.url)
         }.catch { error in
             print(error)
             onFailure?()

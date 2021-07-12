@@ -10,7 +10,7 @@ import UIKit
 import SkeletonView
 import YooKassaPayments
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UIPopPaymentVCDelegate {
 
     // MARK: - Properties
     
@@ -78,8 +78,7 @@ class MainViewController: UIViewController {
         _ = hideKeyboardWhenTapped()
         addObservers()
         configureTableView()
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        versionLabel.text = appVersion ?? "N.N.N"
+        checkForANewVersion()
         createExitButton()
         createLocationButton()
         configureCard()
@@ -90,8 +89,6 @@ class MainViewController: UIViewController {
         appDelegate.didRecieveReviewNotificationResponse = { [weak self] in
             self?.presenter.didRecieveNotification(appDelegate.reviewNotificationResponse)
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-
     }
     
     
@@ -129,6 +126,9 @@ class MainViewController: UIViewController {
         DispatchQueue.removeToken(token: onceToken)
     }
     
+    func popped() {
+        presenter.refreshData()
+    }
     
     // MARK: - Private
     
@@ -140,6 +140,11 @@ class MainViewController: UIViewController {
         tableView.addObserver(self, forKeyPath: "contentSize", options: .old, context: nil)
     }
     
+    private func checkForANewVersion() {
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        versionLabel.text = appVersion ?? "N.N.N"
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
     
     private func configureRefreshControl() {
         refreshControl = UIRefreshControl()
@@ -266,22 +271,7 @@ class MainViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func paymentButtonPressed(_ sender: Any) {
-        let amount = Amount(value: 999.99, currency: .rub)
-        let tokenizationModuleInputData =
-            TokenizationModuleInputData(clientApplicationKey: paymentToken,
-                                        shopName: "Космические объекты",
-                                        purchaseDescription: """
-                                                                    Комета повышенной яркости, период обращения — 112 лет
-                                                                    """,
-                                        amount: amount,
-                                        savePaymentMethod: .on)
-        
-        let inputData: TokenizationFlow = .tokenization(tokenizationModuleInputData)
-        
-        let viewController = TokenizationAssembly.makeModule(inputData: inputData,
-                                                             moduleOutput: self)
-        present(viewController, animated: true, completion: nil)
-        //        presenter.presentPaymentView()
+        presenter.presentPaymentView()
     }
     
     
@@ -604,37 +594,4 @@ extension MainViewController: UITextFieldDelegate {
             promocodeFieldIsEmpty()
         }
     }
-}
-
-
-extension MainViewController: TokenizationModuleOutput {
-    
-    func didFinish(on module: TokenizationModuleInput, with error: YooKassaPaymentsError?) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.dismiss(animated: true)
-        }
-    }
-    
-    func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
-        
-    }
-    
-    func didSuccessfullyConfirmation(paymentMethodType: PaymentMethodType) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            // Создать экран успеха после прохождения подтверждения (3DS или Sberpay)
-            self.dismiss(animated: true)
-            // Показать экран успеха
-        }
-    }
-    
-    func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.dismiss(animated: true)
-        }
-        // Отправьте токен в вашу систему
-    }
-    
 }

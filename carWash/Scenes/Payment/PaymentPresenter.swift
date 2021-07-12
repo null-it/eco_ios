@@ -53,6 +53,29 @@ class PaymentPresenter {
 
 extension PaymentPresenter: PaymentPresenterProtocol {
     
+    var usersSum: String {
+        get {
+            return self.sum
+        }
+    }
+    
+    func paymentTokenReceived(token: String) {
+        guard let amount = Int(sum) else { return }
+        let onRequestSuccess: ((String?) -> ()) = { [weak self] message in
+            UserDefaults.standard.set(self?.email, forKey: "email")
+//            self?.view.endLoader(with: 0.5)
+            if let url = message {
+                self?.view.showWebView(with: url)
+            }
+        }
+        let onFailure: (() -> Void)? = { [weak self] in
+            self?.view.showInfoAboutError(title: "Ошибка", message: "Попробуйте позже")
+//            self?.view.endLoader(with: 0.5)
+        }
+//        self.view.startLoader()
+        interactor.pay(amount: amount, email: email, token: token, onSuccess: onRequestSuccess, onFailure: onFailure)
+    }
+    
     func promocodeEntered(_ promocode: String) {
         interactor.applyPromocode(promocode: promocode) { (message, status) in
             self.view.promocodeMessageReceived(message, status: status)
@@ -94,15 +117,6 @@ extension PaymentPresenter: PaymentPresenterProtocol {
             }
             return savedEmail != nil ? savedEmail! : ""
         }
-    }
-    
-    func pay(onSuccess: @escaping (String) -> (), onFailure: (() -> ())?) {
-        guard let amount = Int(sum) else { return }
-        let onRequestSuccess: ((String) -> ()) = { [weak self] message in
-            onSuccess(message)
-            UserDefaults.standard.set(self?.email, forKey: "email")
-        }
-        interactor.pay(amount: amount, email: email, onSuccess: onRequestSuccess, onFailure: onFailure)
     }
     
     func sumDidBeginEditing() {

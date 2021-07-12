@@ -9,6 +9,12 @@
 import UIKit
 import SafariServices
 import IQKeyboardManagerSwift
+import YooKassaPayments
+
+protocol UIPopPaymentVCDelegate {
+    func popped()
+}
+
 
 class PaymentViewController: UIViewController {
 
@@ -17,6 +23,7 @@ class PaymentViewController: UIViewController {
     var presenter: PaymentPresenterProtocol!
     var configurator: PaymentConfiguratorProtocol!
     var paymentTypesInfo: [PaymentTypeInfo] = []
+    var delegate: UIPopPaymentVCDelegate? = nil
     
     // MARK: - Outlets
     
@@ -28,6 +35,7 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     
     lazy var alertView: AlertView = .fromNib()!
+    private var tokenizationVC: TokenizationModuleInput?
     
     // MARK: - Lifecycle
     
@@ -45,7 +53,6 @@ class PaymentViewController: UIViewController {
         emailTextField.delegate = self
     }
     
-    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let object = object as? UITableView {
             if object == tableView {
@@ -53,7 +60,6 @@ class PaymentViewController: UIViewController {
             }
         }
     }
-    
     
     deinit {
         tableView.removeObserver(self, forKeyPath: "contentSize")
@@ -92,21 +98,85 @@ class PaymentViewController: UIViewController {
     }
 
     private func proceedToPayment() {
-        let onSuccess: (String) -> () = { [weak self] (html) in
-            let vc = WebViewController(html: html)
-            self?.presentWithNavBar(vc: vc)
+        
+        func paymentSettings() -> TokenizationSettings {
+            var paymentMethodTypes: PaymentMethodTypes = []
+            paymentMethodTypes.insert(.bankCard)
+            
+            //            if <Условие для Сбербанка Онлайн> {
+            //                // Добавляем в paymentMethodTypes элемент `.sberbank`
+            //                paymentMethodTypes.insert(.sberbank)
+            //            }
+            //
+            //            if <Условие для ЮMoney> {
+            //                // Добавляем в paymentMethodTypes элемент `.yooMoney`
+            //                paymentMethodTypes.insert(.yooMoney)
+            //            }
+            
+            //            if true {
+            // Добавляем в paymentMethodTypes элемент `.applePay`
+            //                paymentMethodTypes.insert(.applePay)
+            //            }
+            
+            let tokenizationSettings = TokenizationSettings(paymentMethodTypes: paymentMethodTypes)
+            
+            return tokenizationSettings
         }
         
-        presenter.pay(onSuccess: onSuccess) {
-            // do smth
+        guard let decimalAmount = Decimal(string: presenter.usersSum) else {
+            return
         }
+        
+        let amount = Amount(value: decimalAmount, currency: .rub)
+        
+        let tokenizationModuleInputData = TokenizationModuleInputData(clientApplicationKey: paymentToken,
+                                                                      shopName: "Car Wash Priority",
+                                                                      purchaseDescription: "Пополнение счета",
+                                                                      amount: amount,
+                                                                      tokenizationSettings: paymentSettings(),
+                                                                      savePaymentMethod: .on)
+        
+        let inputData: TokenizationFlow = .tokenization(tokenizationModuleInputData)
+        
+        let viewController = TokenizationAssembly.makeModule(inputData: inputData,
+                                                             moduleOutput: self)
+        self.tokenizationVC = viewController
+        
+        present(viewController, animated: true, completion: nil)
     }
+    
 }
 
 
 // MARK: - PaymentViewProtocol
 
 extension PaymentViewController: PaymentViewProtocol {
+    
+    func showInfoAboutError(title: String, message: String) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true, completion: nil)
+            self.showAlert(message: message, title: title)
+        }
+        
+    }
+    
+    func startLoader() {
+        self.view.activityStartAnimating(activityColor: .lightGray, backgroundColor: UIColor.lightGray.withAlphaComponent(0.5))
+    }
+    
+    func endLoader(with delay: Double) {
+        self.view.activityStopAnimating(withDelay: delay)
+    }
+    
+    func showWebView(with url: String) {
+        guard let tokenizationVC = tokenizationVC else {
+            return
+        }
+        tokenizationVC.startConfirmationProcess(confirmationUrl: url, paymentMethodType: .bankCard)
+//        let vc = WebViewController(html: url)
+//        self.presentWithNavBar(vc: vc)
+    }
     
     func promocodeMessageReceived(_ message: String, status: PromocodeStatus) {
         alertView.promocodeMessageLabel.text = message
@@ -167,14 +237,14 @@ extension PaymentViewController: NavigationBarConfigurationProtocol {
 extension PaymentViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
-            proceedToPayment()
-        case 1:
-            ()
-        default:
-            ()
-        }
+//        switch indexPath.row {
+//        case 0:
+//            proceedToPayment()
+//        case 1:
+//            ()
+//        default:
+//            ()
+//        }
         tableView.deselectRow(at: indexPath, animated: true)
 
     }
@@ -234,6 +304,51 @@ extension PaymentViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         presenter.sumDidBeginEditing()
+    }
+    
+}
+
+extension PaymentViewController: TokenizationModuleOutput {
+    
+    func didFinish(on module: TokenizationModuleInput, with error: YooKassaPaymentsError?) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+    }
+    
+    func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func didSuccessfullyConfirmation(paymentMethodType: PaymentMethodType) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+//            if paymentMethodType == .bankCard {
+                let content = UNMutableNotificationContent()
+
+                content.title = "Платеж успешно обработан"
+//                content.subtitle = ""
+                content.body =  "Ожидайте оповещения о поступлении средств на счет"
+                content.badge = 1
+
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.3, repeats: false)
+
+            let request = UNNotificationRequest(identifier: "EcoIosPaymentInfo", content: content, trigger: trigger)
+//            }
+            self.dismiss(animated: true)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        }
+    }
+    
+    func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.presenter.paymentTokenReceived(token: token.paymentToken)
+        }
     }
     
 }

@@ -16,21 +16,26 @@ protocol PaymentViewProtocol: class {
     func needMoreMoney(_ value: Bool)
     func emailIsCorrect(_ value: Bool)
     func promocodeMessageReceived(_ message: String, status: PromocodeStatus)
+    func showWebView(with url: String)
+    func startLoader()
+    func endLoader(with delay: Double)
+    func showInfoAboutError(title: String, message: String)
 }
 
 // MARK: - Presenter
 protocol PaymentPresenterProtocol: class {
+    var usersSum: String { get }
     var minDeposit: Int { get }
     var lastEmail: String { get }
     func popView()
     func viewDidLoad()
     func sumDidBeginEditing()
     func sumDidEndEditing()
+    func paymentTokenReceived(token: String)
     func shouldChangeSumCharacters(in range: NSRange,
                                    replacementString string: String) -> Bool
     func shouldChangeEmailCharacters(in range: NSRange,
                                    replacementString string: String) -> Bool
-    func pay(onSuccess: @escaping (String) -> (), onFailure: (() -> ())?)
     func promocodeEntered(_ promocode: String)
 }
 
@@ -43,7 +48,8 @@ protocol PaymentRouterProtocol {
 protocol PaymentInteractorProtocol: class {
     func pay(amount: Int,
              email: String,
-             onSuccess: @escaping (String) -> (),
+             token: String,
+             onSuccess: @escaping (String?) -> (),
              onFailure: (() -> ())?)
     func applyPromocode(promocode: String,
                         onSuccess: @escaping (String, PromocodeStatus) -> (),

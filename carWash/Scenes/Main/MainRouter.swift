@@ -26,13 +26,14 @@ extension MainRouter: MainRouterProtocol {
     func presentPaymentView() {
         guard let view = view else { return }
         let configurator = PaymentConfigurator()
-        let vc = configurator.viewController
+        let vc = configurator.viewController as! PaymentViewController
         if let navigationController = view.navigationController {
             navigationController.pushViewController(vc, animated: true)
         } else {
             vc.modalPresentationStyle = .fullScreen
             view.present(vc, animated: true, completion: nil)
         }
+        vc.delegate = view
     }
     
     

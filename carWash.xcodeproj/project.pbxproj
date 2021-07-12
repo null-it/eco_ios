@@ -74,7 +74,6 @@
 		4956FDE5238E7D76006D89C9 /* PaymentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956FDE4238E7D76006D89C9 /* PaymentInteractor.swift */; };
 		4956FDE7238E7D80006D89C9 /* PaymentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956FDE6238E7D80006D89C9 /* PaymentRouter.swift */; };
 		4956FDE9238E7D91006D89C9 /* PaymentConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956FDE8238E7D91006D89C9 /* PaymentConfigurator.swift */; };
-		4956FDEB238E7D9A006D89C9 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956FDEA238E7D9A006D89C9 /* PaymentViewController.swift */; };
 		4956FDED238E7D9F006D89C9 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4956FDEC238E7D9F006D89C9 /* PaymentViewController.xib */; };
 		4956FDEF238EAFF1006D89C9 /* PaymentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4956FDEE238EAFF1006D89C9 /* PaymentTableViewCell.xib */; };
 		4956FDF1238EAFF9006D89C9 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956FDF0238EAFF9006D89C9 /* PaymentTableViewCell.swift */; };
@@ -185,6 +184,8 @@
 		602AAACB269B4A78007D6E0F /* TMXProfilingConnections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 602AAAC9269B4A78007D6E0F /* TMXProfilingConnections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		603692BA2697607200CAA8E1 /* AppUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603692B92697607200CAA8E1 /* AppUpdater.swift */; };
 		605275E92641BD6100301DBA /* UIDevice + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605275E82641BD6100301DBA /* UIDevice + Ext.swift */; };
+		607F12E6269C8C5600F14FA4 /* PaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607F12E5269C8C5600F14FA4 /* PaymentResponse.swift */; };
+		607F12E7269CA63100F14FA4 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956FDEA238E7D9A006D89C9 /* PaymentViewController.swift */; };
 		608EBAE0262E0B1000CF37AD /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 608EBADF262E0B1000CF37AD /* PhoneNumberKit */; };
 		60C98B5D263851B80037663A /* PromocodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C98B5C263851B80037663A /* PromocodeResponse.swift */; };
 		60F185D72635D7A300F50C55 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F185D62635D7A300F50C55 /* Int.swift */; };
@@ -399,6 +400,7 @@
 		602AAAC9269B4A78007D6E0F /* TMXProfilingConnections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TMXProfilingConnections.framework; sourceTree = "<group>"; };
 		603692B92697607200CAA8E1 /* AppUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdater.swift; sourceTree = "<group>"; };
 		605275E82641BD6100301DBA /* UIDevice + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice + Ext.swift"; sourceTree = "<group>"; };
+		607F12E5269C8C5600F14FA4 /* PaymentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResponse.swift; sourceTree = "<group>"; };
 		60C98B5C263851B80037663A /* PromocodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromocodeResponse.swift; sourceTree = "<group>"; };
 		60F185D62635D7A300F50C55 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		9252CA2FFB411EFE7EBB0947 /* Pods-carWash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carWash.release.xcconfig"; path = "Target Support Files/Pods-carWash/Pods-carWash.release.xcconfig"; sourceTree = "<group>"; };
@@ -885,6 +887,7 @@
 				49F12BF523CDA0D2007A1A87 /* SetStockViewedResponse.swift */,
 				49A6D47C2405625500A9D41B /* WashStartResponse.swift */,
 				60C98B5C263851B80037663A /* PromocodeResponse.swift */,
+				607F12E5269C8C5600F14FA4 /* PaymentResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1152,10 +1155,10 @@
 				490A8C6E23AABB9300CE9727 /* WashesResponse.swift in Sources */,
 				49AC4DE323A7891F005ABA00 /* CitiesTableViewCell.swift in Sources */,
 				49E4630C239957F600356FF9 /* NetworkProtocols.swift in Sources */,
-				4956FDEB238E7D9A006D89C9 /* PaymentViewController.swift in Sources */,
 				495A41AE23ABBAB300649949 /* SalesResponse.swift in Sources */,
 				49357C3B2383E83A00F1B51B /* MainTabBarController.swift in Sources */,
 				4956FDD1238D42D5006D89C9 /* LoginConfigurator.swift in Sources */,
+				607F12E7269CA63100F14FA4 /* PaymentViewController.swift in Sources */,
 				498011E323CF5E9300DC1F9C /* OperationsInteractor.swift in Sources */,
 				49418DC323E17E8500BBA3E9 /* ReachabilityObserverDelegate.swift in Sources */,
 				49656AA323FADD08008F6B11 /* CameraAccessView.swift in Sources */,
@@ -1177,6 +1180,7 @@
 				498011C523CF5AE500DC1F9C /* OperationsFilterConfigurator.swift in Sources */,
 				492BE4DF238276240034FB1B /* MainPresenter.swift in Sources */,
 				49B2AC3523A77EA2002997F7 /* CitiesProtocols.swift in Sources */,
+				607F12E6269C8C5600F14FA4 /* PaymentResponse.swift in Sources */,
 				49811C9A238BEB160074FF92 /* WashingInfoView.swift in Sources */,
 				490B9AD423EC5AF90027A576 /* WashingStartProtocols.swift in Sources */,
 				49811CC2238C11590074FF92 /* SaleInfoPresenter.swift in Sources */,
@@ -1345,7 +1349,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = "Car Wash Priority";
 				SWIFT_VERSION = 5.0;
@@ -1376,7 +1380,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = "Car Wash Priority";
 				SWIFT_VERSION = 5.0;

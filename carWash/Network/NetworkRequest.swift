@@ -57,7 +57,7 @@ class Request
         
         class Post: NetworkRequestProtocol {
             
-            var url = "user/replenish"
+            var url = "user/replenish-token"
             var method: HTTPMethod = .post
             var parameters: Parameters?
             var headers: HTTPHeaders?
@@ -73,14 +73,15 @@ class Request
                 self.headers?["Authorization"] = Request.authorization
             }
             
-            convenience init(amount: Int, email: String, networkClient: NetworkClientProtocol = NetworkClient.shared) {
+            convenience init(token: String, amount: Int, email: String, networkClient: NetworkClientProtocol = NetworkClient.shared) {
                 self.init(networkClient)
                 self.parameters = Parameters()
                 self.parameters?["amount"] = amount
                 self.parameters?["email"] = email
+                self.parameters?["payment_token"] = token
             }
             
-            func send() -> Promise<String> {
+            func send() -> Promise<PaymentResponse> {
                 return self.networkClient.send(request: self)
             }
         }
