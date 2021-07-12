@@ -34,3 +34,5 @@ enum UserDefaultsKeys: String {
     case minReplenish = "min_replenish"
     case email = "email"
 }
+
+let paymentToken = "test_ODE3Mzc3bSTeGFCk7tqWoWOt-jhOzqs0Iza-it3tJik"

@@ -52,6 +52,7 @@ PODS:
   - FlagPhoneNumber (0.8.0):
     - FlagPhoneNumber/libPhoneNumberiOS (= 0.8.0)
   - FlagPhoneNumber/libPhoneNumberiOS (0.8.0)
+  - FunctionalSwift (1.2.0)
   - GoogleAppMeasurement (6.6.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -82,6 +83,10 @@ PODS:
   - GoogleUtilities/UserDefaults (6.6.0):
     - GoogleUtilities/Logger
   - IQKeyboardManagerSwift (6.5.6)
+  - MoneyAuth (2.29.0):
+    - FunctionalSwift
+    - ThreatMetrixAdapter
+    - YooMoneyCoreApi
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
     - nanopb/encode (= 1.30905.0)
@@ -101,6 +106,28 @@ PODS:
     - QuickLayout (= 3.0.0)
   - SwiftKeychainWrapper (3.4.0)
   - SwiftPhoneNumberFormatter (1.5)
+  - ThreatMetrixAdapter (3.2.0)
+  - YandexMobileMetrica/Dynamic (3.17.0):
+    - YandexMobileMetrica/Dynamic/Core (= 3.17.0)
+    - YandexMobileMetrica/Dynamic/Crashes (= 3.17.0)
+  - YandexMobileMetrica/Dynamic/Core (3.17.0)
+  - YandexMobileMetrica/Dynamic/Crashes (3.17.0):
+    - YandexMobileMetrica/Dynamic/Core
+  - YooKassaPayments (6.1.0):
+    - MoneyAuth (~> 2.29.0)
+    - ThreatMetrixAdapter (~> 3.2.0)
+    - YandexMobileMetrica/Dynamic (~> 3.0)
+    - YooKassaPaymentsApi (~> 2.5.0)
+    - YooKassaWalletApi (~> 2.3.0)
+    - YooMoneyCoreApi (~> 1.9.0)
+  - YooKassaPaymentsApi (2.5.0):
+    - FunctionalSwift (~> 1.2.0)
+    - YooMoneyCoreApi (~> 1.9.0)
+  - YooKassaWalletApi (2.3.0):
+    - FunctionalSwift (~> 1.2.0)
+    - YooMoneyCoreApi (~> 1.9.0)
+  - YooMoneyCoreApi (1.9.1):
+    - FunctionalSwift (~> 1.2.0)
 
 DEPENDENCIES:
   - BEMCheckBox (~> 1.4.1)
@@ -117,8 +144,18 @@ DEPENDENCIES:
   - SwiftEntryKit (= 1.2.3)
   - SwiftKeychainWrapper (~> 3.4)
   - SwiftPhoneNumberFormatter
+  - YooKassaPayments (from `https://github.com/yoomoney/yookassa-payments-swift.git`, tag `6.1.0`)
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - FunctionalSwift
+    - YandexMobileMetrica
+    - YooKassaPaymentsApi
+    - YooKassaWalletApi
+    - YooMoneyCoreApi
+  https://github.com/yoomoney-tech/cocoa-pod-specs.git:
+    - MoneyAuth
+    - ThreatMetrixAdapter
   trunk:
     - Alamofire
     - BEMCheckBox
@@ -149,6 +186,16 @@ SPEC REPOS:
     - SwiftKeychainWrapper
     - SwiftPhoneNumberFormatter
 
+EXTERNAL SOURCES:
+  YooKassaPayments:
+    :git: https://github.com/yoomoney/yookassa-payments-swift.git
+    :tag: 6.1.0
+
+CHECKOUT OPTIONS:
+  YooKassaPayments:
+    :git: https://github.com/yoomoney/yookassa-payments-swift.git
+    :tag: 6.1.0
+
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
@@ -162,11 +209,13 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 3b119bfe90e904851218159c9a4ecb847cc51d18
   FirebaseMessaging: ad9e1a80ea64905e01a0ce1b3eb76a2944544151
   FlagPhoneNumber: 3712455b95f66cb0f2016fef7d9e34cddf8c7f9a
+  FunctionalSwift: 1b839fcf50b8db067885938df54f818518356dbb
   GoogleAppMeasurement: 2fd5c5a56c069db635c8e7b92d4809a9591d0a69
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  MoneyAuth: daefde9745613c5f9cdd178467d3e3fa48d903c0
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   Panels: cfafe2d0f92387f393a3b5e827af9ffffe46b073
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
@@ -178,7 +227,13 @@ SPEC CHECKSUMS:
   SwiftEntryKit: 340713c2e4a6662c5149629990bf1088bf5f0389
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
   SwiftPhoneNumberFormatter: 0cc91f4daa06dd606a9defb21048a75c36a771a2
+  ThreatMetrixAdapter: 8d2e93fb6ec1e93128116fa584dca52d84dd8736
+  YandexMobileMetrica: 9e713c16bb6aca0ba63b84c8d7b8b86d32f4ecc4
+  YooKassaPayments: 3b3d21c7048ef5bae1d1bb5c2b1bdc6e7281ad37
+  YooKassaPaymentsApi: c32f1f256f0d9f7bc69d89348bb480453872337c
+  YooKassaWalletApi: 9ca2fa3c2827721d646ee8f770509e7eeea98743
+  YooMoneyCoreApi: 0d4da37a1619a4c92df0962ecc48d1665dbae4f4
 
-PODFILE CHECKSUM: 22740817b37c7291d93ea81290e0bfcf6ba11dce
+PODFILE CHECKSUM: 9d51000ce0de04cb445988d69d55ad441bf4adbf
 
 COCOAPODS: 1.10.1

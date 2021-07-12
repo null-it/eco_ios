@@ -8,6 +8,7 @@
 
 import UIKit
 import SkeletonView
+import YooKassaPayments
 
 class MainViewController: UIViewController {
 
@@ -265,7 +266,22 @@ class MainViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func paymentButtonPressed(_ sender: Any) {
-        presenter.presentPaymentView()
+        let amount = Amount(value: 999.99, currency: .rub)
+        let tokenizationModuleInputData =
+            TokenizationModuleInputData(clientApplicationKey: paymentToken,
+                                        shopName: "Космические объекты",
+                                        purchaseDescription: """
+                                                                    Комета повышенной яркости, период обращения — 112 лет
+                                                                    """,
+                                        amount: amount,
+                                        savePaymentMethod: .on)
+        
+        let inputData: TokenizationFlow = .tokenization(tokenizationModuleInputData)
+        
+        let viewController = TokenizationAssembly.makeModule(inputData: inputData,
+                                                             moduleOutput: self)
+        present(viewController, animated: true, completion: nil)
+        //        presenter.presentPaymentView()
     }
     
     
@@ -588,4 +604,37 @@ extension MainViewController: UITextFieldDelegate {
             promocodeFieldIsEmpty()
         }
     }
+}
+
+
+extension MainViewController: TokenizationModuleOutput {
+    
+    func didFinish(on module: TokenizationModuleInput, with error: YooKassaPaymentsError?) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+    }
+    
+    func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
+        
+    }
+    
+    func didSuccessfullyConfirmation(paymentMethodType: PaymentMethodType) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            // Создать экран успеха после прохождения подтверждения (3DS или Sberpay)
+            self.dismiss(animated: true)
+            // Показать экран успеха
+        }
+    }
+    
+    func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+        // Отправьте токен в вашу систему
+    }
+    
 }
