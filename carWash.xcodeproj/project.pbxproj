@@ -914,6 +914,7 @@
 				49599B25237EEA9000F24EC4 /* Resources */,
 				5C745B500866A0BBEBAD7AA6 /* [CP] Embed Pods Frameworks */,
 				602AAAC8269B4A72007D6E0F /* Embed Frameworks */,
+				60CC8795269DD6C2006699B1 /* ShellScript */,
 			);
 			buildRules = (
 				49357C522383FEAA00F1B51B /* PBXBuildRule */,
@@ -1023,6 +1024,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-carWash/Pods-carWash-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		60CC8795269DD6C2006699B1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#  Created by Samin Pour on 18/6/18.\n#  Copyright © 2018 ThreatMetrix. All rights reserved.\n#\n# ThreatMetrix iOS SDK contains multiple architectures, armv7, armv7s, arm64, x86_64. The arm\n# architectures are for devices, x86_64 is for simulators. When preparing application for publishing\n# Xcode removes simulator architectures from your application, but due to a bug / design flaw it\n# doesn't strip these slices from dynamic frameworks.\n#\n# If these architectures are not removed Apple will reject the binary.\n# http://www.openradar.me/radar?id=6409498411401216#ag9zfm9wZW5yYWRhci1ocmRyFAsSB0NvbW1lbnQYgICAuO-k9QgM\n# Possible error  messages in Xcode are\n# 1. “iTunes Store Operation Failed: Unsupported Architectures. The executable YourApp contains unsupported architectures '[(x86_64, i386)]'”\n# 2. “LC_ENCRYPTION_INFO”\n# 3. “Invalid Segment Alignment”\n# 4. “The binary is invalid.”\n# Removing simulator slices will resolve these issues.\n#\n# This script automatically strips unused architectures from ThreatMetrix framework, to use it please\n# add a new \"Run Script Phase\" to the build phase and add the content of this file there.\n#\n# IMPORTANT NOTE: Please make sure to add this script after \"Embed Frameworks\" / \"Copy File(s)\"  phase\n\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\nfind \"$APP_PATH\" -name 'TMX*.framework' -type d | while read -r FRAMEWORK; do\n    FRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\n    FRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\n\n    EXTRACTED_ARCHS=()\n\n    for ARCH in $ARCHS; do\n        lipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\n        EXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\n    done\n\n    lipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\n    rm \"${EXTRACTED_ARCHS[@]}\"\n\n    rm \"$FRAMEWORK_EXECUTABLE_PATH\"\n    mv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n";
 		};
 		BB62D1FC85F3B3668B51BFF6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1349,7 +1367,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = "Car Wash Priority";
 				SWIFT_VERSION = 5.0;
@@ -1380,7 +1398,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = "Car Wash Priority";
 				SWIFT_VERSION = 5.0;

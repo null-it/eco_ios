@@ -42,11 +42,16 @@ class AppUpdater: NSObject {
                     } else if appStoreAppVersion == currentVersion {
                         print("Already on the last app version: ",currentVersion)
                     } else {
-                        print("Needs update: AppStore Version: \(appStoreAppVersion) > Current version: ",currentVersion)
-                        DispatchQueue.main.async {
-                            let topController: UIViewController = UIApplication.shared.keyWindow!.rootViewController!
-                            topController.showAppUpdateAlert(Version: (info?.version)!, Force: force, AppURL: (info?.trackViewUrl)!)
+                        switch currentVersion.versionCompare(appStoreAppVersion) {
+                        case .orderedAscending:
+                            print("Needs update: AppStore Version: \(appStoreAppVersion) > Current version: ",currentVersion)
+                            DispatchQueue.main.async {
+                                let topController: UIViewController = UIApplication.shared.keyWindow!.rootViewController!
+                                topController.showAppUpdateAlert(Version: (info?.version)!, Force: force, AppURL: (info?.trackViewUrl)!)
+                            }
+                        default: break
                         }
+                        
                     }
                 }
             }
