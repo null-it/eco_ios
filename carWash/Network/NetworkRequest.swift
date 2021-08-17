@@ -73,12 +73,13 @@ class Request
                 self.headers?["Authorization"] = Request.authorization
             }
             
-            convenience init(token: String, amount: Int, email: String, networkClient: NetworkClientProtocol = NetworkClient.shared) {
+            convenience init(token: String, amount: Int, email: String, paymentType: PaymentType, networkClient: NetworkClientProtocol = NetworkClient.shared) {
                 self.init(networkClient)
                 self.parameters = Parameters()
                 self.parameters?["amount"] = amount
                 self.parameters?["email"] = email
                 self.parameters?["payment_token"] = token
+                self.parameters?["pay_type"] = paymentType.rawValue
             }
             
             func send() -> Promise<PaymentResponse> {

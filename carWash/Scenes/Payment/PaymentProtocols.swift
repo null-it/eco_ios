@@ -20,6 +20,7 @@ protocol PaymentViewProtocol: class {
     func startLoader()
     func endLoader(with delay: Double)
     func showInfoAboutError(title: String, message: String)
+    func dismissPaymentView()
 }
 
 // MARK: - Presenter
@@ -31,7 +32,7 @@ protocol PaymentPresenterProtocol: class {
     func viewDidLoad()
     func sumDidBeginEditing()
     func sumDidEndEditing()
-    func paymentTokenReceived(token: String)
+    func paymentTokenReceived(token: String, paymentType: PaymentType)
     func shouldChangeSumCharacters(in range: NSRange,
                                    replacementString string: String) -> Bool
     func shouldChangeEmailCharacters(in range: NSRange,
@@ -49,6 +50,7 @@ protocol PaymentInteractorProtocol: class {
     func pay(amount: Int,
              email: String,
              token: String,
+             paymentType: PaymentType,
              onSuccess: @escaping (String?) -> (),
              onFailure: (() -> ())?)
     func applyPromocode(promocode: String,

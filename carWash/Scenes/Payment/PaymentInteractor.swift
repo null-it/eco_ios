@@ -25,9 +25,10 @@ extension PaymentInteractor: PaymentInteractorProtocol {
     func pay(amount: Int,
              email: String,
              token: String,
+             paymentType: PaymentType,
              onSuccess: @escaping (String?) -> (),
              onFailure: (() -> ())?) {
-        let request = Request.Pay.Post(token: token, amount: amount, email: email)
+        let request = Request.Pay.Post(token: token, amount: amount, email: email, paymentType: paymentType)
         request.send().done { response in
             onSuccess(response.data.url)
         }.catch { error in

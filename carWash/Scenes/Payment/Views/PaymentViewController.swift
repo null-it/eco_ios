@@ -102,24 +102,8 @@ class PaymentViewController: UIViewController {
         func paymentSettings() -> TokenizationSettings {
             var paymentMethodTypes: PaymentMethodTypes = []
             paymentMethodTypes.insert(.bankCard)
-            
-            //            if <Условие для Сбербанка Онлайн> {
-            //                // Добавляем в paymentMethodTypes элемент `.sberbank`
-            //                paymentMethodTypes.insert(.sberbank)
-            //            }
-            //
-            //            if <Условие для ЮMoney> {
-            //                // Добавляем в paymentMethodTypes элемент `.yooMoney`
-            //                paymentMethodTypes.insert(.yooMoney)
-            //            }
-            
-            //            if true {
-            // Добавляем в paymentMethodTypes элемент `.applePay`
-            //                paymentMethodTypes.insert(.applePay)
-            //            }
-            
+            paymentMethodTypes.insert(.applePay)
             let tokenizationSettings = TokenizationSettings(paymentMethodTypes: paymentMethodTypes)
-            
             return tokenizationSettings
         }
         
@@ -129,12 +113,16 @@ class PaymentViewController: UIViewController {
         
         let amount = Amount(value: decimalAmount, currency: .rub)
         
+        let settings = paymentSettings()
+        
         let tokenizationModuleInputData = TokenizationModuleInputData(clientApplicationKey: paymentToken,
                                                                       shopName: "Car Wash Priority",
                                                                       purchaseDescription: "Пополнение счета",
                                                                       amount: amount,
-                                                                      tokenizationSettings: paymentSettings(),
-                                                                      savePaymentMethod: .on)
+                                                                      tokenizationSettings: settings,
+                                                                      applePayMerchantIdentifier: applePayMerchantIdentifier,
+                                                                      isLoggingEnabled: true,
+                                                                      savePaymentMethod: .off)
         
         let inputData: TokenizationFlow = .tokenization(tokenizationModuleInputData)
         
@@ -151,6 +139,10 @@ class PaymentViewController: UIViewController {
 // MARK: - PaymentViewProtocol
 
 extension PaymentViewController: PaymentViewProtocol {
+    
+    func dismissPaymentView() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func showInfoAboutError(title: String, message: String) {
         DispatchQueue.main.async { [weak self] in
@@ -347,7 +339,16 @@ extension PaymentViewController: TokenizationModuleOutput {
     func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.presenter.paymentTokenReceived(token: token.paymentToken)
+            var paymentType: PaymentType? = nil
+            switch paymentMethodType {
+            case .bankCard:
+                paymentType = .card
+            case .applePay:
+                paymentType = .applePay
+            default: break
+            }
+            guard let type = paymentType else { print("pay type is nil"); return }
+            self.presenter.paymentTokenReceived(token: token.paymentToken, paymentType: type)
         }
     }
     

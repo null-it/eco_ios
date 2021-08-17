@@ -35,4 +35,6 @@ enum UserDefaultsKeys: String {
     case email = "email"
 }
 
-let paymentToken = "test_ODE3Mzc3bSTeGFCk7tqWoWOt-jhOzqs0Iza-it3tJik"
+let paymentToken = "live_ODE1NDkwEYekHfJloy0IsvoBrAIm89Ls2unpeO8pAMQ"
+//let paymentToken = "test_ODE3Mzc3bSTeGFCk7tqWoWOt-jhOzqs0Iza-it3tJik"
+let applePayMerchantIdentifier = "merchant.voodoolab.carWash"

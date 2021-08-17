@@ -188,6 +188,7 @@
 		607F12E7269CA63100F14FA4 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956FDEA238E7D9A006D89C9 /* PaymentViewController.swift */; };
 		608EBAE0262E0B1000CF37AD /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 608EBADF262E0B1000CF37AD /* PhoneNumberKit */; };
 		60C98B5D263851B80037663A /* PromocodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C98B5C263851B80037663A /* PromocodeResponse.swift */; };
+		60E82C9526CBB1550094A441 /* PaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E82C9426CBB1550094A441 /* PaymentType.swift */; };
 		60F185D72635D7A300F50C55 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F185D62635D7A300F50C55 /* Int.swift */; };
 /* End PBXBuildFile section */
 
@@ -402,6 +403,7 @@
 		605275E82641BD6100301DBA /* UIDevice + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice + Ext.swift"; sourceTree = "<group>"; };
 		607F12E5269C8C5600F14FA4 /* PaymentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResponse.swift; sourceTree = "<group>"; };
 		60C98B5C263851B80037663A /* PromocodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromocodeResponse.swift; sourceTree = "<group>"; };
+		60E82C9426CBB1550094A441 /* PaymentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentType.swift; sourceTree = "<group>"; };
 		60F185D62635D7A300F50C55 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		9252CA2FFB411EFE7EBB0947 /* Pods-carWash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carWash.release.xcconfig"; path = "Target Support Files/Pods-carWash/Pods-carWash.release.xcconfig"; sourceTree = "<group>"; };
 		AEF31C689214847541284B53 /* Pods_carWash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_carWash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -652,6 +654,7 @@
 				4956FDE4238E7D76006D89C9 /* PaymentInteractor.swift */,
 				4956FDE6238E7D80006D89C9 /* PaymentRouter.swift */,
 				4956FDE8238E7D91006D89C9 /* PaymentConfigurator.swift */,
+				60E82C9426CBB1550094A441 /* PaymentType.swift */,
 			);
 			path = Payment;
 			sourceTree = "<group>";
@@ -1147,6 +1150,7 @@
 				49E46318239E771300356FF9 /* UserOperationsResponse.swift in Sources */,
 				490B9AC423E970170027A576 /* PointAnnotationViews.swift in Sources */,
 				4956FDCD238D42BC006D89C9 /* LoginProtocols.swift in Sources */,
+				60E82C9526CBB1550094A441 /* PaymentType.swift in Sources */,
 				4956FDD5238D42ED006D89C9 /* LoginRouter.swift in Sources */,
 				49811CAA238C02200074FF92 /* SalesViewController.swift in Sources */,
 				4956FDE1238E7D60006D89C9 /* PaymentPresenter.swift in Sources */,
@@ -1352,7 +1356,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = carWash/ECO.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = W89PGV58R6;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1367,7 +1371,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = "Car Wash Priority";
 				SWIFT_VERSION = 5.0;
@@ -1383,7 +1387,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = carWash/ECO.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = W89PGV58R6;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1398,7 +1402,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = "Car Wash Priority";
 				SWIFT_VERSION = 5.0;
