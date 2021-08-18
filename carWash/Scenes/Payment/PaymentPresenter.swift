@@ -18,8 +18,7 @@ class PaymentPresenter {
     var sum = ""
     var email = ""
     let rub = " ₽"
-//    let _minDeposit = UserDefaults.standard.value(forKey: UserDefaultsKeys.minReplenish.rawValue) as! Int
-    let _minDeposit = 1
+    let _minDeposit = UserDefaults.standard.value(forKey: UserDefaultsKeys.minReplenish.rawValue) as! Int
     let savedEmail = UserDefaults.standard.value(forKey: UserDefaultsKeys.email.rawValue) as? String
     var isEmailEntered: Bool = false
     var isDepositEntered: Bool = false
@@ -67,8 +66,9 @@ extension PaymentPresenter: PaymentPresenterProtocol {
 //            self?.view.endLoader(with: 0.5)
             if let url = message {
                 self?.view.showWebView(with: url)
+            } else {
+                self?.view.dismissPaymentView()
             }
-            self?.view.dismissPaymentView()
         }
         let onFailure: (() -> Void)? = { [weak self] in
             self?.view.showInfoAboutError(title: "Ошибка", message: "Попробуйте позже")
