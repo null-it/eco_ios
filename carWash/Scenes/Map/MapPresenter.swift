@@ -21,6 +21,7 @@ class MapPresenter {
     var sales: [StockResponse]?
     var selectedWash: WashResponse?
     var washId: Int?
+    var selectedWashHappyHoursText: String?
 
     init(view: MapViewProtocol,
          router: MapRouterProtocol) {
@@ -93,7 +94,7 @@ class MapPresenter {
             }
             let sales = response.stocks
             self.sales = sales
-            
+            self.selectedWashHappyHoursText = response.happyHoursText
             if self.isWashingStart {
                 self.view.showWashingStartInfo(address: address, terminalsCount: response.seats)
             } else {
@@ -115,6 +116,10 @@ class MapPresenter {
 // MARK: - MapPresenterProtocol
 
 extension MapPresenter: MapPresenterProtocol {
+    
+    var happyHoursText: String? {
+        return selectedWashHappyHoursText
+    }
     
     func didSelectTerminal(index: Int, address: String) {
         view.showConfirmationView(address: "\(address), терминал №\(index + 1)") { [weak self] in

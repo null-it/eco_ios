@@ -87,8 +87,21 @@ class OperationsPresenter {
                     let type = OperationType.init(rawValue: model.type) else {
                         return OperationInfo()
                 }
-                let typeDescription = type.description()
-                let imageName = type.rawValue
+                var typeDescription = type.description()
+                if let wash = model.wash {
+                    typeDescription += " " + wash.address
+                }
+                var imageName: String
+                switch type {
+                case .replenish_online:
+                    imageName = OperationType.waste.rawValue
+                case .replenish_offline:
+                    imageName = OperationType.waste.rawValue
+                case .waste:
+                    imageName = OperationType.replenish_online.rawValue
+                case .cashback:
+                    imageName = OperationType.cashback.rawValue
+                }
                 let title = typeDescription
                 var sum = self.toRub(value: model.value)
                 

@@ -48,8 +48,9 @@ class OperationsViewController: UIViewController {
     
     private func configureTableView() {
         tableView.dataSource = self
-        tableView.delegate = self
         tableView.prefetchDataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
         let cellNib = UINib(nibName: MainViewActionCell.nibName, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: MainViewActionCell.nibName)
         tableView.contentInset = UIEdgeInsets(top: 0,
@@ -148,11 +149,6 @@ extension OperationsViewController {
         
         return UITableViewCell()
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return OperationsConstants.tableViewCellHeight
-    }
-    
 }
 
 
@@ -182,18 +178,6 @@ extension OperationsViewController: UITableViewDataSourcePrefetching {
     }
 
 }
-
-
-// MARK: - UITableViewDelegate
-
-extension OperationsViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return OperationsConstants.tableViewCellHeight
-    }
-    
-}
-
 
 // MARK: - NavigationBarConfigurationProtocol
 

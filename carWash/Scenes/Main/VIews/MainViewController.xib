@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="EcoCarWash" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="Car_Wash_Priority" customModuleProvider="target">
             <connections>
                 <outlet property="balanceLabel" destination="y2H-Ty-f8Q" id="atz-Ck-LcF"/>
                 <outlet property="balanceLabelWrapper" destination="PF5-Cx-pmH" id="yBT-Fd-ahX"/>

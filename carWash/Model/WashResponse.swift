@@ -19,9 +19,10 @@ struct WashResponse: Codable {
     var pivot: Pivot?
     var happyHours: HappyHours?
     var systemId: String
+    var happyHoursText: String?
 
     private enum CodingKeys : String, CodingKey {
-        case id, city, address, coordinates, cashback, seats, stocks, pivot, happyHours = "happy-hours", systemId = "system_id"
+        case id, city, address, coordinates, cashback, seats, stocks, pivot, happyHours = "happy-hours", systemId = "system_id", happyHoursText = "happy_hours_text"
     }
     
     
@@ -37,6 +38,7 @@ struct WashResponse: Codable {
         pivot = try? container.decode(Pivot?.self, forKey: .pivot)
         happyHours = try? container.decode(HappyHours?.self, forKey: .happyHours)
         systemId = try container.decode(String.self, forKey: .systemId)
+        happyHoursText = try? container.decode(String.self, forKey: .happyHoursText)
     }
     
 }

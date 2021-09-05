@@ -134,7 +134,8 @@ class MainViewController: UIViewController, UIPopPaymentVCDelegate {
     
     private func configureTableView() {
         tableView.dataSource = self
-        tableView.delegate = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
         let cellNib = UINib(nibName: MainViewActionCell.nibName, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: MainViewActionCell.nibName)
         tableView.addObserver(self, forKeyPath: "contentSize", options: .old, context: nil)
@@ -488,18 +489,6 @@ extension MainViewController: MainViewProtocol {
     }
     
 }
-
-
-//MARK: - UITableViewDelegate
-
-extension MainViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return MainSceneConstants.actionTableViewCellHeight
-    }
-    
-}
-
 
 //MARK: - SkeletonTableViewDataSource
 

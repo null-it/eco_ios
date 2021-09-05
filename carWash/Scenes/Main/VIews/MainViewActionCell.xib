@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="67" id="QA1-9h-4XK" customClass="MainViewActionCell" customModule="ECO" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="67" id="QA1-9h-4XK" customClass="MainViewActionCell" customModule="Car_Wash_Priority" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="67"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QA1-9h-4XK" id="CBd-fa-I9w">
@@ -28,11 +28,10 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3i-Un-y4C">
-                        <rect key="frame" x="63" y="13" width="223" height="19.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3i-Un-y4C">
+                        <rect key="frame" x="63" y="13" width="223" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="19.5" id="v6z-I1-FKO"/>
-                            <constraint firstAttribute="width" constant="223" id="z2Y-Pc-xVk"/>
+                            <constraint firstAttribute="width" constant="223" id="fHh-QM-HIs"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
@@ -44,8 +43,8 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfr-9z-69m">
-                        <rect key="frame" x="63" y="40.5" width="155" height="19.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfr-9z-69m">
+                        <rect key="frame" x="63" y="46" width="155" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" priority="999" constant="155" id="VHJ-9u-w4y"/>
                         </constraints>
@@ -76,7 +75,7 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Yfr-9z-69m" secondAttribute="bottom" id="5jx-gt-VOY"/>
+                    <constraint firstAttribute="bottom" secondItem="Yfr-9z-69m" secondAttribute="bottom" constant="1" id="5jx-gt-VOY"/>
                     <constraint firstAttribute="trailing" secondItem="VTI-nh-iq0" secondAttribute="trailing" constant="4" id="5yd-ri-wt2"/>
                     <constraint firstItem="Dqh-xC-wf4" firstAttribute="leading" secondItem="CBd-fa-I9w" secondAttribute="leading" id="7oi-7H-tVs"/>
                     <constraint firstItem="s3i-Un-y4C" firstAttribute="top" secondItem="CBd-fa-I9w" secondAttribute="top" constant="13" id="B1D-C8-2uv"/>
@@ -87,7 +86,6 @@
                     <constraint firstItem="s3i-Un-y4C" firstAttribute="leading" secondItem="Dqh-xC-wf4" secondAttribute="trailing" constant="16" id="WDr-dU-VfL"/>
                     <constraint firstAttribute="trailing" secondItem="s3i-Un-y4C" secondAttribute="trailing" constant="128" id="dPl-oE-F3L"/>
                     <constraint firstItem="Yfr-9z-69m" firstAttribute="leading" secondItem="s3i-Un-y4C" secondAttribute="leading" id="hAS-SX-6pN"/>
-                    <constraint firstItem="s3i-Un-y4C" firstAttribute="height" secondItem="Yfr-9z-69m" secondAttribute="height" id="lZ7-l7-McF"/>
                     <constraint firstAttribute="bottom" secondItem="Dqh-xC-wf4" secondAttribute="bottom" constant="10" id="mGc-iI-ImC"/>
                 </constraints>
                 <variation key="default">

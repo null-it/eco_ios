@@ -36,6 +36,7 @@ protocol MapViewProtocol: class {
 
 // MARK: - Presenter
 protocol MapPresenterProtocol: class {
+    var happyHoursText: String? { get }
     func presentSaleInfoView(row: Int) 
     func popView()
     func viewDidLoad()
