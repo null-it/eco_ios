@@ -323,7 +323,7 @@ extension MainViewController: MainViewProtocol {
         balanceLabelWrapper.isSkeletonable = false
         stackView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: .clouds), animation: animation)
         cardView.isSkeletonable = true
-        cardView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.green!), animation: animation)
+//        cardView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.green!), animation: animation)
         paymentButtonWrapper.isSkeletonable = true
         balanceLabelWrapper.isSkeletonable = true
         balanceLabelWrapper.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.lightGreen!), animation: animation)
