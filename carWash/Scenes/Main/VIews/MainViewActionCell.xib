@@ -19,7 +19,8 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dqh-xC-wf4">
                         <rect key="frame" x="0.0" y="10" width="47" height="47"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="Dqh-xC-wf4" secondAttribute="height" multiplier="1:1" id="VWl-ns-BPv"/>
+                            <constraint firstAttribute="height" constant="47" id="cQz-5Z-nza"/>
+                            <constraint firstAttribute="width" constant="47" id="gkS-m3-bLh"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
@@ -81,12 +82,11 @@
                     <constraint firstItem="s3i-Un-y4C" firstAttribute="top" secondItem="CBd-fa-I9w" secondAttribute="top" constant="13" id="B1D-C8-2uv"/>
                     <constraint firstItem="Yfr-9z-69m" firstAttribute="top" secondItem="s3i-Un-y4C" secondAttribute="bottom" constant="8" id="Oxj-LF-hmK"/>
                     <constraint firstItem="VTI-nh-iq0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Yfr-9z-69m" secondAttribute="trailing" constant="16" id="PfI-c4-hKX"/>
-                    <constraint firstItem="Dqh-xC-wf4" firstAttribute="top" secondItem="CBd-fa-I9w" secondAttribute="top" constant="10" id="Q1x-n2-Ucc"/>
                     <constraint firstAttribute="bottom" secondItem="VTI-nh-iq0" secondAttribute="bottom" constant="10" id="SIG-kS-xKx"/>
+                    <constraint firstItem="Dqh-xC-wf4" firstAttribute="centerY" secondItem="CBd-fa-I9w" secondAttribute="centerY" id="Tgg-7M-N2c"/>
                     <constraint firstItem="s3i-Un-y4C" firstAttribute="leading" secondItem="Dqh-xC-wf4" secondAttribute="trailing" constant="16" id="WDr-dU-VfL"/>
                     <constraint firstAttribute="trailing" secondItem="s3i-Un-y4C" secondAttribute="trailing" constant="128" id="dPl-oE-F3L"/>
                     <constraint firstItem="Yfr-9z-69m" firstAttribute="leading" secondItem="s3i-Un-y4C" secondAttribute="leading" id="hAS-SX-6pN"/>
-                    <constraint firstAttribute="bottom" secondItem="Dqh-xC-wf4" secondAttribute="bottom" constant="10" id="mGc-iI-ImC"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
