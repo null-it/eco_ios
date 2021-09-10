@@ -1371,7 +1371,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 2.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = "Car Wash Priority";
 				SWIFT_VERSION = 5.0;
@@ -1402,7 +1402,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 2.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = voodoolab.carWash;
 				PRODUCT_NAME = "Car Wash Priority";
 				SWIFT_VERSION = 5.0;
