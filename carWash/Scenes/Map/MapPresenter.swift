@@ -52,7 +52,12 @@ class MapPresenter {
                                 if self.isWashingStart {
                                     self.view.configureWashingStartView()
                                 } else {
-                                    self.view.configureWashInfoView()
+                                    var happyHoursExist = false
+                                    if let happyHours = wash.happyHours,
+                                       happyHours.isEnabled == true {
+                                        happyHoursExist = true
+                                    }
+                                    self.view.configureWashInfoView(salesExist: wash.stocks != nil, happyHoursExist: happyHoursExist)
                                 }
                                 self.selectedWash = wash
                                 self.didSelectWash(id: wash.id)

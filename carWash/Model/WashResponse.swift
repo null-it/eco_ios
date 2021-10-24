@@ -55,6 +55,17 @@ struct StockResponse: Codable {
     var text: String
     var pivot: Pivot
     
+//    init() {
+//    self.id = 123456
+//    self.status = "ok"
+//    self.started_at = "12:35"
+//    self.finished_at = "12:46"
+//    self.cashback = 20
+//    self.title = "kek"
+//    self.text = "lol kek cheburek"
+//    self.pivot = Pivot(wash_id: 123, stock_id: 1234)
+//    }
+    
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

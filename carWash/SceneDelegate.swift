@@ -26,9 +26,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let configurator = LoginConfigurator()
         let vc = configurator.viewController
         let navigationController = UINavigationController(rootViewController: vc)
-        navigationController.navigationBar.tintColor = .clear
         navigationController.interactivePopGestureRecognizer?.isEnabled = false
         navigationController.modalPresentationStyle = .fullScreen
+        configureNavigationBar()
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
@@ -50,6 +50,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
     }
     
+    private func configureNavigationBar() {
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundColor = .clear
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
+    }
     
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

@@ -29,7 +29,7 @@ protocol MapViewProtocol: class {
     func showWashingStartInfo(address: String, terminalsCount: Int)
     func showWashInfo(address: String, cashback: String, sales: [StockResponse], happyTimesText: String?, isHappyTimesHidden: Bool)
     func configureWashingStartView()
-    func configureWashInfoView()
+    func configureWashInfoView(salesExist: Bool, happyHoursExist: Bool)
     func setError(message: String)
     func setSucceeded(message: String)
 }

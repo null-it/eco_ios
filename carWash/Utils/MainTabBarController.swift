@@ -72,27 +72,51 @@ class MainTabBarController: UITabBarController {
     
     func setRoundedCorners() {
         let cornerRadius: CGFloat = 28 // !
-        if #available(iOS 13.0, *) {
-            let appearance = tabBar.standardAppearance.copy()
-            appearance.configureWithTransparentBackground()
-            appearance.backgroundImage = UIImage(named: "tabBarBackgrpund")
-            tabBar.standardAppearance = appearance
-        } else {
-            tabBar.backgroundColor = .clear
-//            let image = UIImage(ciImage: CIImage(color: CIColor.clear)).af_imageAspectScaled(toFit: tabBar.bounds.size)
-            tabBar.backgroundImage = UIImage(named: "tabBarBackgrpund")
-            tabBar.shadowImage = UIImage()
-        }
+        view.backgroundColor = .white
+        tabBar.backgroundImage = UIImage.from(color: .clear)
+        tabBar.shadowImage = UIImage()
         
-        tabBar.layer.masksToBounds = false
-        tabBar.layer.cornerRadius = cornerRadius
-        tabBar.layer.shadowColor = UIColor.black.cgColor
-        let window = UIApplication.shared.keyWindow!
-        let bounds = CGRect(x: 0, y: 0, width: window.frame.width, height: tabBar.frame.height)
-        tabBar.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-        tabBar.layer.shadowOffset = CGSize(width: 0, height: 3)
-        tabBar.layer.shadowOpacity = 0.2
-        tabBar.layer.shadowRadius = 10
+        let tabbarBackgroundView = RoundShadowView(frame: tabBar.frame)
+        tabbarBackgroundView.cornerRadius = cornerRadius
+        tabbarBackgroundView.layer.masksToBounds = false
+        tabbarBackgroundView.backgroundColor = .white
+        tabbarBackgroundView.frame = tabBar.frame
+        view.addSubview(tabbarBackgroundView)
+        
+        let fillerView = UIView()
+        fillerView.frame = tabBar.frame
+        fillerView.roundCorners([.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: cornerRadius)
+        fillerView.backgroundColor = .white
+        view.addSubview(fillerView)
+        
+        view.bringSubviewToFront(tabBar)
+        //        if #available(iOS 15.0, *) {
+        //            let appearance = UITabBarAppearance()
+//            appearance.configureWithOpaqueBackground()
+//            appearance.backgroundImage = UIImage(named: "tabBarBackgrpund")
+//            tabBar.standardAppearance = appearance
+//            tabBar.scrollEdgeAppearance = appearance
+//        } else if #available(iOS 13.0, *) {
+//            let appearance = tabBar.standardAppearance.copy()
+//            appearance.configureWithTransparentBackground()
+//            appearance.backgroundImage = UIImage(named: "tabBarBackgrpund")
+//            tabBar.standardAppearance = appearance
+//        } else {
+//            tabBar.backgroundColor = .clear
+////            let image = UIImage(ciImage: CIImage(color: CIColor.clear)).af_imageAspectScaled(toFit: tabBar.bounds.size)
+//            tabBar.backgroundImage = UIImage(named: "tabBarBackgrpund")
+//            tabBar.shadowImage = UIImage()
+//        }
+//
+//        tabBar.layer.masksToBounds = false
+//        tabBar.layer.cornerRadius = cornerRadius
+//        tabBar.layer.shadowColor = UIColor.black.cgColor
+//        let window = UIApplication.shared.keyWindow!
+//        let bounds = CGRect(x: 0, y: 0, width: window.frame.width, height: tabBar.frame.height)
+//        tabBar.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+//        tabBar.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        tabBar.layer.shadowOpacity = 0.2
+//        tabBar.layer.shadowRadius = 10
     }
     
     
@@ -146,3 +170,52 @@ class MainTabBarController: UITabBarController {
     
 }
 
+
+extension UIImage {
+    static func from(color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(color.cgColor)
+        context!.fill(rect)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img!
+    }
+}
+
+
+class RoundShadowView: UIView {
+
+    let containerView = UIView()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layoutView()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func layoutView() {
+
+        // set the shadow of the view's layer
+        layer.backgroundColor = UIColor.clear.cgColor
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 3)
+        layer.shadowOpacity = 0.2
+        layer.shadowRadius = 10.0
+        containerView.layer.cornerRadius = cornerRadius
+        containerView.layer.masksToBounds = false
+
+        addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+
+        // pin the containerView to the edges to the view
+        containerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
+}

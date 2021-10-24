@@ -73,7 +73,6 @@ class MainViewController: UIViewController, UIPopPaymentVCDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isTranslucent = false
         nameTextField.delegate = self
         _ = hideKeyboardWhenTapped()
         addObservers()

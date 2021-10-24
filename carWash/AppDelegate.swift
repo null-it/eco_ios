@@ -49,9 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let configurator = LoginConfigurator()
             let vc = configurator.viewController
             let navigationController = UINavigationController(rootViewController: vc)
-            navigationController.navigationBar.tintColor = .clear
             navigationController.interactivePopGestureRecognizer?.isEnabled = false
             navigationController.modalPresentationStyle = .fullScreen
+            configureNavigationBar()
             window?.rootViewController = navigationController
             window?.makeKeyAndVisible()
             
@@ -95,6 +95,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             completionHandler: {_, _ in })
         application.registerForRemoteNotifications()
     }
+    
+    private func configureNavigationBar() {
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .clear
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
+    }
+    
+    
     
     // MARK: UISceneSession Lifecycle
     

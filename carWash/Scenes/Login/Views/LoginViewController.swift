@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var phoneNumberTextField: FPNTextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    
     @IBOutlet weak var loginButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var phoneNumberView: UIView!
@@ -48,16 +49,13 @@ class LoginViewController: UIViewController {
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
-        configureNavBar()
         visualEffectView.effect = nil
         addObservers()
         let gesture = hideKeyboardWhenTapped()
         gesture.delegate = self
-//        phoneNumberTextField.setLeftPadding(LoginViewConstants.textFieldLeftPadding)
         passwordTextField.setLeftPadding(LoginViewConstants.textFieldLeftPadding)
         passwordTextField.delegate = self
         configurePhoneNumberTextField()
-//        configureNavigationBar()
         presenter.viewDidLoad()
         refreshView()
     }
@@ -100,12 +98,6 @@ class LoginViewController: UIViewController {
     
     
     // MARK: - Private
-    private func configureNavBar() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = .clear
-    }
     
     private func configurePhoneNumberTextField() {
         phoneNumberTextField.delegate = self
@@ -196,16 +188,6 @@ class LoginViewController: UIViewController {
             self?.loginButtonBottomConstraint.constant = constant
         }
         view.layoutIfNeeded()
-    }
-    
-    
-    private func configureNavigationBar() {
-//        title = "Авторизация"
-        navigationController?.navigationBar.titleTextAttributes =
-            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .semibold)] 
-        navigationItem.setHidesBackButton(true, animated:true)
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
 }

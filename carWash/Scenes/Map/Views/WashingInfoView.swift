@@ -96,10 +96,11 @@ class WashingInfoView: UIView {
     }
     
     private func updateHappyTimesViewHiddenness() {
-        UIView.animate(withDuration: 0.1) { [weak self] in
-            guard let self = self else { return }
-            self.happyTimesView.isHidden = self.isHappyTimesViewHidden
-        }
+//        UIView.animate(withDuration: 0.1) { [weak self] in
+//            guard let self = self else { return }
+//            self.happyTimesView.isHidden = self.isHappyTimesViewHidden
+//        }
+        self.happyTimesView.isHidden = self.isHappyTimesViewHidden
         if #available(iOS 11.0, *) {
             layoutIfNeeded()
         }
@@ -122,10 +123,10 @@ class WashingInfoView: UIView {
 //        }
     }
     
-    func initViews() {
+    func initViews(salesExist: Bool, happyHoursExist: Bool) {
         happyTimesLabel.text = ""
-        isHappyTimesViewHidden = false
-        isSalesViewHidden = false
+        isHappyTimesViewHidden = !happyHoursExist
+        isSalesViewHidden = !salesExist
     }
     
     

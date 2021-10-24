@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="EcoCarWash" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="Car_Wash_Priority" customModuleProvider="target">
             <connections>
                 <outlet property="alreadyHasPasswordButton" destination="W4N-3T-Nm7" id="vlx-Fz-Jwu"/>
                 <outlet property="backgroundBottomConstraint" destination="DnE-qz-Quo" id="QLX-Mu-0t6"/>
@@ -17,7 +17,7 @@
                 <outlet property="fieldsStackViewTopLightConstraint" destination="uym-qW-CGN" id="FgN-wm-RdR"/>
                 <outlet property="filedsStackViewBottomLightConstraint" destination="L8B-6J-ceA" id="f2G-vt-iLx"/>
                 <outlet property="loginButton" destination="LCP-wE-bEZ" id="fEY-fA-qBv"/>
-                <outlet property="loginButtonBottomConstraint" destination="jZ4-NU-bak" id="yGh-SB-fNg"/>
+                <outlet property="loginButtonBottomConstraint" destination="4xH-an-9Zj" id="hXN-zy-Kqf"/>
                 <outlet property="passwordTextField" destination="X6r-yI-kzq" id="J4K-if-rp9"/>
                 <outlet property="passwordView" destination="www-qr-VyI" id="OLA-t0-fp5"/>
                 <outlet property="phoneNumberTextField" destination="Oq1-cY-LZf" id="Bya-yC-mjQ"/>
@@ -45,17 +45,8 @@
                     </view>
                     <blurEffect style="regular"/>
                 </visualEffectView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Найдите ближайшую точку продажи бонусных карт." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q5K-jQ-MWL">
-                    <rect key="frame" x="60" y="800" width="294" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="5fT-QC-e2h"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCP-wE-bEZ">
-                    <rect key="frame" x="32" y="658" width="350" height="45"/>
+                    <rect key="frame" x="32" y="777" width="350" height="45"/>
                     <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="VKM-Gi-Qyb"/>
@@ -74,7 +65,7 @@
                     </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rog-AA-Skz">
-                    <rect key="frame" x="32" y="416" width="350" height="192"/>
+                    <rect key="frame" x="32" y="535" width="350" height="192"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Maj-A8-Qlh">
                             <rect key="frame" x="0.0" y="0.0" width="350" height="60"/>
@@ -205,32 +196,8 @@
                         <constraint firstItem="www-qr-VyI" firstAttribute="leading" secondItem="Rog-AA-Skz" secondAttribute="leading" id="ldR-Ui-CFk"/>
                     </constraints>
                 </stackView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JVH-2b-GZh">
-                    <rect key="frame" x="32" y="743" width="350" height="45"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="CZT-cV-3Qk"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                    <state key="normal" title="Где купить карту?">
-                        <color key="titleColor" red="0.0" green="0.61960784310000006" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                            <real key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" red="0.0" green="0.61960784310000006" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="8"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="mapButtonPressed:" destination="-1" eventType="touchUpInside" id="YeJ-X2-zk4"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4N-3T-Nm7">
-                    <rect key="frame" x="150.5" y="616" width="122" height="18"/>
+                    <rect key="frame" x="150.5" y="735" width="122" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="18" id="gch-e4-20x"/>
                     </constraints>
@@ -247,7 +214,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="5cQ-T2-eP1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1kj-d5-yWj"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Q5K-jQ-MWL" secondAttribute="trailing" constant="60" id="2ux-O5-vaR"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="LCP-wE-bEZ" secondAttribute="bottom" constant="40" id="4xH-an-9Zj"/>
                 <constraint firstItem="LCP-wE-bEZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Rog-AA-Skz" secondAttribute="bottom" constant="16" id="Cfz-6s-pXv"/>
                 <constraint firstAttribute="bottom" secondItem="5cQ-T2-eP1" secondAttribute="bottom" id="DnE-qz-Quo"/>
                 <constraint firstItem="W4N-3T-Nm7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="www-qr-VyI" secondAttribute="bottom" constant="24" id="GGy-yr-XNp"/>
@@ -256,30 +223,17 @@
                 <constraint firstAttribute="bottom" secondItem="8Ph-Jq-kf1" secondAttribute="bottom" id="MTb-1q-ztU"/>
                 <constraint firstItem="5cQ-T2-eP1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="OAB-8X-N1x"/>
                 <constraint firstItem="Rog-AA-Skz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="OcR-qQ-74k"/>
-                <constraint firstItem="Q5K-jQ-MWL" firstAttribute="top" secondItem="JVH-2b-GZh" secondAttribute="bottom" constant="12" id="Q1P-HC-NL0"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Q5K-jQ-MWL" secondAttribute="bottom" constant="22" id="T55-GQ-fll"/>
                 <constraint firstItem="LCP-wE-bEZ" firstAttribute="top" secondItem="W4N-3T-Nm7" secondAttribute="bottom" constant="24" id="Txb-RR-WKs"/>
                 <constraint firstItem="8Ph-Jq-kf1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Xtz-AK-80A"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="LCP-wE-bEZ" secondAttribute="trailing" constant="32" id="XxZ-ak-Li9"/>
-                <constraint firstItem="JVH-2b-GZh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="aFT-tc-Olz"/>
                 <constraint firstAttribute="trailing" secondItem="8Ph-Jq-kf1" secondAttribute="trailing" id="e5a-xf-92o"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5cQ-T2-eP1" secondAttribute="trailing" id="exW-uX-ybi"/>
                 <constraint firstItem="8Ph-Jq-kf1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hVf-sZ-4DV"/>
-                <constraint firstItem="Q5K-jQ-MWL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="60" id="iA2-od-gzy"/>
-                <constraint firstItem="JVH-2b-GZh" firstAttribute="top" secondItem="LCP-wE-bEZ" secondAttribute="bottom" constant="40" id="jZ4-NU-bak"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="JVH-2b-GZh" secondAttribute="trailing" constant="32" id="lol-0e-V27"/>
                 <constraint firstItem="Rog-AA-Skz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="lzC-MF-PSh"/>
                 <constraint firstItem="W4N-3T-Nm7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="4.5" id="mKs-YF-7ih"/>
-                <constraint firstItem="Rog-AA-Skz" firstAttribute="trailing" secondItem="Q5K-jQ-MWL" secondAttribute="trailing" id="pMs-4N-V2o"/>
                 <constraint firstItem="LCP-wE-bEZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="thB-2X-Pbe"/>
                 <constraint firstItem="Rog-AA-Skz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="900" constant="50" id="uym-qW-CGN"/>
             </constraints>
-            <nil key="simulatedTopBarMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="pMs-4N-V2o"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="137.68115942028987" y="120.53571428571428"/>
         </view>
     </objects>

@@ -563,14 +563,14 @@ extension MapViewController: MKMapViewDelegate  {
     }
     
     
-    func configureWashInfoView() {
+    func configureWashInfoView(salesExist: Bool, happyHoursExist: Bool) {
         if infoView.isHidden {
             infoView.isHidden = false
             infoView.layoutIfNeeded()
             mapView.addGestureRecognizer(tapGesture)
             moveInfoView(up: true)
         }
-        infoView.initViews()
+        infoView.initViews(salesExist: salesExist, happyHoursExist: happyHoursExist)
         updateInfoViewLayout(height: infoView.frame.height)
         showAnimatedSkeleton(view: infoView, color: .clouds)
     }

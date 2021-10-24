@@ -105,9 +105,10 @@ class WashingStartViewController: UIViewController {
         textField.keyboardType = .numberPad
       }
       let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-      let submitAction = UIAlertAction(title: "Ок", style: .default) { [unowned alertController] _ in
+      let submitAction = UIAlertAction(title: "Ок", style: .default) { [unowned alertController] action in
         let typedNumber = alertController.textFields![0].text
         self.presenter.terminalSelected(typedNumber)
+        action.isEnabled = false
       }
       alertController.addAction(cancelAction)
       alertController.addAction(submitAction)
