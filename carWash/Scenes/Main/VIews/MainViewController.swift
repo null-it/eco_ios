@@ -47,17 +47,18 @@ class MainViewController: UIViewController, UIPopPaymentVCDelegate {
     private var userInfoRequestStartDate: Date!
     
     // MARK: - Outlets
-    @IBOutlet weak var nameTextField: UITextField!
     
+    
+    @IBOutlet weak var cardNumberLabel: UILabel!
+    @IBOutlet weak var cardNumberView: UIView!
+    @IBOutlet weak var balanceView: UIView!
     @IBOutlet weak var balanceLabel: UILabel!
-    @IBOutlet weak var helloView: UIView!
     @IBOutlet weak var cashBackView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var operationsViewTitle: UILabel!
     @IBOutlet weak var cardAspectRatio: NSLayoutConstraint!
     @IBOutlet weak var cardView: UIImageView!
@@ -73,7 +74,6 @@ class MainViewController: UIViewController, UIPopPaymentVCDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTextField.delegate = self
         _ = hideKeyboardWhenTapped()
         addObservers()
         configureTableView()
@@ -170,7 +170,6 @@ class MainViewController: UIViewController, UIPopPaymentVCDelegate {
             cardView.image = UIImage(named: "cardBackgroundSE")
             cardView.layoutIfNeeded()
             paymentButton.cornerRadius = 6
-            helloView.isHidden = true
         }
     }
     
@@ -197,13 +196,6 @@ class MainViewController: UIViewController, UIPopPaymentVCDelegate {
     
     
     @objc private func keyboardWillShow(notification: NSNotification) {
-        
-        if nameTextField.isFirstResponder {
-            textFieldText = nameTextField.text
-            nameTextField.placeholder = textFieldText
-            nameTextField.text = ""
-            return
-        }
                 
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue.height {
@@ -214,15 +206,6 @@ class MainViewController: UIViewController, UIPopPaymentVCDelegate {
     
     
     @objc private func keyboardWillHide(notification: NSNotification) {
-        if nameTextField.isFirstResponder {
-            if let text = nameTextField.text,
-                text.isEmpty {
-                nameTextField.text = textFieldText
-            }
-            nameTextField.resignFirstResponder()
-            presenter.nameEditindDidEnd(nameTextField.text)
-            return
-        }
         updateRevieTextViewFrame(keyboardHeight: 0)
     }
     
@@ -314,18 +297,20 @@ extension MainViewController: MainViewProtocol {
     }
     
     func userInfoRequestDidSend() { // !!!
-        nameView.clipsToBounds = true
         userInfoRequestStartDate = Date()
         let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight, duration:  MainSceneConstants.sceletonAnimationDuration) // !!!
         cardView.isSkeletonable = false
         paymentButtonWrapper.isSkeletonable = false
-        balanceLabelWrapper.isSkeletonable = false
+        balanceView.isSkeletonable = false
+        cardNumberView.isSkeletonable = false
         stackView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: .clouds), animation: animation)
         cardView.isSkeletonable = true
 //        cardView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.green!), animation: animation)
         paymentButtonWrapper.isSkeletonable = true
-        balanceLabelWrapper.isSkeletonable = true
-        balanceLabelWrapper.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.lightGreen!), animation: animation)
+        balanceView.isSkeletonable = true
+        cardNumberView.isSkeletonable = true
+        balanceView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.lightGreen!), animation: animation)
+        cardNumberView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.lightGreen!), animation: animation)
         paymentButtonWrapper.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: Constants.lightGreen!), animation: animation)
     }
     
@@ -334,9 +319,9 @@ extension MainViewController: MainViewProtocol {
         delayWithSeconds(MainSceneConstants.minDelay * 2) { [weak self] in
             self?.stackView.hideSkeleton()
             self?.cardView.hideSkeleton()
-            self?.balanceLabelWrapper.hideSkeleton()
+            self?.balanceView.hideSkeleton()
+            self?.cardNumberView.hideSkeleton()
             self?.paymentButtonWrapper.hideSkeleton()
-            self?.nameView.clipsToBounds = false
             completion?()
         }
     }
@@ -454,24 +439,10 @@ extension MainViewController: MainViewProtocol {
         }
     }
     
-    
-    func configureTextFieldForName() {
-        nameTextField.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        nameTextField.textColor = .black
-    }
-    
-    
-    func configureTextFieldForPhone() {
-        nameTextField.font = UIFont.systemFont(ofSize: 22, weight: .medium)
-        nameTextField.textColor = UIColor(hex: "828282") // !
-    }
-    
-    
-    func set(name: String,
-             balance: String) {
-        nameTextField.backgroundColor = .clear
-        nameTextField.text = name
+    func set(balance: String, cardNumber: String) {
         balanceLabel.text = balance
+        cardNumberLabel.text = cardNumber
+        
     }
     
     func reload(rows: [Int]) {
@@ -565,10 +536,9 @@ extension MainViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == promocodeTextField {
             return presenter.shouldChangePromocodeCharacters(in: range, replacementString: string)
-        } else if textField == nameTextField {
-            return true
+        } else {
+            return false
         }
-        return false
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

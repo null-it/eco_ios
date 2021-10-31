@@ -98,12 +98,7 @@ class MainPresenter {
                 
             }
             
-            if let _ = data.name {
-                self.view.configureTextFieldForName()
-            } else {
-                self.view.configureTextFieldForPhone()
-            }
-            self.view.set(name: self.name, balance: balance)
+            self.view.set(balance: balance, cardNumber: data.phone)
            
         }) {
             () // ! alert
@@ -222,25 +217,6 @@ extension MainPresenter: MainPresenterProtocol {
         KeychainWrapper.standard.set(cities[row].coordinates[0], forKey: "cityLatitude")
         interactor.postCity(city: cities[row].city, onSuccess: {}, onFailure: {})
     }
-    
-    
-    func nameEditindDidEnd(_ name: String?) {
-        if let name = name,
-            name != self.name {
-            view.configureTextFieldForName()
-            interactor.changeName_(name: name,
-                                   onSuccess: { (response) in
-                                    if response.status == "ok" {
-                                        // ...
-                                    } else {
-                                        // alert response.errors?.name.first!
-                                    }
-            }) {
-                // ! alert !
-            }
-        }
-    }
-    
     
     func selectCity() {
         router.presentCityView()

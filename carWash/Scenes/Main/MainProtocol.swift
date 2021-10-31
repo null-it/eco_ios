@@ -11,8 +11,7 @@ import Foundation
 // MARK: - View
 protocol MainViewProtocol: class {
 //   func updateFor(info: [CashbackTypeInfo])
-    func set(name: String,
-             balance: String)
+    func set(balance: String, cardNumber: String)
     func reload(rows: [Int]) 
     func reloadData()
     func showAlert(message: String,
@@ -21,8 +20,6 @@ protocol MainViewProtocol: class {
                    cancelButtonTitle: String,
                    okAction: @escaping () -> (),
                    cancelAction: @escaping () -> ())
-    func configureTextFieldForName()
-    func configureTextFieldForPhone()
     func selectCity(cities: [CityResponse])
     func showReviewView(price: String, date: String, address: String) -> Int
     func didChange(reviewText: String, index: Int)
@@ -53,7 +50,6 @@ protocol MainPresenterProtocol: class {
     func getOperations(isRefreshing: Bool)
     func logout()
     func selectCity()
-    func nameEditindDidEnd(_ name: String?)
     func didSelectCity(row: Int)
     func didChange(reviewText: String, index: Int)
     func didChange(reviewRating: Double, index: Int)
