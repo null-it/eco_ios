@@ -10,7 +10,7 @@ target 'carWash' do
   use_frameworks!
 
   source 'https://github.com/CocoaPods/Specs.git'
-  source 'https://github.com/yoomoney-tech/cocoa-pod-specs.git'
+  source 'https://git.yoomoney.ru/scm/sdk/cocoa-pod-specs.git'
   
   pod 'Firebase/Analytics'
   pod 'Firebase/Messaging'
@@ -29,6 +29,6 @@ target 'carWash' do
   pod "FlagPhoneNumber"
 
   pod 'YooKassaPayments',
-    :git => 'https://github.com/yoomoney/yookassa-payments-swift.git',
-    :tag => '6.1.0'
+    :git => 'https://git.yoomoney.ru/scm/sdk/yookassa-payments-swift.git',
+    :tag => '6.9.0'
 end

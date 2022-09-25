@@ -122,7 +122,7 @@ class PaymentViewController: UIViewController {
                                                                       tokenizationSettings: settings,
                                                                       applePayMerchantIdentifier: applePayMerchantIdentifier,
                                                                       isLoggingEnabled: true,
-                                                                      savePaymentMethod: .off)
+                                                                      savePaymentMethod: .userSelects, customerId: emailTextField.text)
         
         let inputData: TokenizationFlow = .tokenization(tokenizationModuleInputData)
         
@@ -301,6 +301,13 @@ extension PaymentViewController: UITextFieldDelegate {
 }
 
 extension PaymentViewController: TokenizationModuleOutput {
+    func didFinishConfirmation(paymentMethodType: YooKassaPayments.PaymentMethodType) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+    }
+    
     
     func didFinish(on module: TokenizationModuleInput, with error: YooKassaPaymentsError?) {
         DispatchQueue.main.async { [weak self] in
