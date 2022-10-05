@@ -16,6 +16,7 @@ struct UserResponse: Codable {
     var data: UserResponseData
     var minReplenish: Int
     var email: String?
+    
 
     private enum CodingKeys : String, CodingKey {
         case status, message, data, email, minReplenish = "min_replenish"

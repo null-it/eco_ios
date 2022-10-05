@@ -33,6 +33,7 @@ class Constants {
 enum UserDefaultsKeys: String {
     case minReplenish = "min_replenish"
     case email = "email"
+    case phone = "phone"
 }
 
 let paymentToken = "live_ODE1NDkwEYekHfJloy0IsvoBrAIm89Ls2unpeO8pAMQ"

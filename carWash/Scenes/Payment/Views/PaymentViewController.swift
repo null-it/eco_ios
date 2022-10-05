@@ -122,7 +122,7 @@ class PaymentViewController: UIViewController {
                                                                       tokenizationSettings: settings,
                                                                       applePayMerchantIdentifier: applePayMerchantIdentifier,
                                                                       isLoggingEnabled: true,
-                                                                      savePaymentMethod: .userSelects, customerId: emailTextField.text)
+                                                                      savePaymentMethod: .userSelects, customerId: presenter.userPhone)
         
         let inputData: TokenizationFlow = .tokenization(tokenizationModuleInputData)
         

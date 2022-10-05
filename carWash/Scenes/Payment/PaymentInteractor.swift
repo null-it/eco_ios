@@ -24,6 +24,7 @@ extension PaymentInteractor: PaymentInteractorProtocol {
     
     func pay(amount: Int,
              email: String,
+             phone: String,
              token: String,
              paymentType: PaymentType,
              onSuccess: @escaping (String?) -> (),

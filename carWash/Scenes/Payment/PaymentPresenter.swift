@@ -18,6 +18,7 @@ class PaymentPresenter {
     var sum = ""
     var email = ""
     let rub = " ₽"
+    var phone = UserDefaults.standard.value(forKey: UserDefaultsKeys.phone.rawValue) as? String
     let _minDeposit = UserDefaults.standard.value(forKey: UserDefaultsKeys.minReplenish.rawValue) as! Int
     let savedEmail = UserDefaults.standard.value(forKey: UserDefaultsKeys.email.rawValue) as? String
     var isEmailEntered: Bool = false
@@ -31,7 +32,6 @@ class PaymentPresenter {
          router: PaymentRouterProtocol) {
         self.view = view
         self.router = router
-        
     }
     
     private func isValidEmail(_ email: String) -> Bool {
@@ -52,6 +52,12 @@ class PaymentPresenter {
 // MARK: - PaymentPresenterProtocol
 
 extension PaymentPresenter: PaymentPresenterProtocol {
+    var userPhone: String {
+        get {
+            return self.phone == nil ? "" : self.phone!
+        }
+    }
+    
     
     var usersSum: String {
         get {
@@ -63,6 +69,7 @@ extension PaymentPresenter: PaymentPresenterProtocol {
         guard let amount = Int(sum) else { return }
         let onRequestSuccess: ((String?) -> ()) = { [weak self] message in
             UserDefaults.standard.set(self?.email, forKey: "email")
+            
 //            self?.view.endLoader(with: 0.5)
             if let url = message {
                 self?.view.showWebView(with: url)
@@ -75,7 +82,7 @@ extension PaymentPresenter: PaymentPresenterProtocol {
 //            self?.view.endLoader(with: 0.5)
         }
 //        self.view.startLoader()
-        interactor.pay(amount: amount, email: email, token: token, paymentType: paymentType, onSuccess: onRequestSuccess, onFailure: onFailure)
+        interactor.pay(amount: amount, email: email, phone: userPhone,token: token, paymentType: paymentType, onSuccess: onRequestSuccess, onFailure: onFailure)
     }
     
     func promocodeEntered(_ promocode: String) {

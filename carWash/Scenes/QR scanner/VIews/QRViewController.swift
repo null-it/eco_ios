@@ -182,9 +182,7 @@ class QRViewController: UIViewController {
     
     @objc private func hideBottomView() {
         var y = view.frame.height
-        if #available(iOS 11.0, *) {
-            y += view.safeAreaInsets.bottom
-        }
+        
         UIView.animate(withDuration: 0.5, animations: { [weak self] in
             self?.bottomViewBottomConstraint.constant = -y
             self?.view.layoutIfNeeded()

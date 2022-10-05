@@ -28,6 +28,7 @@ protocol PaymentPresenterProtocol: class {
     var usersSum: String { get }
     var minDeposit: Int { get }
     var lastEmail: String { get }
+    var userPhone: String { get }
     func popView()
     func viewDidLoad()
     func sumDidBeginEditing()
@@ -49,6 +50,7 @@ protocol PaymentRouterProtocol {
 protocol PaymentInteractorProtocol: class {
     func pay(amount: Int,
              email: String,
+             phone: String,
              token: String,
              paymentType: PaymentType,
              onSuccess: @escaping (String?) -> (),
