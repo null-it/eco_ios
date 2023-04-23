@@ -48,8 +48,8 @@ extension QRPresenter: QRPresenterProtocol {
             }
         }
         
-        let onFailure: () -> ()? = { [weak self] in
-            self?.view.setError(message: QRConstants.defaultErrorMessage)
+        let onFailure: () -> ()? = { [weak self] (wash) in
+            self?.view.setError(message: wash.msg ?? QRConstants.defaultErrorMessage)
         }
         
         interactor.startWash(code: code,
